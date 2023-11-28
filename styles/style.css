@@ -1,0 +1,273 @@
+@font-face {
+  font-family: Aptimabold;
+  src: url(../styles/Aptimabold.ttf);
+}
+@font-face {
+  font-family: Aptima;
+  src: url(../styles/Aptima.ttf);
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Aptima;
+}
+body {
+  background-image: url(../Image/background.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
+.custom_navbar_bg {
+  background-image: linear-gradient(
+    75deg,
+    #a1c6dd 0%,
+    #a1c6dd 0%,
+    #b985be 100%
+  );
+}
+.font-bold {
+  font-family: AptimaBold;
+}
+.footer_container {
+  min-height: 100px;
+  background-color: #eeeef0;
+}
+.form_center {
+  display: flex;
+  justify-content: center;
+}
+.btn_form {
+  display: flex;
+  justify-content: center;
+}
+.container-custom {
+  background-color: rgba(225, 225, 225, 0.4);
+  backdrop-filter: blur(10px);
+}
+.log_as_admin {
+  color: white;
+}
+.log_as_admin:hover {
+  color: #ccc;
+}
+footer {
+  background-color: rgba(225, 225, 225, 0.4);
+  backdrop-filter: blur(10px);
+  height: 80px;
+}
+main {
+  min-height: 620px;
+  margin-top: 80px;
+  padding-top: 24px;
+}
+.navbar_container {
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10px);
+}
+.clear_container {
+  background-color: rgba(225, 225, 225, 0.4);
+  backdrop-filter: blur(10px);
+}
+.sidebar {
+  flex: 0 0 auto;
+  width: 75px;
+}
+
+.side-navbar {
+  width: 180px;
+  height: 100%;
+  position: fixed;
+  margin-left: -300px;
+  background-color: #100901;
+  transition: 0.5s;
+}
+.nav-link:active,
+.nav-link:focus,
+.nav-link:hover {
+  background-color: #ffffff26;
+}
+.my-container {
+  transition: 0.4s;
+}
+.active-nav {
+  margin-left: 0;
+}
+/* for main section */
+.active-cont {
+  margin-left: 180px;
+}
+#menu-btn {
+  background-color: #100901;
+  color: #fff;
+  margin-left: -62px;
+}
+
+@media (min-width: 992px) {
+  .container,
+  .container-lg,
+  .container-md,
+  .container-sm {
+    max-width: 960px;
+    min-width: 700px;
+  }
+}
+.custom-bg {
+  background-image: linear-gradient(
+    75deg,
+    #a1c6dd 0%,
+    #a1c6dd 0%,
+    #b985be 100%
+  );
+}
+.table_job_scroll::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+.table_job_scroll::-webkit-scrollbar-track {
+  border-radius: 40px;
+  background-color: #fafafa;
+}
+
+/* Handle */
+.table_job_scroll::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 50px;
+}
+
+#searchBar {
+  background-image: url(../Image/SearchIcon.svg);
+  background-position: 10px 10px;
+  background-size: 25px;
+  background-repeat: no-repeat;
+  width: 50%;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+}
+.custom-date-text {
+  display: inline-flex;
+}
+
+.bg-custom-color_1 {
+  background-color: #e4e6ee;
+}
+
+.dropdown:hover > .dropdown-menu {
+  display: block;
+}
+
+.dropdown > .dropdown-toggle:active {
+  /*Without this, clicking will make it sticky*/
+  pointer-events: none;
+}
+
+.table_job_scroll {
+  min-height: 120px;
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.custom-btn:hover {
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.btn_more_menu.show {
+  background-color: #ccc !important;
+  border: none;
+}
+.btn_more_menu:active {
+  border: none;
+}
+
+.tableFixHead {
+  overflow: auto;
+  height: 100px;
+}
+.tableFixHead thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+/* CSS used here will be applied after bootstrap.css */
+
+.dropdown_notification {
+  display: inline-block;
+  margin-left: 20px;
+  padding: 10px;
+}
+
+.notifications {
+  min-width: 420px;
+}
+
+.notifications-wrapper {
+  overflow: auto;
+  max-height: 250px;
+}
+
+.menu-title {
+  color: #000000;
+  font-size: 1rem;
+
+  display: inline-block;
+}
+
+.glyphicon-circle-arrow-right {
+  margin-left: 10px;
+}
+
+.notification-heading,
+.notification-footer {
+  padding: 2px 10px;
+}
+
+.dropdown-menu.divider {
+  margin: 5px 0;
+}
+
+.item-title {
+  font-size: 1.3rem;
+  color: #000;
+}
+
+.notifications a.content {
+  text-decoration: none;
+  background: #ccc;
+}
+
+.notification-item {
+  border: solid 1px #ccc;
+  padding: 10px;
+  margin: 5px;
+  background: #ffffff;
+  border-radius: 4px;
+}
+.notification-item.unread {
+  background-color: #ccc;
+}
+.unread {
+  background-color: #ccc !important;
+}
+.noti_container {
+  background-color: white;
+}
+.dropdown-menu.notifications {
+  z-index: 10;
+  transform: translateX(-250px);
+  width: 400px;
+}
+
+.item-info {
+  color: black;
+}
+.item-info:hover {
+  color: black;
+}
