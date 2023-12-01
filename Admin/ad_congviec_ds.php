@@ -42,7 +42,7 @@ include_once './ad_thongbao.php'; ?>
                                 <form id="form" name="form" method="POST" onsubmit="return validateForm()" class="">
                                     <button type="dochet" name="dochet" onclick="reloadPageContentOnSubmit()" class="btn btn-dark menu-title">Đánh dấu tất cả là đã đọc</button>
                                 </form>
-                                
+
                             </div>
                             <li class="divider"></li>
                             <div class="notifications-wrapper">
@@ -52,20 +52,20 @@ if ($ds_thongbao->num_rows > 0):
         ?>
                                 <div class="content" href="#">
                                     <div class="notification-item <?php if ($thongbao['TB_XEM'] == '0') echo "unread" ?>">
-                                        
+
                                         <div class="d-flex justify-content-between">
                                             <h4 class="item-title"><?php echo $thongbao['CV_TEN'] ?></h4>
-                                        <?php
+                                            <?php
                                         if ($thongbao['TB_XEM'] == '0'):
                                         ?>
-                                        <a class="text-decoration-none  btn btn-dark" href="ad_thongbao_doc.php?thongbao_ma=<?php echo $thongbao['TB_MA'];?>">
-                                            Đánh dấu đã đọc
-                                        </a>
-                                        <?php else: ?>
-                                        <a class="text-decoration-none btn btn-dark" href="ad_thongbao_chuadoc.php?thongbao_ma=<?php echo $thongbao['TB_MA'];?>">
-                                            Đánh dấu là chưa đọc
-                                        </a>
-                                        <?php endif;?>
+                                            <a class="text-decoration-none  btn btn-dark" href="ad_thongbao_doc.php?thongbao_ma=<?php echo $thongbao['TB_MA'];?>">
+                                                Đánh dấu đã đọc
+                                            </a>
+                                            <?php else: ?>
+                                            <a class="text-decoration-none btn btn-dark" href="ad_thongbao_chuadoc.php?thongbao_ma=<?php echo $thongbao['TB_MA'];?>">
+                                                Đánh dấu là chưa đọc
+                                            </a>
+                                            <?php endif;?>
                                         </div>
                                         <p class="item-info">Người thực hiện: <?php echo $thongbao['ND_HOTEN'] ?></p>
                                         <?php 
@@ -78,9 +78,9 @@ if ($ds_thongbao->num_rows > 0):
                                         <p class="item-info"><?php echo $date_out?></p>
                                         <div class="d-flex justify-content-between">
                                             <p class="item-info"><?php echo $thongbao['TB_ND']?></p>
-                                            <a class="btn btn-dark text-decoration-none" href="ad_thongbao_xoa.php?thongbao_ma=<?php echo $thongbao['TB_MA'];?>">
-                                            Xoá
-                                        </a>
+                                            <a class="btn btn-danger text-decoration-none" href="ad_thongbao_xoa.php?thongbao_ma=<?php echo $thongbao['TB_MA'];?>">
+                                                Xoá
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
@@ -143,8 +143,9 @@ else:?><h5 class="card-title m-0"><?php echo "Tạm thời không có thông bá
             <a href="ad_congviec_them.php" class="btn btn-dark p-3 px-4">Thêm công việc mới</a>
         </div>
 
-        <div class=" table_job_scroll mx-4 rounded bg-light border border-2">
-            <table id="dataTable" class="tableFixHead  table text-center align-middle">
+        <div class=" mx-4 rounded bg-light border border-2">
+
+            <table id="dataTable" class="table text-center align-middle">
                 <thead class="align-middle">
                     <tr style="">
                         <th scope="col">STT</th>
@@ -155,8 +156,6 @@ else:?><h5 class="card-title m-0"><?php echo "Tạm thời không có thông bá
                         <th scope="col">Tiến độ</th>
                         <th scope="col">Trạng thái</th>
                         <th scope="col"></th>
-
-
                     </tr>
                 </thead>
                 <tbody>
@@ -194,7 +193,7 @@ while ($cv = mysqli_fetch_assoc($ds_cv)):
                         </td>
 
                         <td>
-                            <div class="progress m-2 position-relative">
+                            <div class="progress m-2 position-relative ">
                                 <div class="progress-bar " role="progressbar" style="width:<?php echo $cv['CV_TIENDO']; ?>%;" aria-valuenow="<?php echo $cv['CV_TIENDO'];?>" aria-valuemin="0"
                                     aria-valuemax="100"></div>
                                 <small class="justify-content-center text-dark d-flex position-absolute w-100"><?php echo $cv['CV_TIENDO']; ?>%</small>

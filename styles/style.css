@@ -120,18 +120,18 @@ main {
     #b985be 100%
   );
 }
-.table_job_scroll::-webkit-scrollbar {
+::-webkit-scrollbar {
   width: 10px;
 }
 
 /* Track */
-.table_job_scroll::-webkit-scrollbar-track {
+::-webkit-scrollbar-track {
   border-radius: 40px;
   background-color: #fafafa;
 }
 
 /* Handle */
-.table_job_scroll::-webkit-scrollbar-thumb {
+::-webkit-scrollbar-thumb {
   background-color: #ccc;
   border-radius: 50px;
 }
@@ -182,18 +182,20 @@ main {
   border: none;
 }
 
-.tableFixHead {
-  overflow: auto;
-  height: 100px;
-}
-.tableFixHead thead th {
-  position: sticky;
-  top: 0;
-  z-index: 1;
-}
 table {
-  border-collapse: collapse;
   width: 100%;
+}
+thead,
+tbody tr {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+}
+tbody {
+  display: block;
+  overflow-y: auto;
+  table-layout: fixed;
+  max-height: 500px;
 }
 
 /* CSS used here will be applied after bootstrap.css */
@@ -210,7 +212,7 @@ table {
 
 .notifications-wrapper {
   overflow: auto;
-  max-height: 250px;
+  max-height: 220px;
 }
 
 .menu-title {
@@ -247,20 +249,20 @@ table {
   border: solid 1px #ccc;
   padding: 10px;
   margin: 5px;
-  background: #ffffff;
+  background: #ccc;
   border-radius: 4px;
 }
 .notification-item.unread {
-  background-color: #ccc;
+  background-color: #fff !important;
 }
-.unread {
-  background-color: #ccc !important;
+
+.noti_container.unread {
+  background-color: #fff;
 }
 .noti_container {
-  background-color: white;
+  background-color: #ccc;
 }
 .dropdown-menu.notifications {
-  z-index: 10;
   transform: translateX(-250px);
   width: 400px;
 }

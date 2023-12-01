@@ -1,4 +1,5 @@
-<?php include_once '../condb/condb.php'; ?>
+<?php include_once '../condb/condb.php';
+include_once './ad_thongbao.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,7 +16,6 @@
 </head>
 
 <body>
-
     <header>
         <nav class="navbar_container navbar  navbar-expand-lg">
             <button class=" btn mx-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
@@ -39,7 +39,7 @@
                                 <form id="form" name="form" method="POST" onsubmit="return validateForm()" class="">
                                     <button type="dochet" name="dochet" onclick="reloadPageContentOnSubmit()" class="btn btn-dark menu-title">Đánh dấu tất cả là đã đọc</button>
                                 </form>
-                                
+
                             </div>
                             <li class="divider"></li>
                             <div class="notifications-wrapper">
@@ -49,20 +49,20 @@ if ($ds_thongbao->num_rows > 0):
         ?>
                                 <div class="content" href="#">
                                     <div class="notification-item <?php if ($thongbao['TB_XEM'] == '0') echo "unread" ?>">
-                                        
+
                                         <div class="d-flex justify-content-between">
                                             <h4 class="item-title"><?php echo $thongbao['CV_TEN'] ?></h4>
-                                        <?php
+                                            <?php
                                         if ($thongbao['TB_XEM'] == '0'):
                                         ?>
-                                        <a class="text-decoration-none  btn btn-dark" href="ad_thongbao_doc.php?thongbao_ma=<?php echo $thongbao['TB_MA'];?>">
-                                            Đánh dấu đã đọc
-                                        </a>
-                                        <?php else: ?>
-                                        <a class="text-decoration-none btn btn-dark" href="ad_thongbao_chuadoc.php?thongbao_ma=<?php echo $thongbao['TB_MA'];?>">
-                                            Đánh dấu là chưa đọc
-                                        </a>
-                                        <?php endif;?>
+                                            <a class="text-decoration-none  btn btn-dark" href="ad_thongbao_doc.php?thongbao_ma=<?php echo $thongbao['TB_MA'];?>">
+                                                Đánh dấu đã đọc
+                                            </a>
+                                            <?php else: ?>
+                                            <a class="text-decoration-none btn btn-dark" href="ad_thongbao_chuadoc.php?thongbao_ma=<?php echo $thongbao['TB_MA'];?>">
+                                                Đánh dấu là chưa đọc
+                                            </a>
+                                            <?php endif;?>
                                         </div>
                                         <p class="item-info">Người thực hiện: <?php echo $thongbao['ND_HOTEN'] ?></p>
                                         <?php 
@@ -75,9 +75,9 @@ if ($ds_thongbao->num_rows > 0):
                                         <p class="item-info"><?php echo $date_out?></p>
                                         <div class="d-flex justify-content-between">
                                             <p class="item-info"><?php echo $thongbao['TB_ND']?></p>
-                                            <a class="btn btn-dark text-decoration-none" href="ad_thongbao_xoa.php?thongbao_ma=<?php echo $thongbao['TB_MA'];?>">
-                                            Xoá
-                                        </a>
+                                            <a class="btn btn-danger text-decoration-none" href="ad_thongbao_xoa.php?thongbao_ma=<?php echo $thongbao['TB_MA'];?>">
+                                                Xoá
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
