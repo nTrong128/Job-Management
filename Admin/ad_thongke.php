@@ -138,40 +138,45 @@ else:?><h5 class="card-title m-0"><?php echo "Tạm thời không có thông bá
         </div>
 
         <!-- Chart table -->
-        <div class="rounded rounded-4 mb-5 chart bg-white text-center d-flex">
-            <div class="mx-5 p-2">
-                <h3> Thống kê tổng số lượng công việc theo từng loại</h3>
-                <canvas id="chartBar"></canvas>
-            </div>
-            <div class="mx-5 p-2">
-                <h3> Thống kê tổng số lượng công việc theo loại</h3>
-                <canvas id="chartPie"></canvas>
+        <div class="rounded rounded-4 mb-5 chart bg-white text-center">
+            <h3> Thống kê tổng số lượng công việc theo từng loại</h3>
+            <div class="d-flex">
+                <div class="mx-5 p-2 col-6">
+                    <canvas id="chartBar"></canvas>
+                </div>
+                <div class="mx-5 p-2 col-4">
+
+                    <canvas id="chartPie"></canvas>
+                </div>
             </div>
         </div>
 
-        <div class="rounded rounded-4 mb-5 chart_big bg-white text-center d-flex">
-            <div class="mx-5 p-2">
-                <h2> Thống kê tổng số lượng công việc theo từng loại theo tháng</h2>
-                <canvas id="byMonthChart"></canvas>
+        <div class="rounded rounded-4 mb-5 chart_big bg-white text-center">
+            <h2> Thống kê tổng số lượng công việc theo từng loại theo tháng</h2>
+            <div class="d-flex">
+                <div class="mx-5 p-2 col-7">
+                    <canvas id="byMonthChart"></canvas>
+                </div>
+                <div class="mx-5 col-3">
+                    <select class="form-select" name="monthSelect" id="monthSelect">
+                        <option id="monthSelect_1" value="1">Tháng một</option>
+                        <option id="monthSelect_2" value="2">Tháng hai</option>
+                        <option id="monthSelect_3" value="3">Tháng ba</option>
+                        <option id="monthSelect_4" value="4">Tháng tư</option>
+                        <option id="monthSelect_5" value="5">Tháng năm</option>
+                        <option id="monthSelect_6" value="6">Tháng sáu</option>
+                        <option id="monthSelect_7" value="7">Tháng bảy</option>
+                        <option id="monthSelect_8" value="8">Tháng tám</option>
+                        <option id="monthSelect_9" value="9">Tháng chín</option>
+                        <option id="monthSelect_10" value="10">Tháng mười</option>
+                        <option id="monthSelect_11" value="11">Tháng mười một</option>
+                        <option id="monthSelect_12" value="12">Tháng mười hai</option>
+                    </select>
+
+                    <canvas id="chartPie2"></canvas>
+                </div>
             </div>
-            <div class="mx-5 p-2">
-                <select class="form-select" name="monthSelect" id="monthSelect">
-                    <option id="monthSelect_1" value="1">Tháng một</option>
-                    <option id="monthSelect_2" value="2">Tháng hai</option>
-                    <option id="monthSelect_3" value="3">Tháng ba</option>
-                    <option id="monthSelect_4" value="4">Tháng tư</option>
-                    <option id="monthSelect_5" value="5">Tháng năm</option>
-                    <option id="monthSelect_6" value="6">Tháng sáu</option>
-                    <option id="monthSelect_7" value="7">Tháng bảy</option>
-                    <option id="monthSelect_8" value="8">Tháng tám</option>
-                    <option id="monthSelect_9" value="9">Tháng chín</option>
-                    <option id="monthSelect_10" value="10">Tháng mười</option>
-                    <option id="monthSelect_11" value="11">Tháng mười một</option>
-                    <option id="monthSelect_12" value="12">Tháng mười hai</option>
-                </select>
-                <h3> Biểu đồ tròn từng loại theo tháng</h3>
-                <canvas id="chartPie2"></canvas>
-            </div>
+
         </div>
 
     </main>
@@ -242,7 +247,7 @@ $cv_qh_thang = $conn->query($query_cv_qh_thang);
         data: {
             labels: ['Đang thực hiện', 'Đã hoàn thành', 'Quá thời hạn'],
             datasets: [{
-                label: 'Số lượng',
+                label: 'Số lượng công việc',
                 backgroundColor: barColors,
                 data: ['<?php echo $soluong_dth?>', '<?php echo $soluong_ht?>', '<?php echo $soluong_qh?>'],
                 borderWidth: 1
@@ -250,7 +255,23 @@ $cv_qh_thang = $conn->query($query_cv_qh_thang);
         },
         options: {
             scales: {
+                x: {
+                    title: {
+                        font: {
+                            size: 15
+                        },
+                        display: true,
+                        text: 'Các loại',
+                    },
+                },
                 y: {
+                    title: {
+                        font: {
+                            size: 15
+                        },
+                        display: true,
+                        text: 'Số lượng',
+                    },
                     beginAtZero: true
                 }
             }
@@ -265,7 +286,6 @@ $cv_qh_thang = $conn->query($query_cv_qh_thang);
         data: {
             labels: ['Đang thực hiện', 'Đã hoàn thành', 'Quá thời hạn'],
             datasets: [{
-                label: 'Số lượng',
                 backgroundColor: pieColors,
                 hoverOffset: 4,
                 data: ['<?php echo $soluong_dth?>', '<?php echo $soluong_ht?>', '<?php echo $soluong_qh?>'],
@@ -335,7 +355,7 @@ $cv_qh_thang = $conn->query($query_cv_qh_thang);
                 x: {
                     title: {
                         font: {
-                            size: 20
+                            size: 16
                         },
                         display: true,
                         text: 'Tháng'
@@ -345,7 +365,7 @@ $cv_qh_thang = $conn->query($query_cv_qh_thang);
                 y: {
                     title: {
                         font: {
-                            size: 20
+                            size: 16
                         },
                         display: true,
                         text: 'Số lượng'
