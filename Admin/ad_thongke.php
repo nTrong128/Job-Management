@@ -138,14 +138,40 @@ else:?><h5 class="card-title m-0"><?php echo "Tạm thời không có thông bá
         </div>
 
         <!-- Chart table -->
-        <div class="mb-5 chart bg-white text-center">
-            <h2> Thống kê tổng số về số lượng công việc theo từng loại</h2>
-            <canvas id="myChart"></canvas>
+        <div class="rounded rounded-4 mb-5 chart bg-white text-center d-flex">
+            <div class="mx-5 p-2">
+                <h3> Thống kê tổng số lượng công việc theo từng loại</h3>
+                <canvas id="chartBar"></canvas>
+            </div>
+            <div class="mx-5 p-2">
+                <h3> Thống kê tổng số lượng công việc theo loại</h3>
+                <canvas id="chartPie"></canvas>
+            </div>
         </div>
 
-        <div class="chart bg-white text-center">
-            <h2> Thống kê tổng số về số lượng công việc theo từng loại qua các tháng</h2>
-            <canvas id="byMonthChart"></canvas>
+        <div class="rounded rounded-4 mb-5 chart_big bg-white text-center d-flex">
+            <div class="mx-5 p-2">
+                <h2> Thống kê tổng số lượng công việc theo từng loại theo tháng</h2>
+                <canvas id="byMonthChart"></canvas>
+            </div>
+            <div class="mx-5 p-2">
+                <select class="form-select" name="monthSelect" id="monthSelect">
+                    <option id="monthSelect_1" value="1">Tháng một</option>
+                    <option id="monthSelect_2" value="2">Tháng hai</option>
+                    <option id="monthSelect_3" value="3">Tháng ba</option>
+                    <option id="monthSelect_4" value="4">Tháng tư</option>
+                    <option id="monthSelect_5" value="5">Tháng năm</option>
+                    <option id="monthSelect_6" value="6">Tháng sáu</option>
+                    <option id="monthSelect_7" value="7">Tháng bảy</option>
+                    <option id="monthSelect_8" value="8">Tháng tám</option>
+                    <option id="monthSelect_9" value="9">Tháng chín</option>
+                    <option id="monthSelect_10" value="10">Tháng mười</option>
+                    <option id="monthSelect_11" value="11">Tháng mười một</option>
+                    <option id="monthSelect_12" value="12">Tháng mười hai</option>
+                </select>
+                <h3> Biểu đồ tròn từng loại theo tháng</h3>
+                <canvas id="chartPie2"></canvas>
+            </div>
         </div>
 
     </main>
@@ -156,7 +182,7 @@ else:?><h5 class="card-title m-0"><?php echo "Tạm thời không có thông bá
     </footer>
 
     <?php
-$query_cv_dth = "select * from congviec where CV_TIENDO > 0 and CV_TIENDO < 100 and CV_NGAYKETTHUC > NOW()";
+$query_cv_dth = "select * from congviec where CV_TIENDO < 100 and CV_NGAYKETTHUC > NOW()";
 $dth = $conn->query($query_cv_dth);
 $soluong_dth = $dth->num_rows;
 
@@ -208,8 +234,8 @@ $cv_dth_thang = $conn->query($query_cv_dth_thang);
 $cv_qh_thang = $conn->query($query_cv_qh_thang);
 ?>
     <script>
-    const ctx1 = document.getElementById('myChart');
-    var barColors = ["blue", "green", "red"];
+    const ctx1 = document.getElementById('chartBar');
+    var barColors = ["#4bc0c0", "#E2777A", "#36a2eb"];
 
     new Chart(ctx1, {
         type: 'bar',
@@ -231,49 +257,70 @@ $cv_qh_thang = $conn->query($query_cv_qh_thang);
         }
     });
 
+    const ctx2 = document.getElementById('chartPie');
+    var pieColors = ["#4bc0c0", "#E2777A", "#36a2eb"];
 
+    new Chart(ctx2, {
+        type: 'pie',
+        data: {
+            labels: ['Đang thực hiện', 'Đã hoàn thành', 'Quá thời hạn'],
+            datasets: [{
+                label: 'Số lượng',
+                backgroundColor: pieColors,
+                hoverOffset: 4,
+                data: ['<?php echo $soluong_dth?>', '<?php echo $soluong_ht?>', '<?php echo $soluong_qh?>'],
+                borderWidth: 1,
 
-    const ctx2 = document.getElementById('byMonthChart');
-    var barColors = ["blue", "green", "red"];
-    const data = {
-        labels: ['Tháng một', 'Tháng hai', 'Tháng ba', 'Tháng tư', 'Tháng năm', 'Tháng sáu', 'Tháng bảy', 'Tháng tám', 'Tháng chín', 'Tháng mười', 'Tháng mười một', 'Tháng mười hai'],
-        datasets: [{
-                label: 'Đã hoàn thành',
-                data: [<?php
+            }]
+        },
+
+        options: {
+
+        }
+    });
+
+    const ht_thang = [<?php
                 while ($soluong = $cv_ht_thang->fetch_assoc()):
                     echo $soluong['TONG'];
                     echo ",";
                 endwhile;
-                ?>],
-                backgroundColor: "#E2777A",
-            },
-            {
-                label: 'Đang thực hiện',
-                data: [
-                    <?php
+                ?>];
+    const dth_thang = [<?php
                 while ($soluong = $cv_dth_thang->fetch_assoc()):
                     echo $soluong['TONG'];
                     echo ",";
                 endwhile;
-                ?>
-                ],
-                backgroundColor: "#4bc0c0",
-            },
-            {
-                label: 'Quá thời hạn',
-                data: [
-                    <?php
+                ?>];
+    const qh_thang = [
+        <?php
                 while ($soluong = $cv_qh_thang->fetch_assoc()):
                     echo $soluong['TONG'];
                     echo ",";
                 endwhile;
                 ?>
-                ],
+    ];
+    const ctx3 = document.getElementById('byMonthChart');
+    var barColors = ["blue", "green", "red"];
+    const data = {
+        labels: ['Tháng một', 'Tháng hai', 'Tháng ba', 'Tháng tư', 'Tháng năm', 'Tháng sáu', 'Tháng bảy', 'Tháng tám', 'Tháng chín', 'Tháng mười', 'Tháng mười một', 'Tháng mười hai'],
+        datasets: [{
+                label: 'Đã hoàn thành',
+                data: ht_thang,
+                backgroundColor: "#E2777A",
+            },
+            {
+                label: 'Đang thực hiện',
+                data: dth_thang,
+                backgroundColor: "#4bc0c0",
+            },
+            {
+                label: 'Quá thời hạn',
+                data: qh_thang,
                 backgroundColor: "#36a2eb",
             },
         ]
     };
-    new Chart(ctx2, {
+    new Chart(ctx3, {
         type: 'bar',
         data: data,
         options: {
@@ -286,13 +333,62 @@ $cv_qh_thang = $conn->query($query_cv_qh_thang);
             responsive: true,
             scales: {
                 x: {
+                    title: {
+                        font: {
+                            size: 20
+                        },
+                        display: true,
+                        text: 'Tháng'
+                    },
                     stacked: true,
                 },
                 y: {
+                    title: {
+                        font: {
+                            size: 20
+                        },
+                        display: true,
+                        text: 'Số lượng'
+                    },
                     stacked: true
                 }
             }
         }
+    });
+    var pieColors = ["#4bc0c0", "#E2777A", "#36a2eb"];
+    const config = {
+        type: 'pie',
+        data: {
+            labels: ['Đang thực hiện', 'Đã hoàn thành', 'Quá thời hạn'],
+            datasets: [{
+                label: 'Số lượng',
+                backgroundColor: pieColors,
+                hoverOffset: 4,
+                data: [dth_thang[10], ht_thang[10], qh_thang[10]],
+                borderWidth: 1,
+
+            }]
+        },
+    }
+
+    // const ctx4 = document.getElementById('chartPie2');
+
+    const ctx4 = new Chart(
+        document.getElementById('chartPie2'),
+        config
+    );
+
+
+    var currentMonth = new Date().getMonth() + 1;
+    currentMonth = "monthSelect_" + currentMonth;
+
+
+    const select = document.getElementById('monthSelect');
+    select.addEventListener('change', function handleChange(event) {
+        e = event.target.value;
+        console.log(e);
+        ctx4.data.datasets[0].data = [dth_thang[e - 1], ht_thang[e - 1], qh_thang[e - 1]];
+        ctx4.update();
     });
     </script>
     <script>
