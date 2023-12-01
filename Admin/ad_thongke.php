@@ -12,7 +12,8 @@ include_once './ad_thongbao.php'; ?>
         crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <title>Người dùng</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>Thống kê</title>
 </head>
 
 <body>
@@ -136,14 +137,164 @@ else:?><h5 class="card-title m-0"><?php echo "Tạm thời không có thông bá
             </div>
         </div>
 
+        <!-- Chart table -->
+        <div class="mb-5 chart bg-white text-center">
+            <h2> Thống kê tổng số về số lượng công việc theo từng loại</h2>
+            <canvas id="myChart"></canvas>
+        </div>
 
+        <div class="chart bg-white text-center">
+            <h2> Thống kê tổng số về số lượng công việc theo từng loại qua các tháng</h2>
+            <canvas id="byMonthChart"></canvas>
+        </div>
 
     </main>
 
 
-    <footer id="grad1" class="navbar fixed-bottom justify-content-center p-3 text-white ">
+    <footer class="footer_container d-flex justify-content-center p-3 text-dark">
         <p>B2016962 &copy; 2023 Bản quyền thuộc về Nguyễn Văn Hậu.</p>
     </footer>
+
+    <?php
+$query_cv_dth = "select * from congviec where CV_TIENDO > 0 and CV_TIENDO < 100 and CV_NGAYKETTHUC > NOW()";
+$dth = $conn->query($query_cv_dth);
+$soluong_dth = $dth->num_rows;
+
+$query_cv_ht = "SELECT * FROM congviec WHERE CV_TIENDO = 100";
+$ht = $conn->query($query_cv_ht);
+$soluong_ht = $ht->num_rows;
+
+$query_cv_qh ="select * from congviec where CV_TIENDO < 100 and CV_NGAYKETTHUC < NOW()";
+$qh = $conn->query($query_cv_qh);
+$soluong_qh = $qh->num_rows;
+
+
+
+$query_cv_ht_thang = "SELECT
+  calendar.month AS Month,
+  COUNT(congviec.CV_NGAYBATDAU) AS TONG
+FROM
+  calendar
+LEFT JOIN
+  congviec ON EXTRACT(MONTH FROM congviec.CV_NGAYBATDAU) = calendar.month AND congviec.CV_TIENDO = 100
+GROUP BY
+  calendar.month
+ORDER BY
+  calendar.month;";
+$query_cv_dth_thang = "SELECT
+  calendar.month AS Month,
+  COUNT(congviec.CV_NGAYBATDAU) AS TONG
+FROM
+  calendar
+LEFT JOIN
+  congviec ON EXTRACT(MONTH FROM congviec.CV_NGAYBATDAU) = calendar.month AND congviec.CV_TIENDO < 100 AND congviec.CV_NGAYKETTHUC > NOW()
+GROUP BY
+  calendar.month
+ORDER BY
+  calendar.month;";
+$query_cv_qh_thang = "SELECT
+  calendar.month AS Month,
+  COUNT(congviec.CV_NGAYBATDAU) AS TONG
+FROM
+  calendar
+LEFT JOIN
+  congviec ON EXTRACT(MONTH FROM congviec.CV_NGAYBATDAU) = calendar.month AND congviec.CV_TIENDO < 100 AND congviec.CV_NGAYKETTHUC < NOW()
+GROUP BY
+  calendar.month
+ORDER BY
+  calendar.month;";
+$cv_ht_thang = $conn->query($query_cv_ht_thang);
+$cv_dth_thang = $conn->query($query_cv_dth_thang);
+$cv_qh_thang = $conn->query($query_cv_qh_thang);
+?>
+    <script>
+    const ctx1 = document.getElementById('myChart');
+    var barColors = ["blue", "green", "red"];
+
+    new Chart(ctx1, {
+        type: 'bar',
+        data: {
+            labels: ['Đang thực hiện', 'Đã hoàn thành', 'Quá thời hạn'],
+            datasets: [{
+                label: 'Số lượng',
+                backgroundColor: barColors,
+                data: ['<?php echo $soluong_dth?>', '<?php echo $soluong_ht?>', '<?php echo $soluong_qh?>'],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+
+
+    const ctx2 = document.getElementById('byMonthChart');
+    var barColors = ["blue", "green", "red"];
+    const data = {
+        labels: ['Tháng một', 'Tháng hai', 'Tháng ba', 'Tháng tư', 'Tháng năm', 'Tháng sáu', 'Tháng bảy', 'Tháng tám', 'Tháng chín', 'Tháng mười', 'Tháng mười một', 'Tháng mười hai'],
+        datasets: [{
+                label: 'Đã hoàn thành',
+                data: [<?php
+                while ($soluong = $cv_ht_thang->fetch_assoc()):
+                    echo $soluong['TONG'];
+                    echo ",";
+                endwhile;
+                ?>],
+                backgroundColor: "#E2777A",
+            },
+            {
+                label: 'Đang thực hiện',
+                data: [
+                    <?php
+                while ($soluong = $cv_dth_thang->fetch_assoc()):
+                    echo $soluong['TONG'];
+                    echo ",";
+                endwhile;
+                ?>
+                ],
+                backgroundColor: "#4bc0c0",
+            },
+            {
+                label: 'Quá thời hạn',
+                data: [
+                    <?php
+                while ($soluong = $cv_qh_thang->fetch_assoc()):
+                    echo $soluong['TONG'];
+                    echo ",";
+                endwhile;
+                ?>
+                ],
+                backgroundColor: "#36a2eb",
+            },
+        ]
+    };
+    new Chart(ctx2, {
+        type: 'bar',
+        data: data,
+        options: {
+            plugins: {
+                title: {
+                    display: true,
+                    text: ''
+                },
+            },
+            responsive: true,
+            scales: {
+                x: {
+                    stacked: true,
+                },
+                y: {
+                    stacked: true
+                }
+            }
+        }
+    });
+    </script>
     <script>
     function searchFunc() {
         var input, filter, table, tr, td, i, txtValue;

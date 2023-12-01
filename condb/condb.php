@@ -195,3 +195,26 @@ function alert_and_redirect($msg, $location)
     echo "<script>alert('$msg');document.location='$location'</script>";
 
 }
+
+function layBaoCaoTheoThang($loai, $thang) {
+    switch ($loai) {
+        case 'Working':
+            $sql = "SELECT EXTRACT(MONTH FROM CV_NGAYBATDAU) AS Month, count(*) FROM congviec where CV_TIENDO = 100 GROUP BY Month;";
+            
+            break;
+        case 'Done':
+            // 
+            break;
+        case 'Timeout':
+            // 
+            break;
+        default:
+        break;
+    }
+
+    $sql = "SELECT * FROM congviec WHERE CV_TRANGTHAICV = 'Đang chờ' AND LCV_MA = '$loai' AND MONTH(CV_NGAYBATDAU) = '$thang'";
+    $result = mysqli_query($conn, $sql);
+    $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+    $count = mysqli_num_rows($result);
+    return $count;
+}

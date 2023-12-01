@@ -273,3 +273,8 @@ tbody {
 .item-info:hover {
   color: black;
 }
+.chart {
+  margin: auto;
+  width: 60%;
+  height: 60%;
+}
