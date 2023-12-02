@@ -114,7 +114,7 @@ else:?><h5 class="card-title m-0"><?php echo "Tạm thời không có thông bá
     <main>
 
 
-        <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+        <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
             <div class="offcanvas-header custom-bg text-light">
                 <h5 class="offcanvas-title" id="offcanvasExampleLabel">
                     ADMIN
@@ -262,6 +262,30 @@ else:?><h5 class="card-title m-0"><?php echo "Tạm thời không có thông bá
                 }
             }
         }
+    }
+    </script>
+    <script>
+    var prevScrollpos = window.pageYOffset;
+
+    /* Get the header element and it's position */
+    var headerDiv = document.querySelector("nav");
+    var headerBottom = headerDiv.offsetTop + headerDiv.offsetHeight;
+
+    window.onscroll = function() {
+        var currentScrollPos = window.pageYOffset;
+
+        /* if scrolling down, let it scroll out of view as normal */
+        if (prevScrollpos <= currentScrollPos) {
+            headerDiv.classList.remove("fixed-top");
+            headerDiv.style.top = "-7.2rem";
+        }
+        /* otherwise if we're scrolling up, fix the nav to the top */
+        else {
+            headerDiv.classList.add("fixed-top");
+            headerDiv.style.top = "0";
+        }
+
+        prevScrollpos = currentScrollPos;
     }
     </script>
 </body>

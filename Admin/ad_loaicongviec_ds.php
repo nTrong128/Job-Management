@@ -1,5 +1,12 @@
 <?php include_once '../condb/condb.php';
 include_once './ad_thongbao.php'; ?>
+<?php 
+if ((!isset($_SESSION['admin']))) {
+    session_destroy();
+    unset($_SESSION['admin']);
+    header("location: ../index.php");
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,12 +27,12 @@ include_once './ad_thongbao.php'; ?>
 <body>
 
     <header>
-        <nav class="navbar_container navbar  navbar-expand-lg">
+        <nav class="navbar navbar-expand custom_navbar_bg fixed-top border-bottom border-light border-3">
             <button class=" btn mx-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
                 <i class="fa-solid fs-2 text-light fa-bars"></i>
             </button>
             <div class="container-fluid">
-                <a class="navbar-brand text-white fs-4" href="trangchu.php"><img src="../image/logo.png" style="width: 60px;" class="w3-circle"></a>
+                <a class="navbar-brand text-white fs-4" href="ad_trangchu.php"><img src="../image/logo.png" style="width: 60px;" class="w3-circle"></a>
                 <a class="navbar-brand text-white fs-2"> QUẢN LÝ CÔNG VIỆC </a>
                 <div class="d-flex">
                     <div class="dropdown mx-4 position-relative">
@@ -96,25 +103,21 @@ else:?><h5 class="card-title m-0"><?php echo "Tạm thời không có thông bá
                             </div>
                         </ul>
                     </div>
-                    <a class="btn btn-outline-light px-2 py-2 me-2" href="../User/dangxuat.php" role="button">ĐĂNG XUẤT</a>
+                    <a class="btn btn-outline-light px-2 py-2 me-2" href="./dangxuat.php" role="button">ĐĂNG XUẤT</a>
                 </div>
             </div>
             </div>
         </nav>
     </header>
 
-    <main class="pb-4">
+    <main>
 
 
-        <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+        <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
             <div class="offcanvas-header custom-bg text-light">
-                <h5 class="offcanvas-title" id="offcanvasExampleLabel">
-                    <?php  if (isset($_SESSION['username'])) : ?>
-                    <?php
-
-                echo "Admin"; ?>
-                    <?php endif ?>
-                </h5>
+                <h3 class="offcanvas-title" id="offcanvasExampleLabel">
+                    Admin
+                </h3>
 
                 <button type="button" class="btn" data-bs-dismiss="offcanvas" aria-label="Close">
                     <i class="fa-solid fa-xmark fa-2xl" style="color: #ffffff;"></i>
@@ -143,10 +146,19 @@ else:?><h5 class="card-title m-0"><?php echo "Tạm thời không có thông bá
             <input class="rounded-2" type="text" id="searchBar" placeholder="Tìm kiếm loại công việc.." title="Nhập thông tin công việc">
             <a href="ad_loaicongviec_them.php" class="btn btn-dark p-3 px-4">Thêm loại công việc mới</a>
         </div>
-
+        <?php
+$query_cv = "SELECT * FROM loaicongviec";
+$ds_lcv = mysqli_query($conn, $query_cv);
+$soluong_lcv = $ds_lcv->num_rows;
+$i = 1;
+?>
+        <div class="container bg-white w-80 rounded-4 p-2 mb-4" style="--bs-bg-opacity: .5;">
+            <h2 class="text-center ">DANH SÁCH LOẠI CÔNG VIỆC</h2>
+            <h2 class="text-center ">Tổng số loại: <?php echo $soluong_lcv;?></h2>
+        </div>
         <div class="m-auto w-75 d-flex justify-content-center">
 
-            <table id="dataTable" class=" table text-center align-middle ">
+            <table id="dataTable" class="table text-center align-middle">
                 <thead class="align-middle">
                     <tr>
                         <th scope="col">STT</th>
@@ -159,10 +171,7 @@ else:?><h5 class="card-title m-0"><?php echo "Tạm thời không có thông bá
                 <tbody>
 
                     <?php
-          $query_cv = "SELECT * FROM loaicongviec";
-$ds_cv = mysqli_query($conn, $query_cv);
-$i = 1;
-while ($cv = mysqli_fetch_assoc($ds_cv)):
+while ($cv = mysqli_fetch_assoc($ds_lcv)):
     ;
     ?>
                     <tr>
@@ -173,7 +182,8 @@ while ($cv = mysqli_fetch_assoc($ds_cv)):
                         <td>
                             <?php echo $cv['LCV_TEN']; ?>
                         </td>
-                        <td style="width:25%">
+
+                        <td>
                             <!-- <button class="btn"><a href="ad_loaicongviec_chitiet.php?chitiet_ma=<?php echo $cv['LCV_MA']?>"><i class="fa-solid fa-eye"></i></a></button> -->
                             <!-- <button class="btn"><a href="ad_loaicongviec_sua.php?chinhsua_ma=<?php echo $cv['LCV_MA']?>"><i class="fa-solid fa-pen-to-square"></i></a></button> -->
                             <button class="btn"><a href="ad_loaicongviec_xoa.php?xoa_ma=<?php echo $cv['LCV_MA']?>"><i class="fa-sharp fa-solid fa-trash"></i></a></button>
@@ -206,6 +216,30 @@ endwhile;
             });
         });
     });
+    </script>
+    <script>
+    var prevScrollpos = window.pageYOffset;
+
+    /* Get the header element and it's position */
+    var headerDiv = document.querySelector("nav");
+    var headerBottom = headerDiv.offsetTop + headerDiv.offsetHeight;
+
+    window.onscroll = function() {
+        var currentScrollPos = window.pageYOffset;
+
+        /* if scrolling down, let it scroll out of view as normal */
+        if (prevScrollpos <= currentScrollPos) {
+            headerDiv.classList.remove("fixed-top");
+            headerDiv.style.top = "-7.2rem";
+        }
+        /* otherwise if we're scrolling up, fix the nav to the top */
+        else {
+            headerDiv.classList.add("fixed-top");
+            headerDiv.style.top = "0";
+        }
+
+        prevScrollpos = currentScrollPos;
+    }
     </script>
 </body>
 

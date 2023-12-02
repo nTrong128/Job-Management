@@ -2,6 +2,12 @@
 // Update User
 include_once('../condb/condb.php');
 include_once('./ad_thongbao.php');
+if ((!isset($_SESSION['admin']))) {
+    session_destroy();
+    unset($_SESSION['admin']);
+    header("location: ../index.php");
+}
+
 $ma = $_GET['capnhat_ma'];
 
 $query_nguoidung = "SELECT * FROM nguoidung WHERE ND_MA='$ma'";
@@ -11,44 +17,44 @@ $nguoidung = mysqli_fetch_array($nguoidung_data);
 
 
 if(isset($_POST['submit'])) {
-    $name = $_POST['name'];
-    $ngaysinh = $_POST['ngaysinh'];
-    $diachi = $_POST["diachi"];
-    $sdt = $_POST['sdt'];
-    $email = $_POST["email"];
-    $mscb = $_POST["mscb"];
-    $password = $_POST["passwd"];
-    try {
+$name = $_POST['name'];
+$ngaysinh = $_POST['ngaysinh'];
+$diachi = $_POST["diachi"];
+$sdt = $_POST['sdt'];
+$email = $_POST["email"];
+$mscb = $_POST["mscb"];
+$password = $_POST["passwd"];
+try {
 
-        $sql = "UPDATE nguoidung
-                SET ND_HOTEN='$name',
-                    ND_NGAYSINH='$ngaysinh',
-                    ND_DIACHI='$diachi',
-                    ND_SDT='$sdt',
-                    ND_EMAIL='$email',
-                    ND_MSCB='$mscb',
-                    ND_MATKHAU=md5('$password')
-                WHERE ND_MA=$ma";
+$sql = "UPDATE nguoidung
+SET ND_HOTEN='$name',
+ND_NGAYSINH='$ngaysinh',
+ND_DIACHI='$diachi',
+ND_SDT='$sdt',
+ND_EMAIL='$email',
+ND_MSCB='$mscb',
+ND_MATKHAU=md5('$password')
+WHERE ND_MA=$ma";
 
-        $query = mysqli_query($conn, $sql);
+$query = mysqli_query($conn, $sql);
 
-    } catch (mysqli_sql_exception $e) {
-        var_dump($e);
-        exit;
+} catch (mysqli_sql_exception $e) {
+var_dump($e);
+exit;
 
-    }
+}
 
 
-    if ($query) {
+if ($query) {
 
-        echo "Cập nhật thành công!";
-        header("Location: ad_nguoidung_ds.php");
+echo "Cập nhật thành công!";
+header("Location: ad_nguoidung_ds.php");
 
-    } else {
+} else {
 
-        echo "Error updating row.: " . $conn->error;
+echo "Error updating row.: " . $conn->error;
 
-    }
+}
 
 }
 ?>
@@ -91,6 +97,7 @@ if(isset($_POST['submit'])) {
                                 <form id="form" name="form" method="POST" onsubmit="return validateForm()" class="">
                                     <button type="dochet" name="dochet" onclick="reloadPageContentOnSubmit()" class="btn btn-dark menu-title">Đánh dấu tất cả là đã đọc</button>
                                 </form>
+
                             </div>
                             <li class="divider"></li>
                             <div class="notifications-wrapper">
@@ -100,6 +107,7 @@ if ($ds_thongbao->num_rows > 0):
         ?>
                                 <div class="content" href="#">
                                     <div class="notification-item <?php if ($thongbao['TB_XEM'] == '0') echo "unread" ?>">
+
                                         <div class="d-flex justify-content-between">
                                             <h4 class="item-title"><?php echo $thongbao['CV_TEN'] ?></h4>
                                             <?php
@@ -151,15 +159,11 @@ else:?><h5 class="card-title m-0"><?php echo "Tạm thời không có thông bá
     </header>
 
     <main>
-        <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+        <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
             <div class="offcanvas-header custom-bg text-light">
-                <h5 class="offcanvas-title" id="offcanvasExampleLabel">
-                    <?php  if (isset($_SESSION['username'])) : ?>
-                    <?php
-
-                          echo "Admin"; ?>
-                    <?php endif ?>
-                </h5>
+                <h3 class="offcanvas-title" id="offcanvasExampleLabel">
+                    ADMIN
+                </h3>
 
                 <button type="button" class="btn" data-bs-dismiss="offcanvas" aria-label="Close">
                     <i class="fa-solid fa-xmark fa-2xl" style="color: #ffffff;"></i>
@@ -297,6 +301,30 @@ else:?><h5 class="card-title m-0"><?php echo "Tạm thời không có thông bá
             };
         }
     })
+    </script>
+    <script>
+    var prevScrollpos = window.pageYOffset;
+
+    /* Get the header element and it's position */
+    var headerDiv = document.querySelector("nav");
+    var headerBottom = headerDiv.offsetTop + headerDiv.offsetHeight;
+
+    window.onscroll = function() {
+        var currentScrollPos = window.pageYOffset;
+
+        /* if scrolling down, let it scroll out of view as normal */
+        if (prevScrollpos <= currentScrollPos) {
+            headerDiv.classList.remove("fixed-top");
+            headerDiv.style.top = "-7.2rem";
+        }
+        /* otherwise if we're scrolling up, fix the nav to the top */
+        else {
+            headerDiv.classList.add("fixed-top");
+            headerDiv.style.top = "0";
+        }
+
+        prevScrollpos = currentScrollPos;
+    }
     </script>
 </body>
 

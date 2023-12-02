@@ -1,5 +1,12 @@
 <?php include_once '../condb/condb.php';
 include_once './ad_thongbao.php'; ?>
+<?php 
+if ((!isset($_SESSION['admin']))) {
+    session_destroy();
+    unset($_SESSION['admin']);
+    header("location: ../index.php");
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -104,14 +111,10 @@ else:?><h5 class="card-title m-0"><?php echo "Tạm thời không có thông bá
     <main>
 
 
-        <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+        <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
             <div class="offcanvas-header custom-bg text-light">
                 <h5 class="offcanvas-title" id="offcanvasExampleLabel">
-                    <?php  if (isset($_SESSION['username'])) : ?>
-                    <?php
-
-                          echo "Admin"; ?>
-                    <?php endif ?>
+                    Admin
                 </h5>
 
                 <button type="button" class="btn" data-bs-dismiss="offcanvas" aria-label="Close">
@@ -151,7 +154,7 @@ $soluong_nguoidung = $ds_nguoidung->num_rows;
             <h2 class="text-center ">Tổng số người dùng: <?php echo $soluong_nguoidung;?></h2>
         </div>
         <div class="m-4 ms-4 rounded bg-light border border-2">
-            
+
             <table id="dataTable" class="table text-center align-middle">
                 <thead class="align-middle">
                     <tr>
@@ -227,6 +230,30 @@ endwhile;
             });
         });
     });
+    </script>
+    <script>
+    var prevScrollpos = window.pageYOffset;
+
+    /* Get the header element and it's position */
+    var headerDiv = document.querySelector("nav");
+    var headerBottom = headerDiv.offsetTop + headerDiv.offsetHeight;
+
+    window.onscroll = function() {
+        var currentScrollPos = window.pageYOffset;
+
+        /* if scrolling down, let it scroll out of view as normal */
+        if (prevScrollpos <= currentScrollPos) {
+            headerDiv.classList.remove("fixed-top");
+            headerDiv.style.top = "-7.2rem";
+        }
+        /* otherwise if we're scrolling up, fix the nav to the top */
+        else {
+            headerDiv.classList.add("fixed-top");
+            headerDiv.style.top = "0";
+        }
+
+        prevScrollpos = currentScrollPos;
+    }
     </script>
 </body>
 

@@ -18,6 +18,10 @@ body {
   background-size: cover;
   background-attachment: fixed;
 }
+nav {
+  transition: all 0.2s ease-in-out;
+}
+
 .custom_navbar_bg {
   background-image: linear-gradient(
     75deg,

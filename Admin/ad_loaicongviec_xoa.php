@@ -1,5 +1,4 @@
 <?php
-
 // Xoá user
 include_once('../condb/condb.php');
 if(isset($_REQUEST['xoa_ma']) and $_REQUEST['xoa_ma'] != "") {
