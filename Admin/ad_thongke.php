@@ -1,5 +1,12 @@
 <?php include_once '../condb/condb.php';
 include_once './ad_thongbao.php'; ?>
+<?php 
+if ((!isset($_SESSION['admin']))) {
+    session_destroy();
+    unset($_SESSION['admin']);
+    header("location: ../index.php");
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -104,14 +111,10 @@ else:?><h5 class="card-title m-0"><?php echo "Tạm thời không có thông bá
     <main>
 
 
-        <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+        <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
             <div class="offcanvas-header custom-bg text-light">
                 <h5 class="offcanvas-title" id="offcanvasExampleLabel">
-                    <?php  if (isset($_SESSION['username'])) : ?>
-                    <?php
-
-                echo "Admin"; ?>
-                    <?php endif ?>
+                    Admin
                 </h5>
 
                 <button type="button" class="btn" data-bs-dismiss="offcanvas" aria-label="Close">
@@ -322,7 +325,9 @@ $cv_qh_thang = $conn->query($query_cv_qh_thang);
     const ctx3 = document.getElementById('byMonthChart');
     var barColors = ["blue", "green", "red"];
     const data = {
-        labels: ['Tháng một', 'Tháng hai', 'Tháng ba', 'Tháng tư', 'Tháng năm', 'Tháng sáu', 'Tháng bảy', 'Tháng tám', 'Tháng chín', 'Tháng mười', 'Tháng mười một', 'Tháng mười hai'],
+        labels: ['Tháng một', 'Tháng hai', 'Tháng ba', 'Tháng tư', 'Tháng năm', 'Tháng sáu',
+            'Tháng bảy', 'Tháng tám', 'Tháng chín', 'Tháng mười', 'Tháng mười một', 'Tháng mười hai'
+        ],
         datasets: [{
                 label: 'Đã hoàn thành',
                 data: ht_thang,
@@ -402,8 +407,8 @@ $cv_qh_thang = $conn->query($query_cv_qh_thang);
 
     const select = document.getElementById('monthSelect');
     select.addEventListener('change', function handleChange(event) {
-        e = event.target.value;
-        ctx4.data.datasets[0].data = [dth_thang[e], ht_thang[e], qh_thang[e]];
+        month = event.target.value;
+        ctx4.data.datasets[0].data = [dth_thang[month], ht_thang[month], qh_thang[month]];
         ctx4.update();
     });
     </script>
@@ -425,6 +430,30 @@ $cv_qh_thang = $conn->query($query_cv_qh_thang);
                 }
             }
         }
+    }
+    </script>
+    <script>
+    var prevScrollpos = window.pageYOffset;
+
+    /* Get the header element and it's position */
+    var headerDiv = document.querySelector("nav");
+    var headerBottom = headerDiv.offsetTop + headerDiv.offsetHeight;
+
+    window.onscroll = function() {
+        var currentScrollPos = window.pageYOffset;
+
+        /* if scrolling down, let it scroll out of view as normal */
+        if (prevScrollpos <= currentScrollPos) {
+            headerDiv.classList.remove("fixed-top");
+            headerDiv.style.top = "-7.2rem";
+        }
+        /* otherwise if we're scrolling up, fix the nav to the top */
+        else {
+            headerDiv.classList.add("fixed-top");
+            headerDiv.style.top = "0";
+        }
+
+        prevScrollpos = currentScrollPos;
     }
     </script>
 </body>
