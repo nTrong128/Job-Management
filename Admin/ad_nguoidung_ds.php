@@ -17,14 +17,13 @@ include_once './ad_thongbao.php'; ?>
 </head>
 
 <body>
-
     <header>
-        <nav class="navbar_container navbar  navbar-expand-lg">
+        <nav class="navbar navbar-expand custom_navbar_bg fixed-top border-bottom border-light border-3">
             <button class=" btn mx-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
                 <i class="fa-solid fs-2 text-light fa-bars"></i>
             </button>
             <div class="container-fluid">
-                <a class="navbar-brand text-white fs-4" href="trangchu.php"><img src="../image/logo.png" style="width: 60px;" class="w3-circle"></a>
+                <a class="navbar-brand text-white fs-4" href="ad_trangchu.php"><img src="../image/logo.png" style="width: 60px;" class="w3-circle"></a>
                 <a class="navbar-brand text-white fs-2"> QUẢN LÝ CÔNG VIỆC </a>
                 <div class="d-flex">
                     <div class="dropdown mx-4 position-relative">
@@ -95,7 +94,7 @@ else:?><h5 class="card-title m-0"><?php echo "Tạm thời không có thông bá
                             </div>
                         </ul>
                     </div>
-                    <a class="btn btn-outline-light px-2 py-2 me-2" href="../User/dangxuat.php" role="button">ĐĂNG XUẤT</a>
+                    <a class="btn btn-outline-light px-2 py-2 me-2" href="./dangxuat.php" role="button">ĐĂNG XUẤT</a>
                 </div>
             </div>
             </div>
@@ -142,8 +141,18 @@ else:?><h5 class="card-title m-0"><?php echo "Tạm thời không có thông bá
             <input class="rounded-2" type="text" id="searchBar" placeholder="Tìm kiếm người dùng.." title="Nhập thông tin người dùng">
             <a href="ad_nguoidung_them.php" class="btn btn-dark p-3 px-4">Thêm người dùng</a>
         </div>
-        <div class="mx-4 ms-4 rounded bg-light  border border-2">
-            <table id="dataTable" class="table tableFixHead text-center align-middle">
+        <?php
+$query_nguoidung = "SELECT * FROM nguoidung";
+$ds_nguoidung = mysqli_query($conn, $query_nguoidung);
+$soluong_nguoidung = $ds_nguoidung->num_rows;
+        ?>
+        <div class="container bg-white w-80 rounded-4 p-2" style="--bs-bg-opacity: .5;">
+            <h2 class="text-center ">DANH SÁCH NGƯỜI DÙNG</h2>
+            <h2 class="text-center ">Tổng số người dùng: <?php echo $soluong_nguoidung;?></h2>
+        </div>
+        <div class="m-4 ms-4 rounded bg-light border border-2">
+            
+            <table id="dataTable" class="table text-center align-middle">
                 <thead class="align-middle">
                     <tr>
                         <th scope="col">STT</th>
@@ -159,8 +168,6 @@ else:?><h5 class="card-title m-0"><?php echo "Tạm thời không có thông bá
                 <tbody>
 
                     <?php
-$query_nguoidung = "SELECT * FROM nguoidung";
-$ds_nguoidung = mysqli_query($conn, $query_nguoidung);
 $i = 1;
 while ($nguoidung = mysqli_fetch_assoc($ds_nguoidung)):
     ;

@@ -18,12 +18,12 @@ include_once './ad_thongbao.php'; ?>
 
 <body>
     <header>
-        <nav class="navbar_container navbar  navbar-expand-lg">
+        <nav class="navbar navbar-expand custom_navbar_bg fixed-top border-bottom border-light border-3">
             <button class=" btn mx-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
                 <i class="fa-solid fs-2 text-light fa-bars"></i>
             </button>
             <div class="container-fluid">
-                <a class="navbar-brand text-white fs-4" href="trangchu.php"><img src="../image/logo.png" style="width: 60px;" class="w3-circle"></a>
+                <a class="navbar-brand text-white fs-4" href="ad_trangchu.php"><img src="../image/logo.png" style="width: 60px;" class="w3-circle"></a>
                 <a class="navbar-brand text-white fs-2"> QUẢN LÝ CÔNG VIỆC </a>
                 <div class="d-flex">
                     <div class="dropdown mx-4 position-relative">
@@ -94,7 +94,7 @@ else:?><h5 class="card-title m-0"><?php echo "Tạm thời không có thông bá
                             </div>
                         </ul>
                     </div>
-                    <a class="btn btn-outline-light px-2 py-2 me-2" href="../User/dangxuat.php" role="button">ĐĂNG XUẤT</a>
+                    <a class="btn btn-outline-light px-2 py-2 me-2" href="./dangxuat.php" role="button">ĐĂNG XUẤT</a>
                 </div>
             </div>
             </div>
@@ -159,18 +159,18 @@ else:?><h5 class="card-title m-0"><?php echo "Tạm thời không có thông bá
                 </div>
                 <div class="mx-5 col-3">
                     <select class="form-select" name="monthSelect" id="monthSelect">
-                        <option id="monthSelect_1" value="1">Tháng một</option>
-                        <option id="monthSelect_2" value="2">Tháng hai</option>
-                        <option id="monthSelect_3" value="3">Tháng ba</option>
-                        <option id="monthSelect_4" value="4">Tháng tư</option>
-                        <option id="monthSelect_5" value="5">Tháng năm</option>
-                        <option id="monthSelect_6" value="6">Tháng sáu</option>
-                        <option id="monthSelect_7" value="7">Tháng bảy</option>
-                        <option id="monthSelect_8" value="8">Tháng tám</option>
-                        <option id="monthSelect_9" value="9">Tháng chín</option>
-                        <option id="monthSelect_10" value="10">Tháng mười</option>
-                        <option id="monthSelect_11" value="11">Tháng mười một</option>
-                        <option id="monthSelect_12" value="12">Tháng mười hai</option>
+                        <option id="monthSelect_0" value="0">Tháng một</option>
+                        <option id="monthSelect_1" value="1">Tháng hai</option>
+                        <option id="monthSelect_2" value="2">Tháng ba</option>
+                        <option id="monthSelect_3" value="3">Tháng tư</option>
+                        <option id="monthSelect_4" value="4">Tháng năm</option>
+                        <option id="monthSelect_5" value="5">Tháng sáu</option>
+                        <option id="monthSelect_6" value="6">Tháng bảy</option>
+                        <option id="monthSelect_7" value="7">Tháng tám</option>
+                        <option id="monthSelect_8" value="8">Tháng chín</option>
+                        <option id="monthSelect_9" value="9">Tháng mười</option>
+                        <option id="monthSelect_10" value="10">Tháng mười một</option>
+                        <option id="monthSelect_11" value="11">Tháng mười hai</option>
                     </select>
 
                     <canvas id="chartPie2"></canvas>
@@ -376,6 +376,7 @@ $cv_qh_thang = $conn->query($query_cv_qh_thang);
         }
     });
     var pieColors = ["#4bc0c0", "#E2777A", "#36a2eb"];
+    var currentMonth = new Date().getMonth();
     const config = {
         type: 'pie',
         data: {
@@ -384,30 +385,25 @@ $cv_qh_thang = $conn->query($query_cv_qh_thang);
                 label: 'Số lượng',
                 backgroundColor: pieColors,
                 hoverOffset: 4,
-                data: [dth_thang[10], ht_thang[10], qh_thang[10]],
+                data: [dth_thang[currentMonth], ht_thang[currentMonth], qh_thang[currentMonth]],
                 borderWidth: 1,
 
             }]
         },
     }
-
-    // const ctx4 = document.getElementById('chartPie2');
-
     const ctx4 = new Chart(
         document.getElementById('chartPie2'),
         config
     );
 
-
-    var currentMonth = new Date().getMonth() + 1;
     currentMonth = "monthSelect_" + currentMonth;
+    document.getElementById(currentMonth).selected = true;
 
 
     const select = document.getElementById('monthSelect');
     select.addEventListener('change', function handleChange(event) {
         e = event.target.value;
-        console.log(e);
-        ctx4.data.datasets[0].data = [dth_thang[e - 1], ht_thang[e - 1], qh_thang[e - 1]];
+        ctx4.data.datasets[0].data = [dth_thang[e], ht_thang[e], qh_thang[e]];
         ctx4.update();
     });
     </script>

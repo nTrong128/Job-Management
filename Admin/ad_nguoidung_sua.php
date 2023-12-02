@@ -1,6 +1,7 @@
 <?php
 // Update User
 include_once('../condb/condb.php');
+include_once('./ad_thongbao.php');
 $ma = $_GET['capnhat_ma'];
 
 $query_nguoidung = "SELECT * FROM nguoidung WHERE ND_MA='$ma'";
@@ -67,14 +68,13 @@ if(isset($_POST['submit'])) {
 </head>
 
 <body>
-
     <header>
-        <nav class="navbar_container navbar  navbar-expand-lg">
+        <nav class="navbar navbar-expand custom_navbar_bg fixed-top border-bottom border-light border-3">
             <button class=" btn mx-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
                 <i class="fa-solid fs-2 text-light fa-bars"></i>
             </button>
             <div class="container-fluid">
-                <a class="navbar-brand text-white fs-4" href="trangchu.php"><img src="../image/logo.png" style="width: 60px;" class="w3-circle"></a>
+                <a class="navbar-brand text-white fs-4" href="ad_trangchu.php"><img src="../image/logo.png" style="width: 60px;" class="w3-circle"></a>
                 <a class="navbar-brand text-white fs-2"> QUẢN LÝ CÔNG VIỆC </a>
                 <div class="d-flex">
                     <div class="dropdown mx-4 position-relative">
@@ -91,7 +91,6 @@ if(isset($_POST['submit'])) {
                                 <form id="form" name="form" method="POST" onsubmit="return validateForm()" class="">
                                     <button type="dochet" name="dochet" onclick="reloadPageContentOnSubmit()" class="btn btn-dark menu-title">Đánh dấu tất cả là đã đọc</button>
                                 </form>
-                                
                             </div>
                             <li class="divider"></li>
                             <div class="notifications-wrapper">
@@ -101,20 +100,19 @@ if ($ds_thongbao->num_rows > 0):
         ?>
                                 <div class="content" href="#">
                                     <div class="notification-item <?php if ($thongbao['TB_XEM'] == '0') echo "unread" ?>">
-                                        
                                         <div class="d-flex justify-content-between">
                                             <h4 class="item-title"><?php echo $thongbao['CV_TEN'] ?></h4>
-                                        <?php
+                                            <?php
                                         if ($thongbao['TB_XEM'] == '0'):
                                         ?>
-                                        <a class="text-decoration-none  btn btn-dark" href="ad_thongbao_doc.php?thongbao_ma=<?php echo $thongbao['TB_MA'];?>">
-                                            Đánh dấu đã đọc
-                                        </a>
-                                        <?php else: ?>
-                                        <a class="text-decoration-none btn btn-dark" href="ad_thongbao_chuadoc.php?thongbao_ma=<?php echo $thongbao['TB_MA'];?>">
-                                            Đánh dấu là chưa đọc
-                                        </a>
-                                        <?php endif;?>
+                                            <a class="text-decoration-none  btn btn-dark" href="ad_thongbao_doc.php?thongbao_ma=<?php echo $thongbao['TB_MA'];?>">
+                                                Đánh dấu đã đọc
+                                            </a>
+                                            <?php else: ?>
+                                            <a class="text-decoration-none btn btn-dark" href="ad_thongbao_chuadoc.php?thongbao_ma=<?php echo $thongbao['TB_MA'];?>">
+                                                Đánh dấu là chưa đọc
+                                            </a>
+                                            <?php endif;?>
                                         </div>
                                         <p class="item-info">Người thực hiện: <?php echo $thongbao['ND_HOTEN'] ?></p>
                                         <?php 
@@ -127,9 +125,9 @@ if ($ds_thongbao->num_rows > 0):
                                         <p class="item-info"><?php echo $date_out?></p>
                                         <div class="d-flex justify-content-between">
                                             <p class="item-info"><?php echo $thongbao['TB_ND']?></p>
-                                            <a class="btn btn-dark text-decoration-none" href="ad_thongbao_xoa.php?thongbao_ma=<?php echo $thongbao['TB_MA'];?>">
-                                            Xoá
-                                        </a>
+                                            <a class="btn btn-danger text-decoration-none" href="ad_thongbao_xoa.php?thongbao_ma=<?php echo $thongbao['TB_MA'];?>">
+                                                Xoá
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
@@ -145,7 +143,7 @@ else:?><h5 class="card-title m-0"><?php echo "Tạm thời không có thông bá
                             </div>
                         </ul>
                     </div>
-                    <a class="btn btn-outline-light px-2 py-2 me-2" href="../User/dangxuat.php" role="button">ĐĂNG XUẤT</a>
+                    <a class="btn btn-outline-light px-2 py-2 me-2" href="./dangxuat.php" role="button">ĐĂNG XUẤT</a>
                 </div>
             </div>
             </div>
@@ -267,7 +265,7 @@ else:?><h5 class="card-title m-0"><?php echo "Tạm thời không có thông bá
     </main>
 
 
-    <footer id="grad1" class="justify-content-center navbar p-3 text-white ">
+    <footer class="footer_container d-flex justify-content-center p-3 text-dark">
         <p>B2016962 &copy; 2023 Bản quyền thuộc về Nguyễn Văn Hậu.</p>
     </footer>
 

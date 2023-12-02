@@ -1,5 +1,12 @@
 <?php include_once '../condb/condb.php';
 include_once './ad_thongbao.php'; ?>
+<?php 
+if ((!isset($_SESSION['admin']))) {
+    session_destroy();
+    unset($_SESSION['admin']);
+    header("location: ../index.php");
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -22,12 +29,12 @@ include_once './ad_thongbao.php'; ?>
 
 <body>
     <header>
-        <nav class="navbar_container navbar  navbar-expand-lg">
+        <nav class="navbar navbar-expand custom_navbar_bg fixed-top border-bottom border-light border-3">
             <button class=" btn mx-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
                 <i class="fa-solid fs-2 text-light fa-bars"></i>
             </button>
             <div class="container-fluid">
-                <a class="navbar-brand text-white fs-4" href="trangchu.php"><img src="../image/logo.png" style="width: 60px;" class="w3-circle"></a>
+                <a class="navbar-brand text-white fs-4" href="ad_trangchu.php"><img src="../image/logo.png" style="width: 60px;" class="w3-circle"></a>
                 <a class="navbar-brand text-white fs-2"> QUẢN LÝ CÔNG VIỆC </a>
                 <div class="d-flex">
                     <div class="dropdown mx-4 position-relative">
@@ -98,21 +105,19 @@ else:?><h5 class="card-title m-0"><?php echo "Tạm thời không có thông bá
                             </div>
                         </ul>
                     </div>
-                    <a class="btn btn-outline-light px-2 py-2 me-2" href="../User/dangxuat.php" role="button">ĐĂNG XUẤT</a>
+                    <a class="btn btn-outline-light px-2 py-2 me-2" href="./dangxuat.php" role="button">ĐĂNG XUẤT</a>
                 </div>
             </div>
             </div>
         </nav>
     </header>
-    <main style="min-height:600px;">
+    <main>
 
 
         <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
             <div class="offcanvas-header custom-bg text-light">
                 <h5 class="offcanvas-title" id="offcanvasExampleLabel">
-                    <?php  if (isset($_SESSION['nguoidung'])):?>
-                    <?php echo "Admin"; ?>
-                    <?php endif ?>
+                    ADMIN
                 </h5>
 
                 <button type="button" class="btn" data-bs-dismiss="offcanvas" aria-label="Close">

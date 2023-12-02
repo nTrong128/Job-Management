@@ -110,21 +110,21 @@ if (isset($_POST['dangnhap'])) {
 
 if (isset($_POST['dangnhapAdmin'])) {
     //Lấy dữ liệu nhập vào
-    $nguoidung = $_POST['email'];
+    $admin = $_POST['email'];
     $pass = md5($_POST['passwd']);
 
-    $nguoidung = strip_tags($nguoidung);
-    $nguoidung = addslashes($nguoidung);
+    $admin = strip_tags($admin);
+    $admin = addslashes($admin);
     $pass = strip_tags($pass);
     $pass = addslashes($pass);
 
-    $sql = "select * from admin where AD_EMAIL ='$nguoidung' and
+    $sql = "select * from admin where AD_EMAIL ='$admin' and
             AD_MATKHAU = '$pass' ";
     $result = mysqli_query($conn, $sql);
     $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
     $count = mysqli_num_rows($result);
     if ($count == 1) {
-        $_SESSION['nguoidung'] = $nguoidung;
+        $_SESSION['admin'] = $admin;
         $_SESSION['success'] = "You have logged in!";
         header('Location: ../admin/ad_trangchu.php');
 
