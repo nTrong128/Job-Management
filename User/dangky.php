@@ -136,6 +136,34 @@
         }
     })
     </script>
+    <script>
+    var prevScrollpos = window.pageYOffset;
+
+    /* Get the header element and it's position */
+    var headerDiv = document.querySelector("nav");
+    var mainDiv = document.querySelector("main");
+    var headerBottom = headerDiv.offsetTop + headerDiv.offsetHeight;
+
+    window.onscroll = function() {
+        var currentScrollPos = window.pageYOffset;
+
+        /* if scrolling down, let it scroll out of view as normal */
+        if (prevScrollpos <= currentScrollPos) {
+            headerDiv.classList.remove("fixed-top");
+            headerDiv.style.top = "-7.2rem";
+            mainDiv.style.marginTop = "0";
+        }
+        /* otherwise if we're scrolling up, fix the nav to the top */
+        else {
+            headerDiv.classList.add("fixed-top");
+            headerDiv.style.top = "0";
+            mainDiv.style.marginTop = "80px";
+
+        }
+
+        prevScrollpos = currentScrollPos;
+    }
+    </script>
 </body>
 
 </html>

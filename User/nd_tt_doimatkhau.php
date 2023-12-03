@@ -86,7 +86,7 @@ if(isset($_POST['submit'])) {
     </header>
 
     <main>
-        <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="sidebar_content" aria-labelledby="offcanvasExampleLabel">
+        <div class="offcanvas offcanvas-start" tabindex="-1" id="sidebar_content" aria-labelledby="offcanvasExampleLabel">
             <div class="offcanvas-header custom-bg text-light">
                 <h5 class="offcanvas-title" id="offcanvasExampleLabel">
                     <?php  if (isset($_SESSION['nguoidung'])): ?>
@@ -118,11 +118,11 @@ if(isset($_POST['submit'])) {
                         Công việc
                     </button>
                     <ul class="dropdown-menu w-100 text-center" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item" href="nd_cv_cho.php">Đang chờ</a></li>
-                        <li><a class="dropdown-item" href="nd_cv_thuchien.php">Đang thực hiện</a></li>
-                        <li><a class="dropdown-item" href="nd_cv_giamsat.php">Đang giám sát</a></li>
-                        <li><a class="dropdown-item" href="nd_cv_hoanthanh.php">Đã hoàn thành</a></li>
-                        <li><a class="dropdown-item" href="nd_cv_quahan.php">Quá hạn</a></li>
+                        <li><a class="dropdown-item" href="#">Đang chờ</a></li>
+                        <li><a class="dropdown-item" href="#">Đang thực hiện</a></li>
+                        <li><a class="dropdown-item" href="#">Đang giám sát</a></li>
+                        <li><a class="dropdown-item" href="#">Đã hoàn thành</a></li>
+                        <li><a class="dropdown-item" href="#">Quá hạn</a></li>
                     </ul>
                 </div>
 
@@ -134,7 +134,7 @@ if(isset($_POST['submit'])) {
                 <div class="container rounded bg-white mt-5 mb-5">
                     <div class="row">
                         <div class="col-md-3 border-end">
-                            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" src="../Image/default_avatar.jpg" width="200">
+                            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" src="../Image/default_avatar.jpg" width="90">
                                 <span class="font-weight-bold"><?php echo $nguoidung['ND_HOTEN'];?></span>
                                 <span class="text-black-50"><?php echo $nguoidung['ND_EMAIL'];?></span>
                                 <span><?php echo$nguoidung['ND_DIACHI'];?></span>
@@ -148,16 +148,16 @@ if(isset($_POST['submit'])) {
                         </div>
                         <div class="col">
                             <div class="p-3 py-5">
-                                <div class="d-flex justify-content-center align-items-center mb-3">
-                                    <h5 class=" text-center">Cập nhật thông tin cá nhân</h5>
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <h5 class="text-right">Cập nhật thông tin cá nhân</h5>
                                 </div>
                                 <div class="row mt-2">
-                                    <div class="col"><label for="name" class="labels">Họ và tên</label><input id="name" type="text" required name="name" class="form-control" placeholder="Họ và tên"
+                                    <div class="col"><label class="labels">Họ và tên</label><input type="text" required name="name" class="form-control" placeholder="Họ và tên"
                                             value="<?php echo $nguoidung['ND_HOTEN'];?>"></div>
                                 </div>
                                 <div class="row mt-2">
-                                    <div class="mt-2 col-md-12"><label for="ngaysinh" class="labels">Ngày sinh</label><input id="ngaysinh" required type="date" name="ngaysinh" class="form-control"
-                                            placeholder="Ngày sinh" value="<?php echo $nguoidung['ND_NGAYSINH'];?>"></div>
+                                    <div class="mt-2 col-md-12"><label class="labels">Ngày sinh</label><input required type="date" name="ngaysinh" class="form-control" placeholder="Ngày sinh"
+                                            value="<?php echo $nguoidung['ND_NGAYSINH'];?>"></div>
                                     <div class="mt-2 col-md-12"><label class="labels">Số điện thoại</label><input required type="text" name="sdt" class="form-control" placeholder="Số điện thoại"
                                             value="<?php echo $nguoidung['ND_SDT'];?>">
                                     </div>
@@ -172,7 +172,7 @@ if(isset($_POST['submit'])) {
                                             value="<?php echo $nguoidung['ND_MSCB'];?>" placeholder="MSCB">
                                     </div>
                                 </div>
-                                <div class="mt-5 text-center"><button class="btn btn-primary profile-button w-50" name="submit" type="submit">Lưu</button></div>
+                                <div class="mt-5 text-center"><button class="btn btn-primary profile-button" name="submit" type="submit">Lưu</button></div>
                             </div>
                         </div>
 
@@ -216,34 +216,34 @@ if(isset($_POST['submit'])) {
         }
     })
     </script> -->
-    <script>
-    var prevScrollpos = window.pageYOffset;
-
-    /* Get the header element and it's position */
-    var headerDiv = document.querySelector("nav");
-    var mainDiv = document.querySelector("main");
-    var headerBottom = headerDiv.offsetTop + headerDiv.offsetHeight;
-
-    window.onscroll = function() {
-        var currentScrollPos = window.pageYOffset;
-
-        /* if scrolling down, let it scroll out of view as normal */
-        if (prevScrollpos <= currentScrollPos) {
-            headerDiv.classList.remove("fixed-top");
-            headerDiv.style.top = "-7.2rem";
-            mainDiv.style.marginTop = "0";
-        }
-        /* otherwise if we're scrolling up, fix the nav to the top */
-        else {
-            headerDiv.classList.add("fixed-top");
-            headerDiv.style.top = "0";
-            mainDiv.style.marginTop = "80px";
-
-        }
-
-        prevScrollpos = currentScrollPos;
-    }
-    </script>
 </body>
+<script>
+var prevScrollpos = window.pageYOffset;
+
+/* Get the header element and it's position */
+var headerDiv = document.querySelector("nav");
+var mainDiv = document.querySelector("main");
+var headerBottom = headerDiv.offsetTop + headerDiv.offsetHeight;
+
+window.onscroll = function() {
+    var currentScrollPos = window.pageYOffset;
+
+    /* if scrolling down, let it scroll out of view as normal */
+    if (prevScrollpos <= currentScrollPos) {
+        headerDiv.classList.remove("fixed-top");
+        headerDiv.style.top = "-7.2rem";
+        mainDiv.style.marginTop = "0";
+    }
+    /* otherwise if we're scrolling up, fix the nav to the top */
+    else {
+        headerDiv.classList.add("fixed-top");
+        headerDiv.style.top = "0";
+        mainDiv.style.marginTop = "80px";
+
+    }
+
+    prevScrollpos = currentScrollPos;
+}
+</script>
 
 </html>

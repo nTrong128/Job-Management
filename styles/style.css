@@ -12,7 +12,7 @@
   box-sizing: border-box;
   font-family: Aptima;
 }
-body {
+main {
   background-image: url(../Image/background.png);
   background-repeat: no-repeat;
   background-size: cover;
@@ -35,7 +35,7 @@ nav {
 }
 .footer_container {
   min-height: 100px;
-  background-color: #eeeef0;
+  background-color: #ffffff;
 }
 .form_center {
   display: flex;
