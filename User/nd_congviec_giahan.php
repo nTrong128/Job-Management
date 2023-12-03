@@ -138,7 +138,7 @@ if(isset($_POST['submit'])) {
     </main>
 
 
-    <footer id="grad1" class="justify-content-center navbar p-3 text-white ">
+    <footer class="footer_container d-flex justify-content-center p-3 text-dark">
         <p>B2016962 &copy; 2023 Bản quyền thuộc về Nguyễn Văn Hậu.</p>
     </footer>
 

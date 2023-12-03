@@ -215,7 +215,9 @@ echo $lcv_current['LCV_TEN'];
             </form>
         </div>
     </main>
-
+    <footer class="footer_container d-flex justify-content-center p-3 text-dark">
+        <p>B2016962 &copy; 2023 Bản quyền thuộc về Nguyễn Văn Hậu.</p>
+    </footer>
 </body>
 
 </html>
