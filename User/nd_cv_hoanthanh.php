@@ -79,13 +79,15 @@ $nd_ma = $nguoidung['ND_MA'];
 
             </div>
         </div>
+
         <?php
-    $query_cv = "select * from congviec where CV_NTH =$nd_ma and CV_TIENDO  > 0 and CV_TIENDO < 100 and CV_NGAYKETTHUC > NOW()";
+    $query_cv = "select * from congviec where CV_NTH =$nd_ma and CV_TIENDO = 100";
     $ds_cv = mysqli_query($conn, $query_cv);
     $soluong_cv = $ds_cv->num_rows;
     ?>
-        <div class="container w-80 rounded-4 p-2">
-            <h1 class="text-center ">DANH SÁCH CÔNG VIỆC ĐANG THỰC HIỆN</h1>
+        <div class="container  text-dark w-80 rounded-4 p-2">
+
+            <h1 class="text-center ">DANH SÁCH CÔNG VIỆC ĐÃ HOÀN THÀNH</h1>
             <h1 class="text-center ">Tổng số: <?php echo $soluong_cv;?></h1>
         </div>
         <div class="rounded p-4 d-flex justify-content-sm-between">
@@ -93,7 +95,8 @@ $nd_ma = $nguoidung['ND_MA'];
 
         </div>
 
-        <div class="m-4 ms-4 rounded bg-light table_container border border-2">
+
+        <div class="m-4 ms-4 table_container rounded bg-light border border-2">
             <table id="dataTable" class="table text-center align-middle">
                 <thead class="align-middle">
                     <tr>
@@ -103,7 +106,7 @@ $nd_ma = $nguoidung['ND_MA'];
                         <th scope="col">Ngày kết thúc</th>
                         <th scope="col">Tiến độ</th>
                         <th scope="col">Trạng thái</th>
-                        <th class="w-25" scope="col"></th>
+                        <th scope="col"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -133,15 +136,9 @@ while ($cv = mysqli_fetch_assoc($ds_cv)):
                         <td>
                             <?php echo $cv['CV_TRANGTHAICV']; ?>
                         </td>
-                        <td class="w-25">
-                            <button title="Cập nhật tiến độ" type="button" class="btn-success btn" data-toggle="modal" data-target="#myModal">
-                                Cập nhật
-                            </button>
-                            <button title="Cập nhật tiến độ" type="button" class="btn-secondary btn" data-toggle="modal" data-target="#myModal">
+                        <td>
+                            <button title="Chi tiết" type="button" class="btn-secondary btn" data-toggle="modal" data-target="#myModal">
                                 Chi tiết
-                            </button>
-                            <button title="Cập nhật tiến độ" type="button" class="btn-primary btn" data-toggle="modal" data-target="#myModal">
-                                Gia hạn
                             </button>
                         </td>
 
@@ -152,12 +149,13 @@ endwhile;
                 </tbody>
             </table>
         </div>
+        <footer class="footer_container d-flex justify-content-center p-3 text-dark">
+            <p>B2016962 &copy; 2023 Bản quyền thuộc về Nguyễn Văn Hậu.</p>
+        </footer>
     </main>
 
 
-    <footer class="footer_container d-flex justify-content-center p-3 text-dark">
-        <p>B2016962 &copy; 2023 Bản quyền thuộc về Nguyễn Văn Hậu.</p>
-    </footer>
+
 </body>
 <script>
 $(document).ready(function() {

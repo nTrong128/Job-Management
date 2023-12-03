@@ -33,7 +33,7 @@ $nd_ma = $nguoidung['ND_MA'];
                 <i class="fa-solid fs-2 text-light fa-bars"></i>
             </button>
             <div class="container-fluid">
-                <a class="navbar-brand text-white fs-4" href="trangchu.php"><img src="../image/logo.png" style="width: 40px;" class="w3-circle"></a>
+                <a class="navbar-brand text-white fs-4" href="nguoidung.php"><img src="../image/logo.png" style="width: 40px;" class="w3-circle"></a>
                 <a class="navbar-brand text-white fs-2"> QUẢN LÝ CÔNG VIỆC </a>
                 <div class="">
                     <a href="#"><img class="rounded-circle me-4" width="54px" src="../Image/default_avatar.jpg" alt="Profile Picture"></a>
@@ -71,11 +71,11 @@ $nd_ma = $nguoidung['ND_MA'];
                         Công việc
                     </button>
                     <ul class="dropdown-menu w-100 text-center" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item" href="#">Đang chờ</a></li>
-                        <li><a class="dropdown-item" href="#">Đang thực hiện</a></li>
-                        <li><a class="dropdown-item" href="#">Đang giám sát</a></li>
-                        <li><a class="dropdown-item" href="#">Đã hoàn thành</a></li>
-                        <li><a class="dropdown-item" href="#">Quá hạn</a></li>
+                        <li><a class="dropdown-item" href="nd_cv_cho.php">Đang chờ</a></li>
+                        <li><a class="dropdown-item" href="nd_cv_thuchien.php">Đang thực hiện</a></li>
+                        <li><a class="dropdown-item" href="nd_cv_giamsat.php">Đang giám sát</a></li>
+                        <li><a class="dropdown-item" href="nd_cv_hoanthanh.php">Đã hoàn thành</a></li>
+                        <li><a class="dropdown-item" href="nd_cv_quahan.php">Quá hạn</a></li>
                     </ul>
                 </div>
 

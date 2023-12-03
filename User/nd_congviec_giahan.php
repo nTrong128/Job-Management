@@ -77,7 +77,7 @@ if(isset($_POST['submit'])) {
                 <i class="fa-solid fs-2 text-light fa-bars"></i>
             </button>
             <div class="container-fluid">
-                <a class="navbar-brand text-white fs-4" href="trangchu.php"><img src="../image/logo.png" style="width: 60px;" class="w3-circle"></a>
+                <a class="navbar-brand text-white fs-4" href="nguoidung.php"><img src="../image/logo.png" style="width: 60px;" class="w3-circle"></a>
                 <a class="navbar-brand text-white fs-2"> QUẢN LÝ CÔNG VIỆC </a>
 
                 <div class="text-light fs-5">

@@ -289,3 +289,6 @@ tbody {
   width: 80%;
   height: 80%;
 }
+.table_container {
+  min-height: 360px;
+}

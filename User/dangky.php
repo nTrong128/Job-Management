@@ -18,7 +18,7 @@
     <header>
         <nav class="navbar_container navbar  navbar-expand-lg">
             <div class="container-fluid">
-                <a class="navbar-brand text-white fs-2" href="trangchu.php"><img src="../image/logo.png" style="width: 50px;" class="w3-circle"> QUẢN LÝ CÔNG VIỆC</a>
+                <a class="navbar-brand text-white fs-2" href="../index.php"><img src="../image/logo.png" style="width: 50px;" class="w3-circle"> QUẢN LÝ CÔNG VIỆC</a>
                 <a class="btn btn-outline-light px-3 py-3 me-2" href="dangnhap.php" role="button">ĐĂNG NHẬP</a>
             </div>
         </nav>

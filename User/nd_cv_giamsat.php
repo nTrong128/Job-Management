@@ -24,6 +24,7 @@ $nd_ma = $nguoidung['ND_MA'];
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
+
     <title>Công việc</title>
 </head>
 
@@ -79,13 +80,15 @@ $nd_ma = $nguoidung['ND_MA'];
 
             </div>
         </div>
+
         <?php
-    $query_cv = "select * from congviec where CV_NTH =$nd_ma and CV_TIENDO  > 0 and CV_TIENDO < 100 and CV_NGAYKETTHUC > NOW()";
+    $query_cv = "select * from congviec where CV_NGS =$nd_ma and CV_TIENDO < 100 and CV_NGAYKETTHUC > NOW()";
     $ds_cv = mysqli_query($conn, $query_cv);
     $soluong_cv = $ds_cv->num_rows;
     ?>
-        <div class="container w-80 rounded-4 p-2">
-            <h1 class="text-center ">DANH SÁCH CÔNG VIỆC ĐANG THỰC HIỆN</h1>
+        <div class="container  text-dark w-80 rounded-4 p-2">
+
+            <h1 class="text-center ">DANH SÁCH CÔNG VIỆC ĐANG GIÁM SÁT</h1>
             <h1 class="text-center ">Tổng số: <?php echo $soluong_cv;?></h1>
         </div>
         <div class="rounded p-4 d-flex justify-content-sm-between">
@@ -93,7 +96,8 @@ $nd_ma = $nguoidung['ND_MA'];
 
         </div>
 
-        <div class="m-4 ms-4 rounded bg-light table_container border border-2">
+
+        <div class="m-4 ms-4 rounded table_container bg-light border border-2">
             <table id="dataTable" class="table text-center align-middle">
                 <thead class="align-middle">
                     <tr>
@@ -103,7 +107,8 @@ $nd_ma = $nguoidung['ND_MA'];
                         <th scope="col">Ngày kết thúc</th>
                         <th scope="col">Tiến độ</th>
                         <th scope="col">Trạng thái</th>
-                        <th class="w-25" scope="col"></th>
+                        <th scope="col">Người thực hiện</th>
+                        <th scope="col"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -133,15 +138,18 @@ while ($cv = mysqli_fetch_assoc($ds_cv)):
                         <td>
                             <?php echo $cv['CV_TRANGTHAICV']; ?>
                         </td>
-                        <td class="w-25">
-                            <button title="Cập nhật tiến độ" type="button" class="btn-success btn" data-toggle="modal" data-target="#myModal">
-                                Cập nhật
-                            </button>
-                            <button title="Cập nhật tiến độ" type="button" class="btn-secondary btn" data-toggle="modal" data-target="#myModal">
+                        <td>
+                            <?php
+                            $nth_ma = $cv['CV_NTH'];
+                            $query_nth = "select * from nguoidung where ND_MA = $nth_ma";
+                            $nth_query = mysqli_query($conn, $query_nth);
+                            $nth = mysqli_fetch_array($nth_query);
+                            echo $nth['ND_HOTEN'];
+                             ?>
+                        </td>
+                        <td>
+                            <button title="Chi tiết" type="button" class="btn-secondary btn">
                                 Chi tiết
-                            </button>
-                            <button title="Cập nhật tiến độ" type="button" class="btn-primary btn" data-toggle="modal" data-target="#myModal">
-                                Gia hạn
                             </button>
                         </td>
 
@@ -152,12 +160,13 @@ endwhile;
                 </tbody>
             </table>
         </div>
+        <footer class="footer_container d-flex justify-content-center p-3 text-dark">
+            <p>B2016962 &copy; 2023 Bản quyền thuộc về Nguyễn Văn Hậu.</p>
+        </footer>
     </main>
 
 
-    <footer class="footer_container d-flex justify-content-center p-3 text-dark">
-        <p>B2016962 &copy; 2023 Bản quyền thuộc về Nguyễn Văn Hậu.</p>
-    </footer>
+
 </body>
 <script>
 $(document).ready(function() {

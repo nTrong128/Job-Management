@@ -19,7 +19,7 @@
     <header>
         <nav class="navbar navbar-expand custom_navbar_bg fixed-top border-bottom border-light border-3">
             <div class="container-fluid">
-                <a class="navbar-brand text-light fs-2" href="trangchu.php"><img src="../image/logo.png" style="width: 50px;" class="w3-circle"> QUẢN LÝ CÔNG VIỆC</a>
+                <a class="navbar-brand text-light fs-2" href="../index.php"><img src="../image/logo.png" style="width: 50px;" class="w3-circle"> QUẢN LÝ CÔNG VIỆC</a>
                 <a class="btn btn-outline-light px-3 py-3 me-2" href="dangky.php" role="button">ĐĂNG KÝ</a>
             </div>
         </nav>

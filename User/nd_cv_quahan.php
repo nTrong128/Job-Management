@@ -22,6 +22,8 @@ $nd_ma = $nguoidung['ND_MA'];
         crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
     <title>Công việc</title>
 </head>
 
@@ -32,7 +34,7 @@ $nd_ma = $nguoidung['ND_MA'];
                 <i class="fa-solid fs-2 text-light fa-bars"></i>
             </button>
             <div class="container-fluid">
-                <a class="navbar-brand text-white fs-4" href="trangchu.php"><img src="../image/logo.png" style="width: 40px;" class="w3-circle"></a>
+                <a class="navbar-brand text-white fs-4" href="nguoidung.php"><img src="../image/logo.png" style="width: 40px;" class="w3-circle"></a>
                 <a class="navbar-brand text-white fs-2"> QUẢN LÝ CÔNG VIỆC </a>
                 <div class="">
                     <a href="#"><img class="rounded-circle me-4" width="54px" src="../Image/default_avatar.jpg" alt="Profile Picture"></a>
@@ -67,30 +69,34 @@ $nd_ma = $nguoidung['ND_MA'];
                         Công việc
                     </button>
                     <ul class="dropdown-menu w-100 text-center" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item" href="#">Đang chờ</a></li>
-                        <li><a class="dropdown-item" href="#">Đang thực hiện</a></li>
-                        <li><a class="dropdown-item" href="#">Đang giám sát</a></li>
-                        <li><a class="dropdown-item" href="#">Đã hoàn thành</a></li>
-                        <li><a class="dropdown-item" href="#">Quá hạn</a></li>
+                        <li><a class="dropdown-item" href="nd_cv_cho.php">Đang chờ</a></li>
+                        <li><a class="dropdown-item" href="nd_cv_thuchien.php">Đang thực hiện</a></li>
+                        <li><a class="dropdown-item" href="nd_cv_giamsat.php">Đang giám sát</a></li>
+                        <li><a class="dropdown-item" href="nd_cv_hoanthanh.php">Đã hoàn thành</a></li>
+                        <li><a class="dropdown-item" href="nd_cv_quahan.php">Quá hạn</a></li>
                     </ul>
                 </div>
 
             </div>
         </div>
-        <div class="rounded p-4 d-flex justify-content-sm-between">
-            <input class="rounded-2" type="text" id="searchBar" placeholder="Tìm kiếm người dùng.." title="Nhập thông tin người dùng">
-            <a href="ad_nguoidung_them.php" class="btn btn-dark p-3 px-4">Thêm người dùng</a>
-        </div>
+
         <?php
     $query_cv = "select * from congviec where CV_NTH =$nd_ma and CV_TIENDO < 100 and CV_NGAYKETTHUC < NOW()";
     $ds_cv = mysqli_query($conn, $query_cv);
     $soluong_cv = $ds_cv->num_rows;
     ?>
-        <div class="container bg-white w-80 rounded-4 p-2" style="--bs-bg-opacity: .5;">
-            <h2 class="text-center ">DANH SÁCH CÔNG VIỆC ĐÃ QUÁ HẠN</h2>
-            <h2 class="text-center ">Tổng số người dùng: <?php echo $soluong_cv;?></h2>
+        <div class="container  text-dark w-80 rounded-4 p-2">
+
+            <h1 class="text-center ">DANH SÁCH CÔNG VIỆC ĐÃ QUÁ HẠN</h1>
+            <h1 class="text-center ">Tổng số: <?php echo $soluong_cv;?></h1>
         </div>
-        <div class="m-4 ms-4 rounded bg-light border border-2">
+        <div class="rounded p-4 d-flex justify-content-sm-between">
+            <input class="rounded-2" type="text" id="searchBar" placeholder="Tìm kiếm người dùng.." title="Nhập thông tin người dùng">
+
+        </div>
+
+
+        <div class="m-4 ms-4 rounded bg-light border border-2 table_container">
             <table id="dataTable" class="table text-center align-middle">
                 <thead class="align-middle">
                     <tr>
@@ -131,8 +137,11 @@ while ($cv = mysqli_fetch_assoc($ds_cv)):
                             <?php echo $cv['CV_TRANGTHAICV']; ?>
                         </td>
                         <td>
+                            <button title="Cập nhật tiến độ" type="button" class="btn-secondary btn" data-toggle="modal" data-target="#myModal">
+                                Chi tiết
+                            </button>
                             <button title="Cập nhật tiến độ" type="button" class="btn-primary btn" data-toggle="modal" data-target="#myModal">
-                                Cập nhật tiến độ
+                                Gia hạn
                             </button>
                         </td>
 
@@ -143,12 +152,13 @@ endwhile;
                 </tbody>
             </table>
         </div>
+        <footer class="footer_container d-flex justify-content-center p-3 text-dark">
+            <p>B2016962 &copy; 2023 Bản quyền thuộc về Nguyễn Văn Hậu.</p>
+        </footer>
     </main>
 
 
-    <footer class="footer_container d-flex justify-content-center p-3 text-dark">
-        <p>B2016962 &copy; 2023 Bản quyền thuộc về Nguyễn Văn Hậu.</p>
-    </footer>
+
 </body>
 <script>
 $(document).ready(function() {
