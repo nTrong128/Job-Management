@@ -1,4 +1,15 @@
-<?php include_once '../condb/condb.php'; ?>
+<?php include_once '../condb/condb.php';
+if ((!isset($_SESSION['nguoidung']))) {
+    session_destroy();
+    unset($_SESSION['nguoidung']);
+    header("location: ../index.php");
+}
+$email = $_SESSION['nguoidung'];
+$query = "select * from nguoidung where ND_EMAIL ='$email'";
+$sql = mysqli_query($conn, $query);
+$nguoidung = mysqli_fetch_assoc($sql);
+$nd_ma = $nguoidung['ND_MA'];
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,7 +35,10 @@
             <div class="container-fluid">
                 <a class="navbar-brand text-white fs-4" href="trangchu.php"><img src="../image/logo.png" style="width: 40px;" class="w3-circle"></a>
                 <a class="navbar-brand text-white fs-2"> QUẢN LÝ CÔNG VIỆC </a>
-                <a class="btn btn-outline-light px-2 py-2 me-2" href="dangxuat.php" role="button">ĐĂNG XUẤT</a>
+                <div class="">
+                    <a href="#"><img class="rounded-circle me-4" width="54px" src="../Image/default_avatar.jpg" alt="Profile Picture"></a>
+                    <a class="btn btn-outline-light px-2 py-2 me-2" href="dangxuat.php" role="button">ĐĂNG XUẤT</a>
+                </div>
             </div>
             </div>
         </nav>
@@ -33,19 +47,11 @@
     <main>
 
 
-        <div class="offcanvas offcanvas-start" tabindex="-1" id="sidebar_content" aria-labelledby="offcanvasExampleLabel">
+        <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="sidebar_content" aria-labelledby="offcanvasExampleLabel">
             <div class="offcanvas-header custom-bg text-light">
-                <h5 class="offcanvas-title" id="offcanvasExampleLabel">
-                    <?php  if (isset($_SESSION['nguoidung'])): ?>
-                    <?php
-                        $email = $_SESSION['nguoidung'];
-                        $query = "select * from nguoidung where ND_EMAIL ='$email'";
-                        $sql = mysqli_query($conn, $query);
-                        $nguoidung = mysqli_fetch_assoc($sql);
-                        $nd_ma = $nguoidung['ND_MA'];
-                        echo $nguoidung['ND_HOTEN']; ?>
-                    <?php endif ?>
-                </h5>
+                <h3 class="offcanvas-title" id="offcanvasExampleLabel">
+                    <?php echo $nguoidung['ND_HOTEN'];?>
+                </h3>
 
                 <button type="button" class="btn" data-bs-dismiss="offcanvas" aria-label="Close">
                     <i class="fa-solid fa-xmark fa-2xl" style="color: #ffffff;"></i>
@@ -339,6 +345,30 @@ mysqli_close($conn);
             }
         }
     });
+    </script>
+    <script>
+    var prevScrollpos = window.pageYOffset;
+
+    /* Get the header element and it's position */
+    var headerDiv = document.querySelector("nav");
+    var headerBottom = headerDiv.offsetTop + headerDiv.offsetHeight;
+
+    window.onscroll = function() {
+        var currentScrollPos = window.pageYOffset;
+
+        /* if scrolling down, let it scroll out of view as normal */
+        if (prevScrollpos <= currentScrollPos) {
+            headerDiv.classList.remove("fixed-top");
+            headerDiv.style.top = "-7.2rem";
+        }
+        /* otherwise if we're scrolling up, fix the nav to the top */
+        else {
+            headerDiv.classList.add("fixed-top");
+            headerDiv.style.top = "0";
+        }
+
+        prevScrollpos = currentScrollPos;
+    }
     </script>
 </body>
 

@@ -203,7 +203,7 @@ echo $lcv['LCV_TEN'];
                     </div>
                     <div class="btn_form">
                         <a href="nguoidung.php" style="width:50%" class="btn  btn-dark">Quay lại</a>
-                        <a href="nd_congviec_sua.php?capnhat_ma=<?php echo $ma?>" style="width:50%" class="btn mx-2 btn-success">Nhận</a>
+                        <!-- <a href="nd_congviec_sua.php?capnhat_ma=<?php echo $ma?>" style="width:50%" class="btn mx-2 btn-success">Cập nhật</a> -->
                     </div>
                 </div>
             </form>

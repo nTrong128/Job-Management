@@ -16,7 +16,7 @@
 
 <body>
     <header>
-        <nav class="navbar_container navbar navbar-expand-lg">
+        <nav class="navbar navbar-expand custom_navbar_bg fixed-top border-bottom border-light border-3">
             <div class="container-fluid">
                 <a class="navbar-brand text-white fs-2" href="index.php"><img src="./image/logo.png" style="width: 50px" class="w3-circle" />
                     QUẢN LÝ CÔNG VIỆC</a>
