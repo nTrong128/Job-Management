@@ -134,128 +134,103 @@ else:?><h5 class="card-title m-0"><?php echo "Tạm thời không có thông bá
                 </div>
             </div>
         </div>
+
         <div class="form_center">
-            <form id="form" name="form" method="post" onsubmit="return validateForm()" class="form ">
-                <div class="navbar_container p-5 py-4 m-2 border border-2 rounded">
-                    <h1 class="text-light text-center">TẠO CÔNG VIỆC</h1>
-                    <hr class="text-dark border border-2 rounded " style="border-top: 4px solid white">
-                    <div class="row p-2 my-1 rounded">
-                        <div class="col p-1  text-light">
-                            <label for="loai">Loại công việc:</label>
-                        </div>
-                        <div class="col p-1 ">
-                            <select class="form-control" name="loai">
-                                <?php
+            <div class="rounded bg-white mb-5 form_container">
+
+                <div class="p-3 my-5">
+                    <div class="d-flex justify-content-center align-items-center mb-3">
+                        <h5 class=" text-center">Thêm công việc mới</h5>
+                    </div>
+                    <form id="form" name="form" method="POST" class="form form_admin">
+                        <div class="col mt-2">
+                            <div class="col"><label for="loai" class="labels">Loại công việc</label>
+                                <select class="form-control" name="loai" required id="loai" class="form-control" placeholder="Loại công việc">
+                                    <?php
 while ($loai = mysqli_fetch_assoc($tatcaloai)):
     ;
     ?>
-                                <option value="<?php echo $loai['LCV_MA'];
+                                    <option value="<?php echo $loai['LCV_MA'];
     ?>">
-                                    <?php echo $loai['LCV_TEN'];
+                                        <?php echo $loai['LCV_TEN'];
     ?>
-                                </option>
-                                <?php
+                                    </option>
+                                    <?php
 endwhile;
 ?>
-                            </select>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="mt-2 col">
+                                <label class="labels" for="ten">Tên công việc</label>
+                                <input required type="text" id="ten" name="ten" class="form-control" placeholder="Nhập tên công việc">
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="mt-2 col"><label for="ngaybatdau" class="labels">Ngày bắt đầu</label>
+                                <input required type="date" min='1899-01-01' max='2100-01-01' id="ngaybatdau" name="ngaybatdau" class="form-control" placeholder="Ngày bắt đầu">
+                            </div>
+                            <div class="mt-2 col"><label for="ngayketthuc" class="labels">Ngày kết thúc</label>
+                                <input required type="date" min='1899-01-01' max='2100-01-01' id="ngayketthuc" name="ngayketthuc" class="form-control" placeholder="Ngày kết thúc">
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="mt-2 col"><label class="labels" for="noidung">Nội dung công việc</label><textarea required type="text" id="noidung" name="noidung" rows=4 class="form-control"
+                                    placeholder="Nhập nội dung"></textarea>
+                            </div>
+                        </div>
 
-                        </div>
-                    </div>
-                    <div class="row p-2 my-1 rounded">
-                        <div class="col p-1  text-light">
-                            <label class="" for="text">Tên công việc:</label>
-                        </div>
-                        <div class="col p-1 ">
-                            <input class="form-control" type="text" placeholder="Nhập tên công việc" name="ten" id="ten" required>
-                        </div>
-                    </div>
 
-                    <div class="row p-2 my-1 rounded">
-                        <div class="col p-1  text-light">
-                            <label for="ngaybatdau">Ngày bắt đầu:</label>
-                        </div>
-                        <div class="col p-1 ">
-                            <input class="form-control" type="date" placeholder="Điền ngày bắt đầu công việc" name="ngaybatdau" id="ngaybatdau" required>
-                        </div>
-                    </div>
-                    <div class="row p-2 my-1 rounded">
-                        <div class="col p-1  text-light">
-                            <label for="ngayketthuc">Ngày kết thúc:</label>
-                        </div>
-                        <div class="col p-1 ">
-                            <input class="form-control" type="date" placeholder="Điền ngày kết thúc công việc" name="ngayketthuc" id="ngayketthuc" required>
-                        </div>
-                    </div>
-
-                    <div class="row p-2 my-1 rounded">
-                        <div class="col p-1  text-light">
-                            <label class="" for="text">Nhập nội dung:</label>
-                        </div>
-                        <div class="col p-1 ">
-                            <textarea class="form-control" name="noidung" id="noidung" placeholder="Nội dung" rows="3"></textarea>
-                        </div>
-                    </div>
-                    <div class="row p-2 my-1 rounded">
-                        <div class="col p-1  text-light">
-                            <label for="nguoithuchien">Người thực hiện:</label>
-                        </div>
-                        <div class="col p-1 ">
-                            <select class="form-control" name="nguoithuchien">
-                                <?php
+                        <div class="row mt-2">
+                            <div class="mt-2 col"><label class="labels" for="nguoithuchien">Người thực hiện</label>
+                                <select required class="form-control" id="nguoithuchien" name="nguoithuchien" placeholder="Người thực hiện">
+                                    <?php
                                 $query_nguoidung = "SELECT * FROM nguoidung";
 $ds_nguoidung = mysqli_query($conn, $query_nguoidung);
 while ($nguoidung = mysqli_fetch_assoc($ds_nguoidung)):
     ;
     ?>
-                                <option value="<?php echo $nguoidung['ND_MA'];
+                                    <option value="<?php echo $nguoidung['ND_MA'];
     ?>">
-                                    <?php echo $nguoidung['ND_HOTEN'];
+                                        <?php echo $nguoidung['ND_HOTEN'];
     ?>
-                                </option>
-                                <?php
+                                    </option>
+                                    <?php
 endwhile;
 ?>
-                            </select>
+                                </select>
+                            </div>
 
                         </div>
-                    </div>
-
-                    <div class="row p-2 my-1 rounded">
-                        <div class="col p-1  text-light">
-                            <label for="nguoigiamsat">Người giám sát:</label>
-                        </div>
-                        <div class="col p-1 ">
-                            <select class="form-control" name="nguoigiamsat">
-                                <?php
+                        <div class="row mt-2">
+                            <div class="mt-2 col">
+                                <label class="labels">Người giám sát</label>
+                                <select required class="form-control" id="nguoigiamsat" name="nguoigiamsat" placeholder="Người giám sát>
+                                    <?php
 $query_nguoidung = "SELECT * FROM nguoidung";
 $ds_nguoidung = mysqli_query($conn, $query_nguoidung);
 while ($nguoidung = mysqli_fetch_assoc($ds_nguoidung)):
     ;
     ?>
-                                <option value="<?php echo $nguoidung['ND_MA'];
+                                    <option value=" <?php echo $nguoidung['ND_MA'];
     ?>">
                                     <?php echo $nguoidung['ND_HOTEN'];
     ?>
-                                </option>
-                                <?php
+                                    </option>
+                                    <?php
 endwhile;
 ?>
-                            </select>
+                                </select>
+                            </div>
 
                         </div>
-                    </div>
-
-
-
-
-
-
-                    <div class="btn_form ">
-                        <button style="width:100%" type="submit" class="btn  btn-dark" name="taocongviec">Tạo công
-                            việc</button>
-                    </div>
+                        <div class="mt-5 text-center">
+                            <button class="btn btn-primary profile-button w-50" name="taocongviec" type="taocongviec">Thêm</button>
+                        </div>
+                    </form>
                 </div>
-            </form>
+            </div>
         </div>
     </main>
     <footer class="footer_container d-flex justify-content-center p-3 text-dark">

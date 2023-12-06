@@ -289,3 +289,13 @@ tbody {
 .homepage_link:hover {
   color: #ccc;
 }
+
+.form_container {
+  width: 50%;
+}
+
+@media only screen and (max-width: 600px) {
+  .form_container {
+    width: 80%;
+  }
+}

@@ -107,7 +107,7 @@ else:?><h5 class="card-title m-0"><?php echo "Tạm thời không có thông bá
     <main>
 
         <div class="form_center">
-            <div class=" rounded bg-white mb-5">
+            <div class="rounded bg-white mb-5 form_container">
 
                 <div class="p-3 py-5">
                     <div class="d-flex justify-content-center align-items-center mb-3">
@@ -156,7 +156,6 @@ else:?><h5 class="card-title m-0"><?php echo "Tạm thời không có thông bá
                     </form>
                 </div>
             </div>
-
         </div>
     </main>
 

@@ -137,29 +137,28 @@ else:?><h5 class="card-title m-0"><?php echo "Tạm thời không có thông bá
 
             </div>
         </div>
+
+
         <div class="form_center">
-            <form id="form" name="form" method="post" onsubmit="return validateForm()" class="form">
-                <div class="container p-5 py-4 m-2 border border-2 rounded">
-                    <h1 class="text-light text-center">TẠO CÔNG VIỆC</h1>
-                    <hr class="text-dark border border-2 rounded " style="border-top: 4px solid white">
+            <div class="rounded bg-white mb-5 form_container">
 
-                    <div class="row p-2 my-1 rounded">
-                        <div class="col p-1  text-light">
-                            <label class="" for="text">Tên loại công việc:</label>
-                        </div>
-                        <div class="col p-1 ">
-                            <input class="form-control" type="text" placeholder="Nhập tên loại công việc" name="ten" id="ten" required>
-                        </div>
+                <div class="p-3 my-5">
+                    <div class="d-flex justify-content-center align-items-center mb-3">
+                        <h5 class=" text-center">Thêm công việc mới</h5>
                     </div>
-
-
-
-
-                    <div class="btn_form ">
-                        <button style="width:100%" type="submit" class="btn  btn-dark" name="taoloaicongviec">Tạo loại công việc</button>
-                    </div>
+                    <form id="form" name="form" method="POST" class="form form_admin">
+                        <div class="row mt-2">
+                            <div class="mt-2 col">
+                                <label class="labels" for="ten">Tên loại công việc</label>
+                                <input class="form-control" type="text" placeholder="Nhập tên loại công việc" name="ten" id="ten" required>
+                            </div>
+                        </div>
+                        <div class="mt-5 text-center">
+                            <button class="btn btn-primary profile-button w-50" name="taoloaicongviec" type="taoloaicongviec">Thêm</button>
+                        </div>
+                    </form>
                 </div>
-            </form>
+            </div>
         </div>
     </main>
 

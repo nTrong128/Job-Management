@@ -145,124 +145,93 @@ else:?><h5 class="card-title m-0"><?php echo "Tạm thời không có thông bá
                 </div>
             </div>
         </div>
-        <div class="form_center">
-            <form id="form" name="form" method="post" onsubmit="return validateForm()" class="form">
-                <div class="container p-5 py-4 m-2 border border-2 rounded">
-                    <h1 class="text-light text-center">XEM CHI TIẾT CÔNG VIỆC</h1>
-                    <hr class="text-dark border border-2 rounded " style="border-top: 4px solid white">
 
-                    <div class="row p-2 my-1 rounded">
-                        <div class="col p-1  text-light">
-                            <label class="" for="text">Tên công việc:</label>
-                        </div>
-                        <div class="col p-1 ">
-                            <input readonly class="form-control" type="text" placeholder="Nhập tên công việc" name="ten" id="ten" value="<?php echo $congviec['CV_TEN'];?> ">
-                        </div>
+        <div class="form_center my-5">
+            <div class="rounded bg-white mb-5 form_container">
+
+                <div class="p-3 my-5">
+                    <div class="d-flex justify-content-center align-items-center mb-3">
+                        <h5 class=" text-center">Thêm công việc mới</h5>
                     </div>
-
-                    <div class="row p-2 my-1 rounded">
-                        <div class="col p-1  text-light">
-                            <label for="ngaybatdau">Ngày bắt đầu:</label>
-                        </div>
-                        <div class="col p-1 ">
-                            <input readonly class="form-control" type="" placeholder="Điền ngày bắt đầu công việc" name="ngaybatdau" id="ngaybatdau" value="<?php echo $congviec['CV_NGAYBATDAU'];?> ">
-                        </div>
-                    </div>
-                    <div class="row p-2 my-1 rounded">
-                        <div class="col p-1  text-light">
-                            <label for="ngayketthuc">Ngày kết thúc:</label>
-                        </div>
-                        <div class="col p-1 ">
-                            <input readonly class="form-control" type="" name="ngayketthuc" id="ngayketthuc" value="<?php echo $congviec['CV_NGAYKETTHUC'];?> ">
-                        </div>
-                    </div>
-
-                    <div class="row p-2 my-1 rounded">
-                        <div class="col p-1  text-light">
-                            <label class="" for="text">Nội dung:</label>
-                        </div>
-                        <div class="col p-1 ">
-                            <textarea readonly class="form-control" name="noidung" id="noidung" rows="3"><?php echo $congviec['CV_NOIDUNG'];?></textarea>
-                        </div>
-                    </div>
-                    <div class="row p-2 my-1 rounded">
-                        <div class="col p-1  text-light">
-                            <label class="" for="text">Tiến độ:</label>
-                        </div>
-                        <div class="col p-1 ">
-                            <input readonly type="number" min="0" max="100" class="form-control" name="tiendo" id="tiendo" rows="3" value=<?php echo $congviec['CV_TIENDO'];?>></input>
-                        </div>
-                    </div>
-                    <div class="row p-2 my-1 rounded">
-                        <div class="col p-1  text-light">
-                            <label class="" for="trangthai">Trạng thái:</label>
-                        </div>
-                        <div class="col p-1 ">
-                            <input readonly type="text" min="<?php echo $congviec['CV_TRANGTHAICV'];?>" max="100" class="form-control" name="trangthai" id="trangthai" rows="3"
-                                value=<?php echo $congviec['CV_TRANGTHAICV'];?>></input>
-                        </div>
-                    </div>
-                    <div class="row p-2 my-1 rounded">
-                        <div class="col p-1  text-light">
-                            <label for="nguoithuchien">Người thực hiện:</label>
-                        </div>
-                        <div class="col p-1 ">
-                            <input readonly type="text" class="form-control" name="nguoithuchien" value="<?php $user_id = $congviec['CV_NTH'];
-$query_nguoidung = "SELECT * FROM nguoidung WHERE ND_MA='$user_id'";
-$nguoidung_data = mysqli_query($conn, $query_nguoidung);
-$nguoidung = mysqli_fetch_array($nguoidung_data);
-echo $nguoidung['ND_HOTEN'];?> ">
-
-                        </div>
-                    </div>
-
-                    <div class="row p-2 my-1 rounded">
-                        <div class="col p-1  text-light">
-                            <label for="nguoigiamsat">Người giám sát:</label>
-                        </div>
-                        <div class="col p-1 ">
-                            <input readonly type="text" class="form-control" name="nguoigiamsat" value="<?php
-                            $user_id = $congviec['CV_NGS'];
-$query_nguoidung = "SELECT * FROM nguoidung WHERE ND_MA='$user_id'";
-$nguoidung_data = mysqli_query($conn, $query_nguoidung);
-$nguoidung = mysqli_fetch_array($nguoidung_data);
-echo $nguoidung['ND_HOTEN'];
-?> ">
-
-                        </div>
-                    </div>
-
-
-
-
-
-                    <div class="row p-2 my-1 rounded">
-                        <div class="col p-1  text-light">
-                            <label for="loai">Loại công việc:</label>
-                        </div>
-                        <div class="col p-1">
-                            <input readonly type="text" class="form-control" name="loaicongviec" value="<?php
+                    <form id="form" name="form" method="POST" class="form form_admin">
+                        <div class="col mt-2">
+                            <div class="col"><label for="loai" class="labels">Loại công việc</label>
+                                <input readonly type="text" class="form-control" name="loaicongviec" value="<?php
 $lcv_ma = $congviec['LCV_MA'];
 $query_lcv = "SELECT * FROM loaicongviec WHERE LCV_MA='$lcv_ma'";
 $lcv_data = mysqli_query($conn, $query_lcv);
 $lcv = mysqli_fetch_array($lcv_data);
 echo $lcv['LCV_TEN'];
 ?>">
+                            </div>
                         </div>
-                    </div>
-                    <div class="row p-2 my-1 rounded">
-                        <div class="col p-1  text-light">
-                            <label for="ngayketthuc">Ngày tạo:</label>
+                        <div class="row mt-2">
+                            <div class="mt-2 col">
+                                <label class="labels" for="ten">Tên công việc</label>
+                                <input readonly class="form-control" type="text" placeholder="Nhập tên công việc" name="ten" id="ten" value="<?php echo $congviec['CV_TEN'];?>">
+
+                            </div>
                         </div>
-                        <div class="col p-1 ">
-                            <input readonly class="form-control" type="" name="ngayketthuc" id="ngayketthuc" value="<?php echo $congviec['CV_NGAYTAO'];?> ">
+                        <div class="row mt-2">
+                            <div class="mt-2 col"><label for="ngaybatdau" class="labels">Ngày bắt đầu</label>
+                                <input readonly required type="date" id="ngaybatdau" name="ngaybatdau" class="form-control" placeholder="Ngày bắt đầu" value="<?php echo $congviec['CV_NGAYBATDAU'];?>">
+                            </div>
+                            <div class="mt-2 col"><label for="ngayketthuc" class="labels">Ngày kết thúc</label>
+                                <input readonly required type="date" id="ngayketthuc" name="ngayketthuc" class="form-control" placeholder="Ngày kết thúc"
+                                    value="<?php echo $congviec['CV_NGAYKETTHUC'];?>">
+                            </div>
                         </div>
-                    </div>
-                    <div class="btn_form ">
-                        <a href="ad_congviec_ds.php" style="width:100%" class="btn  btn-dark">Quay lại</a>
-                    </div>
+                        <div class="row mt-2">
+                            <div class="mt-2 col"><label class="labels" for="noidung">Nội dung công việc</label><textarea readonly required type="text" id="noidung" name="noidung" rows=4
+                                    class="form-control" placeholder="Nhập nội dung"><?php echo $congviec['CV_NOIDUNG'];?></textarea>
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="mt-2 col"><label for="tiendo" class="labels">Tiến độ</label>
+                                <input readonly type="number" min="0" max="100" class="form-control" name="tiendo" id="tiendo" rows="3" value=<?php echo $congviec['CV_TIENDO'];?>></input>
+                            </div>
+                            <div class="mt-2 col"><label for="trangthai" class="labels">Trạng thái</label>
+                                <input readonly type="text" min="<?php echo $congviec['CV_TRANGTHAICV'];?>" max="100" class="form-control" name="trangthai" id="trangthai" rows="3"
+                                    value=<?php echo $congviec['CV_TRANGTHAICV'];?>></input>
+                            </div>
+                        </div>
+
+                        <div class="row mt-2">
+                            <div class="mt-2 col"><label class="labels" for="nguoithuchien">Người thực hiện</label>
+                                <input readonly type="text" class="form-control" name="nguoithuchien" value="<?php $user_id = $congviec['CV_NTH'];
+$query_nguoidung = "SELECT * FROM nguoidung WHERE ND_MA='$user_id'";
+$nguoidung_data = mysqli_query($conn, $query_nguoidung);
+$nguoidung = mysqli_fetch_array($nguoidung_data);
+echo $nguoidung['ND_HOTEN'];?> ">
+                            </div>
+
+                        </div>
+                        <div class="row mt-2">
+                            <div class="mt-2 col">
+                                <label class="labels">Người giám sát</label>
+                                <input readonly type="text" class="form-control" name="nguoigiamsat" value="<?php
+                            $user_id = $congviec['CV_NGS'];
+$query_nguoidung = "SELECT * FROM nguoidung WHERE ND_MA='$user_id'";
+$nguoidung_data = mysqli_query($conn, $query_nguoidung);
+$nguoidung = mysqli_fetch_array($nguoidung_data);
+echo $nguoidung['ND_HOTEN'];
+?> ">
+                            </div>
+
+                        </div>
+                        <div class="row mt-2">
+                            <div class="mt-2 col"><label for="ngaytao" class="labels">Ngày tạo</label>
+                                <input readonly required id="ngaytao" name="ngaytao" class="form-control" placeholder="Ngày tạo" value="<?php echo $congviec['CV_NGAYTAO'];?>">
+                            </div>
+
+                        </div>
+                        <div class="d-flex mt-5 text-center justify-content-center">
+                            <a href="ad_congviec_sua.php?sua_ma=<?php echo $ma?>" class="btn btn-primary profile-button mx-2 w-25 ">Cập nhật</a>
+                            <a href="ad_congviec_ds.php" class="btn btn-primary profile-button mx-2 w-25 " name="taocongviec" type="taocongviec">Quay lại</a>
+                        </div>
+                    </form>
                 </div>
-            </form>
+            </div>
         </div>
     </main>
     <footer class="footer_container d-flex justify-content-center p-3 text-dark">
