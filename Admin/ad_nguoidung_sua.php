@@ -259,6 +259,7 @@ else:?><h5 class="card-title m-0"><?php echo "Tạm thời không có thông bá
         str = str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, "u");
         str = str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, "y");
         str = str.replace(/đ/g, "d");
+
         return str;
     }
 

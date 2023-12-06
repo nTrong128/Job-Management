@@ -26,13 +26,12 @@ if (isset($_POST['dangky'])) {
     $sdt = $_POST["sdt"];
     $email = $_POST["email"];
     $mscb = $_POST["mscb"];
-    $password = $_POST["passwd"];
-    $_POST["passwd"] != $_POST["passwd2"];
-    if (!empty($username) && !empty($name) && !empty($diachi) && !empty($sdt) && !empty($email) && !empty($mscb) && !empty($password)) {
-        echo "<pre>";
-        print_r($_POST);
-        $sql = "INSERT INTO nguoidung (ND_HOTEN, ND_DIACHI, ND_SDT, ND_EMAIL,ND_MSCB, ND_MATKHAU) VALUES ('" . $_POST["name"] . "',
-                '" . $_POST["diachi"] . "', '" . $_POST["sdt"] . "', '" . $_POST["email"] . "','" . $_POST["mscb"] . "' , '" . md5($_POST["passwd"]) . "')";
+    $ngaysinh = $_POST["ngaysinh"];
+    $password = $_POST["pass1"];
+    $repassword = $_POST["pass2"];
+    if ($password == $repassword) {
+        $password = md5($password);
+        $sql = "INSERT INTO nguoidung (ND_HOTEN, ND_NGAYSINH, ND_DIACHI, ND_SDT, ND_EMAIL,ND_MSCB, ND_MATKHAU) VALUES ('$name','$ngaysinh', '$diachi', '$sdt', '$email', '$mscb', '$password')";
         $query = mysqli_query($conn, $sql);
         if ($query) {
             $_SESSION['username'] = $email;
@@ -53,13 +52,12 @@ if (isset($_POST['them'])) {
     $sdt = $_POST["sdt"];
     $email = $_POST["email"];
     $mscb = $_POST["mscb"];
-    $password = $_POST["passwd"];
-    $_POST["passwd"] != $_POST["passwd2"];
-    if (!empty($username) && !empty($name) && !empty($diachi) && !empty($sdt) && !empty($email) && !empty($mscb) && !empty($password)) {
-        echo "<pre>";
-        print_r($_POST);
-        $sql = "INSERT INTO nguoidung (ND_HOTEN, ND_DIACHI, ND_SDT, ND_EMAIL,ND_MSCB, ND_MATKHAU) VALUES ('" . $_POST["name"] . "',
-                '" . $_POST["diachi"] . "', '" . $_POST["sdt"] . "', '" . $_POST["email"] . "','" . $_POST["mscb"] . "' , '" . md5($_POST["passwd"]) . "')";
+    $ngaysinh = $_POST["ngaysinh"];
+    $password = $_POST["pass1"];
+    $repassword = $_POST["pass2"];
+    if ($password == $repassword) {
+        $password = md5($password);
+        $sql = "INSERT INTO nguoidung (ND_HOTEN, ND_NGAYSINH, ND_DIACHI, ND_SDT, ND_EMAIL,ND_MSCB, ND_MATKHAU) VALUES ('$name','$ngaysinh', '$diachi', '$sdt', '$email', '$mscb', '$password')";
         $query = mysqli_query($conn, $sql);
         if ($query) {
             header('Location: ad_nguoidung_ds.php');
@@ -189,32 +187,8 @@ if (isset($_POST['taoloaicongviec'])) {
     }
 }
 
-
 function alert_and_redirect($msg, $location)
 {
     echo "<script>alert('$msg');document.location='$location'</script>";
 
-}
-
-function layBaoCaoTheoThang($loai, $thang) {
-    switch ($loai) {
-        case 'Working':
-            $sql = "SELECT EXTRACT(MONTH FROM CV_NGAYBATDAU) AS Month, count(*) FROM congviec where CV_TIENDO = 100 GROUP BY Month;";
-            
-            break;
-        case 'Done':
-            // 
-            break;
-        case 'Timeout':
-            // 
-            break;
-        default:
-        break;
-    }
-
-    $sql = "SELECT * FROM congviec WHERE CV_TRANGTHAICV = 'Đang chờ' AND LCV_MA = '$loai' AND MONTH(CV_NGAYBATDAU) = '$thang'";
-    $result = mysqli_query($conn, $sql);
-    $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
-    $count = mysqli_num_rows($result);
-    return $count;
 }

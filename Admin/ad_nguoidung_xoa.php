@@ -8,7 +8,7 @@ if(isset($_REQUEST['xoa_ma']) and $_REQUEST['xoa_ma'] != "") {
         $sql = "DELETE FROM nguoidung WHERE ND_MA='$ma'";
         $query = mysqli_query($conn, $sql);
     }catch (mysqli_sql_exception $e) {
-        alert_and_redirect("Không thể xoá người dùng này","ad_nguoidung_ds.php");
+        alert_and_redirect("Không thể xoá người dùng này!!!","ad_nguoidung_ds.php");
         exit;
 
     }

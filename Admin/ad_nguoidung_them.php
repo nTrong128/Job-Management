@@ -107,73 +107,56 @@ else:?><h5 class="card-title m-0"><?php echo "Tạm thời không có thông bá
     <main>
 
         <div class="form_center">
-            <form id="form" name="form" method="post" onsubmit="return validateForm()" class="form">
-                <div class="container p-5 py-4 m-2 border border-2 rounded">
-                    <h1 class="text-light text-center">THÊM TÀI KHOẢN</h1>
-                    <hr class="text-dark border border-2 rounded " style="border-top: 4px solid white">
+            <div class=" rounded bg-white mb-5">
 
-                    <div class="row p-2 my-1 rounded">
-                        <div class="col p-1  text-light">
-                            <label for="name">Điền họ và tên:</label>
-                        </div>
-                        <div class="col p-1 ">
-                            <input class="form-control" type="text" placeholder="Họ và tên" name="name" id="name" required>
-                        </div>
+                <div class="p-3 py-5">
+                    <div class="d-flex justify-content-center align-items-center mb-3">
+                        <h5 class=" text-center">Thêm người dùng mới</h5>
                     </div>
-                    <div class="row p-2 my-1 rounded">
-                        <div class="col p-1   text-light">
-                            <label for="diachi">Địa chỉ:</label>
+                    <form id="form" name="form" method="POST" class="form form_admin">
+                        <div class="col mt-2">
+                            <div class="col"><label for="name" class="labels">Họ và tên</label><input type="text" required name="name" id="name" class="form-control" placeholder="Họ và tên">
+                            </div>
                         </div>
-                        <div class="col p-1 ">
-                            <input class="form-control" type="text" name="diachi" id="diachi" placeholder="Nhập địa chỉ của bạn" required>
+                        <div class="row mt-2">
+                            <div class="mt-2 col">
+                                <label class="labels">Email</label>
+                                <input required type="text" id="email" name="email" class="form-control" placeholder="Email">
+                            </div>
                         </div>
-                    </div>
-                    <div class="row p-2 my-1 rounded">
-                        <div class="col p-1  text-light">
-                            <label for="sdt">Số điện thoại:</label>
+                        <div class="row mt-2">
+                            <div class="mt-2 col"><label for="ngaysinh" class="labels">Ngày sinh</label>
+                                <input id="ngaysinh" required type="date" min='1899-01-01' max='2100-01-01' name="ngaysinh" class="form-control" placeholder="Ngày sinh">
+                            </div>
+                            <div class="mt-2 col"><label class="labels">Số điện thoại</label>
+                                <input required type="text" id="sdt" name="sdt" class="form-control" placeholder="Số điện thoại">
+                            </div>
                         </div>
-                        <div class="col p-1 ">
-                            <input class="form-control" type="tel" name="sdt" id="sdt" placeholder="Nhập số điện thoại" required>
+                        <div class="row mt-2">
+                            <div class="mt-2 col"><label class="labels">Địa chỉ</label><input required type="text" id="diachi" name="diachi" class="form-control" placeholder="Địa chỉ">
+                            </div>
                         </div>
-                    </div>
-                    <div class="row p-2 my-1 rounded">
-                        <div class="col p-1  text-light">
-                            <label for="email">Email:</label>
-                        </div>
-                        <div class="col p-1 ">
-                            <input class="form-control" type="text" placeholder="Nhập email" name="email" id="email" required>
-                        </div>
-                    </div>
-                    <div class="row p-2 my-1 rounded">
-                        <div class="col p-1  text-light">
-                            <label for="mscb">Mã số cán bộ:</label>
-                        </div>
-                        <div class="col p-1  ">
-                            <input class="form-control" type="text" placeholder="Nhập mã số cán bộ:" name="mscb" id="mscb" required>
-                        </div>
-                    </div>
-                    <div class="row p-2 my-1 rounded">
-                        <div class="col p-1  text-light">
-                            <label for="passwd">Mật khẩu:</label>
-                        </div>
-                        <div class="col p-1 ">
-                            <input class="form-control" type="password" placeholder="Mật khẩu" name="passwd" id="passwd" required>
-                        </div>
-                    </div>
-                    <div class="row p-2 my-1 rounded">
-                        <div class="col p-1  text-light">
-                            <label for="passwd2">Xác nhận mật khẩu:</label>
-                        </div>
-                        <div class="col p-1 ">
-                            <input class="form-control" type="password" placeholder="Xác nhận mật khẩu" name="passwd2" id="passwd2" required>
-                        </div>
-                    </div>
 
-                    <div class="btn_form ">
-                        <button style="width:100%" type="submit" class="btn  btn-dark" name="them">THÊM</button>
-                    </div>
+
+                        <div class="row mt-2">
+                            <div class="mt-2 col"><label class="labels">MSCB</label><input required type="text" id="mscb" name="mscb" class="form-control" placeholder="MSCB">
+                            </div>
+
+                        </div>
+                        <div class="row mt-2">
+                            <div class="mt-2 col"><label class="labels">Mật khẩu</label><input required type="password" id="pass1" name="pass1" class="form-control" placeholder="Mật khẩu">
+                            </div>
+                            <div class="mt-2 col"><label class="labels">Nhập lại mật khẩu</label><input required type="password" id="pass2" name="pass2" class="form-control"
+                                    placeholder="Nhập lại mật khẩu">
+                            </div>
+                        </div>
+                        <div class="mt-5 text-center">
+                            <button class="btn btn-primary profile-button w-50" name="them" type="submit">Thêm</button>
+                        </div>
+                    </form>
                 </div>
-            </form>
+            </div>
+
         </div>
     </main>
 
@@ -183,8 +166,27 @@ else:?><h5 class="card-title m-0"><?php echo "Tạm thời không có thông bá
     </footer>
 
     <script>
-    var password = document.getElementById("passwd"),
-        confirm_password = document.getElementById("passwd2");
+    function removeAscent(str) {
+        if (str === null || str === undefined) return str;
+        str = str.toLowerCase();
+        str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
+        str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
+        str = str.replace(/ì|í|ị|ỉ|ĩ/g, "i");
+        str = str.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g, "o");
+        str = str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, "u");
+        str = str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, "y");
+        str = str.replace(/đ/g, "d");
+
+        return str;
+    }
+
+    var nameInput = document.getElementById("name");
+    var phoneInput = document.getElementById("sdt");
+    var addInput = document.getElementById("diachi");
+    var emailInput = document.getElementById("email");
+    var mscbInput = document.getElementById("mscb");
+    var password = document.getElementById("pass1"),
+        confirm_password = document.getElementById("pass2");
 
     function validatePassword() {
         if (password.value != confirm_password.value) {
@@ -193,23 +195,75 @@ else:?><h5 class="card-title m-0"><?php echo "Tạm thời không có thông bá
             confirm_password.setCustomValidity('');
         }
     }
+
+
+
+    function nameValid(string) {
+        var re = /^[a-zA-Z !@#\$%\^\&*\)\(+=._-]{2,}$/g // regex here
+        return re.test(removeAscent(string))
+    }
+
+    function validateName() {
+        if (!nameValid(nameInput.value)) {
+            nameInput.setCustomValidity("Tên từ 2 kí tự, không có kí tự đặc biệt, không có số");
+
+        } else {
+            nameInput.setCustomValidity('');
+
+        }
+    }
+
+    function phonevalid(string) {
+        var re = /^\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/
+        return re.test(string)
+    }
+
+    function validatePhone() {
+        if (!phonevalid(phoneInput.value)) {
+            phoneInput.setCustomValidity("Số điện thoại không hợp lê");
+
+        } else {
+            phoneInput.setCustomValidity('');
+
+        }
+    }
+
+    function validateAdd() {
+        if (addInput.value.length < 5) {
+            addInput.setCustomValidity("Địa chỉ phải dài hơn 5 ký tự");
+        } else {
+            addInput.setCustomValidity('');
+        }
+    }
+
+    function emailValid(string) {
+        var re = /^\S+@\S+\.\S+$/
+        return re.test(string)
+    }
+
+    function validateEmail() {
+        if (!emailValid(emailInput.value)) {
+            emailInput.setCustomValidity("Địa chỉ email không hợp lệ");
+        } else {
+            emailInput.setCustomValidity('');
+
+        }
+    }
+
+    function validateMSCB() {
+        if (mscbInput.value.length != 6) {
+            mscbInput.setCustomValidity("Mã số cán bộ có 6 kí tự");
+        } else {
+            mscbInput.setCustomValidity('');
+        }
+    }
+    mscbInput.onkeyup = validateMSCB;
+    emailInput.onkeyup = validateEmail;
+    addInput.onkeyup = validateAdd;
+    phoneInput.onkeyup = validatePhone;
+    nameInput.onkeyup = validateName;
     password.onchange = validatePassword;
     confirm_password.onkeyup = validatePassword;
-
-    document.addEventListener("DOMContentLoaded", function() {
-        var elements = document.getElementsByTagName("INPUT");
-        for (var i = 0; i < elements.length; i++) {
-            elements[i].oninvalid = function(e) {
-                e.target.setCustomValidity("");
-                if (!e.target.validity.valid) {
-                    e.target.setCustomValidity("Trường này là bắt buộc.");
-                }
-            };
-            elements[i].oninput = function(e) {
-                e.target.setCustomValidity("");
-            };
-        }
-    })
     </script>
     <script>
     var prevScrollpos = window.pageYOffset;
