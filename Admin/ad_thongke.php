@@ -19,7 +19,8 @@ if ((!isset($_SESSION['admin']))) {
         crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.0/dist/chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
     <title>Thống kê</title>
 </head>
 
@@ -256,7 +257,9 @@ $cv_qh_thang = $conn->query($query_cv_qh_thang);
                 borderWidth: 1
             }]
         },
+
         options: {
+
             scales: {
                 x: {
                     title: {
@@ -296,9 +299,27 @@ $cv_qh_thang = $conn->query($query_cv_qh_thang);
 
             }]
         },
-
+        plugins: [ChartDataLabels],
         options: {
+            tooltips: {
+                enabled: false
+            },
 
+            plugins: {
+                datalabels: {
+                    formatter: (value, ctx) => {
+                        const datapoints = ctx.chart.data.datasets[0].data
+                        valueArray = Object.values(datapoints).map((x) => (parseInt(x)))
+                            .reduce((total, datapoint) => total + datapoint, 0)
+                        const percentage = value / valueArray * 100
+                        output = percentage.toFixed(2);
+                        if (output != 0)
+                            return output + "%"
+                        else return null;
+                    },
+                    color: '#fff',
+                }
+            }
         }
     });
 
@@ -397,8 +418,45 @@ $cv_qh_thang = $conn->query($query_cv_qh_thang);
         },
     }
     const ctx4 = new Chart(
-        document.getElementById('chartPie2'),
-        config
+        document.getElementById('chartPie2'), {
+            type: 'pie',
+            data: {
+                labels: ['Đang thực hiện', 'Đã hoàn thành', 'Quá thời hạn'],
+                datasets: [{
+                    label: 'Số lượng',
+                    backgroundColor: pieColors,
+                    hoverOffset: 4,
+                    data: [dth_thang[currentMonth], ht_thang[currentMonth], qh_thang[currentMonth]],
+                    borderWidth: 1,
+
+                }]
+            },
+            plugins: [ChartDataLabels],
+            options: {
+                tooltips: {
+                    enabled: false
+                },
+
+                plugins: {
+                    datalabels: {
+
+                        formatter: (value, ctx) => {
+                            const datapoints = ctx.chart.data.datasets[0].data
+                            valueArray = Object.values(datapoints)
+                                .map((x) => (parseInt(x)))
+                                .reduce((total, datapoint) => total + datapoint, 0)
+                            const percentage = value / valueArray * 100
+                            output = percentage.toFixed(2);
+                            if (output != 0)
+                                return output + "%"
+                            else return null;
+                        },
+                        color: '#fff',
+                    }
+                }
+            }
+        }
+
     );
 
     currentMonth = "monthSelect_" + currentMonth;

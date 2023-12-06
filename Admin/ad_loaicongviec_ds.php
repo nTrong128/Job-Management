@@ -142,20 +142,21 @@ else:?><h5 class="card-title m-0"><?php echo "Tạm thời không có thông bá
 
             </div>
         </div>
-        <div class="rounded mx-4 mb-4 pt-4  d-flex justify-content-sm-between">
-            <input class="rounded-2" type="text" id="searchBar" placeholder="Tìm kiếm loại công việc.." title="Nhập thông tin công việc">
-            <a href="ad_loaicongviec_them.php" class="btn btn-dark p-3 px-4">Thêm loại công việc mới</a>
-        </div>
         <?php
 $query_cv = "SELECT * FROM loaicongviec";
 $ds_lcv = mysqli_query($conn, $query_cv);
 $soluong_lcv = $ds_lcv->num_rows;
 $i = 1;
 ?>
-        <div class="container bg-white w-80 rounded-4 p-2 mb-4" style="--bs-bg-opacity: .5;">
-            <h2 class="text-center ">DANH SÁCH LOẠI CÔNG VIỆC</h2>
-            <h2 class="text-center ">Tổng số loại: <?php echo $soluong_lcv;?></h2>
+        <div class="container w-80 rounded-4 p-2 mb-4">
+            <h1 class="text-center ">DANH SÁCH LOẠI CÔNG VIỆC</h1>
+            <h1 class="text-center ">Tổng số loại: <?php echo $soluong_lcv;?></h1>
         </div>
+        <div class="rounded mx-4 mb-4 pt-4  d-flex justify-content-sm-between">
+            <input class="rounded-2" type="text" id="searchBar" placeholder="Tìm kiếm loại công việc.." title="Nhập thông tin công việc">
+            <a href="ad_loaicongviec_them.php" class="btn btn-dark p-3 px-4">Thêm loại công việc mới</a>
+        </div>
+
         <div class="m-auto w-75 d-flex justify-content-center">
 
             <table id="dataTable" class="table text-center align-middle">

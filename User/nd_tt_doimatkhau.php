@@ -6,30 +6,20 @@ if ((!isset($_SESSION['nguoidung']))) {
     unset($_SESSION['nguoidung']);
     header("location: ../index.php");
 }
-$ma = $_GET['capnhat_nd_ma'];
+$ma = $_GET['dmk_nd_ma'];
 
 $query_nd = "SELECT * FROM nguoidung WHERE ND_MA='$ma'";
-
 $nguoidung_data = mysqli_query($conn, $query_nd);
 $nguoidung = mysqli_fetch_array($nguoidung_data);
-
+$mkcu_nd = $nguoidung['ND_MATKHAU'];
 
 if(isset($_POST['submit'])) {
-    $name = $_POST['name'];
-    $ngaysinh = $_POST['ngaysinh'];
-    $diachi = $_POST['diachi'];
-    $sdt = $_POST['sdt'];
-    $email = $_POST['email'];
-    $mscb = $_POST['mscb'];
+    $password = $_POST['pass1'];
+    $repassword = $_POST['pass2'];
     try {
 
         $sql = "UPDATE nguoidung
-                SET ND_HOTEN='$name',
-                    ND_NGAYSINH='$ngaysinh',
-                    ND_DIACHI='$diachi',
-                    ND_SDT='$sdt',
-                    ND_EMAIL='$email',
-                    ND_MSCB='$mscb'
+                SET ND_MATKHAU=md5('$password')
                 WHERE ND_MA=$ma";
 
         $query = mysqli_query($conn, $sql);
@@ -66,6 +56,7 @@ if(isset($_POST['submit'])) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <script src="../js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-md5@0.8.3/src/md5.min.js"></script>
     <title>Người dùng</title>
 </head>
 
@@ -86,7 +77,7 @@ if(isset($_POST['submit'])) {
     </header>
 
     <main>
-        <div class="offcanvas offcanvas-start" tabindex="-1" id="sidebar_content" aria-labelledby="offcanvasExampleLabel">
+        <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="sidebar_content" aria-labelledby="offcanvasExampleLabel">
             <div class="offcanvas-header custom-bg text-light">
                 <h5 class="offcanvas-title" id="offcanvasExampleLabel">
                     <?php  if (isset($_SESSION['nguoidung'])): ?>
@@ -130,55 +121,53 @@ if(isset($_POST['submit'])) {
         </div>
 
         <div class="form_center">
-            <form id="form" name="form" method="POST" class="form">
-                <div class="container rounded bg-white mt-5 mb-5">
-                    <div class="row">
-                        <div class="col-md-3 border-end">
-                            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" src="../Image/default_avatar.jpg" width="90">
-                                <span class="font-weight-bold"><?php echo $nguoidung['ND_HOTEN'];?></span>
-                                <span class="text-black-50"><?php echo $nguoidung['ND_EMAIL'];?></span>
-                                <span><?php echo$nguoidung['ND_DIACHI'];?></span>
 
-                                <div class="mt-5 text-center">
-                                    <button class="btn btn-outline-success mb-2" name="avatar_change" type="avatar">Đổi ảnh đại diện</button>
-                                    <button class="btn btn-outline-success mb-2" name="doimatkhau" type="doimatkhau">Đổi mật khẩu</button>
-                                </div>
+            <div class="container rounded bg-white mt-5 mb-5">
+                <div class="row">
+                    <div class="col-md-5 border-end">
+                        <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle" src="../Image/default_avatar.jpg" width="200">
 
+                            <span class="font-weight-bold"><?php echo $nguoidung['ND_HOTEN'];?></span>
+                            <span class="text-black-50"><?php echo $nguoidung['ND_EMAIL'];?></span>
+                            <span><?php echo$nguoidung['ND_DIACHI'];?></span>
+
+                            <div class="mt-5 text-center">
+                                <a href="nd_tt_doiavatar.php?da_nd_ma=<?php echo $ma?>" class="btn btn-outline-success mb-2" name="avatar_change" type="avatar">Đổi ảnh đại diện</a>
+                                <a href="nd_tt_doimatkhau.php?dmk_nd_ma=<?php echo $ma?>" class="btn btn-outline-success mb-2" name="doimatkhau" type="doimatkhau">Đổi mật khẩu</a>
                             </div>
-                        </div>
-                        <div class="col">
-                            <div class="p-3 py-5">
-                                <div class="d-flex justify-content-between align-items-center mb-3">
-                                    <h5 class="text-right">Cập nhật thông tin cá nhân</h5>
-                                </div>
-                                <div class="row mt-2">
-                                    <div class="col"><label class="labels">Họ và tên</label><input type="text" required name="name" class="form-control" placeholder="Họ và tên"
-                                            value="<?php echo $nguoidung['ND_HOTEN'];?>"></div>
-                                </div>
-                                <div class="row mt-2">
-                                    <div class="mt-2 col-md-12"><label class="labels">Ngày sinh</label><input required type="date" name="ngaysinh" class="form-control" placeholder="Ngày sinh"
-                                            value="<?php echo $nguoidung['ND_NGAYSINH'];?>"></div>
-                                    <div class="mt-2 col-md-12"><label class="labels">Số điện thoại</label><input required type="text" name="sdt" class="form-control" placeholder="Số điện thoại"
-                                            value="<?php echo $nguoidung['ND_SDT'];?>">
-                                    </div>
-                                    <div class="mt-2 col-md-12"><label class="labels">Địa chỉ</label><input required type="text" name="diachi" class="form-control" placeholder="Địa chỉ"
-                                            value="<?php echo $nguoidung['ND_DIACHI'];?>"></div>
-                                </div>
-                                <div class="row mt-2">
-                                    <div class="mt-2 col-md-6"><label class="labels">Email</label><input readonly required type="text" name="email" class="form-control" placeholder="Email"
-                                            value="<?php echo $nguoidung['ND_EMAIL'];?>">
-                                    </div>
-                                    <div class="mt-2 col-md-6"><label class="labels">MSCB</label><input readonly required type="text" name="mscb" class="form-control"
-                                            value="<?php echo $nguoidung['ND_MSCB'];?>" placeholder="MSCB">
-                                    </div>
-                                </div>
-                                <div class="mt-5 text-center"><button class="btn btn-primary profile-button" name="submit" type="submit">Lưu</button></div>
-                            </div>
-                        </div>
 
+                        </div>
                     </div>
+                    <div class="col">
+                        <div class="p-3 py-5">
+                            <div class="d-flex justify-content-center align-items-center mb-3">
+                                <h3 class="text-right">Đổi mật khẩu</h3>
+                            </div>
+                            <div class="row">
+                                <form id="form" name="form" method="POST" class="form">
+                                    <div class="mt-2 col-md-12">
+                                        <label class="labels">Nhập mật khẩu cũ</label>
+                                        <input required type="password" id="old_pass" name="oldpass" class="form-control" placeholder="Mật khẩu cũ">
+                                    </div>
+                                    <div class="mt-2 col-md-12">
+                                        <label class="labels">Nhập mật khẩu mới</label>
+                                        <input required type="password" id="pass1" name="pass1" class="form-control" placeholder="Mật khẩu mới">
+                                    </div>
+                                    <div class="mt-2 col-md-12">
+                                        <label class="labels">Nhập lại mật khẩu mới</label>
+                                        <input required type="password" id="pass2" name="pass2" class="form-control" placeholder="Nhập lại mật khẩu mới">
+                                    </div>
+                                    <div class="mt-5 text-center">
+                                        <button class="btn btn-primary profile-button w-50" name="submit" type="submit">Lưu</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
-            </form>
+            </div>
+
         </div>
     </main>
 
@@ -187,35 +176,33 @@ if(isset($_POST['submit'])) {
         <p>B2016962 &copy; 2023 Bản quyền thuộc về Nguyễn Văn Hậu.</p>
     </footer>
 
-    <!-- <script>
-    var password = document.getElementById("passwd"),
-        confirm_password = document.getElementById("passwd2");
+    <script>
+    var old_password = document.getElementById("old_pass");
+    var password = document.getElementById("pass1"),
+        confirm_password = document.getElementById("pass2");
+
 
     function validatePassword() {
+        var old_pass_db = '<?php echo $mkcu_nd;?>';
+
+        var olb_pass_input = md5(old_password.value);
+
+        if (old_pass_db != olb_pass_input) {
+            old_password.setCustomValidity("Mật khẩu cũ không đúng");
+        } else {
+            old_password.setCustomValidity('');
+        }
+
         if (password.value != confirm_password.value) {
-            confirm_password.setCustomValidity("Mật khẩu không khớp.");
+            confirm_password.setCustomValidity("Mật khẩu không khớp");
         } else {
             confirm_password.setCustomValidity('');
         }
     }
+    old_pass.onkeyup = validatePassword;
     password.onchange = validatePassword;
     confirm_password.onkeyup = validatePassword;
-
-    document.addEventListener("DOMContentLoaded", function() {
-        var elements = document.getElementsByTagName("INPUT");
-        for (var i = 0; i < elements.length; i++) {
-            elements[i].oninvalid = function(e) {
-                e.target.setCustomValidity("");
-                if (!e.target.validity.valid) {
-                    e.target.setCustomValidity("Trường này là bắt buộc.");
-                }
-            };
-            elements[i].oninput = function(e) {
-                e.target.setCustomValidity("");
-            };
-        }
-    })
-    </script> -->
+    </script>
 </body>
 <script>
 var prevScrollpos = window.pageYOffset;

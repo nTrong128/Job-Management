@@ -32,8 +32,7 @@ ND_NGAYSINH='$ngaysinh',
 ND_DIACHI='$diachi',
 ND_SDT='$sdt',
 ND_EMAIL='$email',
-ND_MSCB='$mscb',
-ND_MATKHAU=md5('$password')
+ND_MSCB='$mscb'
 WHERE ND_MA=$ma";
 
 $query = mysqli_query($conn, $sql);
@@ -70,6 +69,8 @@ echo "Error updating row.: " . $conn->error;
         crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
     <title>Cập nhật thông tin người dùng</title>
 </head>
 
@@ -185,86 +186,60 @@ else:?><h5 class="card-title m-0"><?php echo "Tạm thời không có thông bá
             </div>
         </div>
 
-
-
-
         <div class="form_center">
-            <form id="form" name="form" method="POST" onsubmit="return validateForm()" class="form">
-                <div class="container p-5 py-4 m-2 border border-2 rounded">
-                    <h1 class="text-light text-center">CẬP NHẬT THÔNG TIN</h1>
-                    <hr class="text-dark border border-2 rounded " style="border-top: 4px solid white">
-                    <div class="row p-2 my-1 rounded">
-                        <div class="col p-1  text-light">
-                            <label for="name">Điền họ và tên:</label>
-                        </div>
-                        <div class="col p-1 ">
-                            <input class="form-control" type="text" placeholder="Họ và tên" name="name" id="name" value="<?php echo $nguoidung['ND_HOTEN'];?>">
-                        </div>
-                    </div>
-                    <div class="row p-2 my-1 rounded">
-                        <div class="col p-1   text-light">
-                            <label for="diachi">Địa chỉ:</label>
-                        </div>
-                        <div class="col p-1 ">
-                            <input class="form-control" type="text" name="diachi" id="diachi" value="<?php echo $nguoidung['ND_DIACHI'];?>">
-                        </div>
-                    </div>
-                    <div class="row p-2 my-1 rounded">
-                        <div class="col p-1   text-light">
-                            <label for="ngaysinh">Ngày tháng năm sinh:</label>
-                        </div>
-                        <div class="col p-1 ">
-                            <input class="form-control" type="date" name="ngaysinh" id="ngaysinh" value="<?php echo $nguoidung['ND_NGAYSINH'];?>">
-                        </div>
-                    </div>
-                    <div class="row p-2 my-1 rounded">
-                        <div class="col p-1  text-light">
-                            <label for="sdt">Số điện thoại:</label>
-                        </div>
-                        <div class="col p-1 ">
-                            <input class="form-control" type="tel" name="sdt" id="sdt" value="<?php echo $nguoidung['ND_SDT'];?>">
-                        </div>
-                    </div>
-                    <div class="row p-2 my-1 rounded">
-                        <div class="col p-1  text-light">
-                            <label for="email">Email:</label>
-                        </div>
-                        <div class="col p-1 ">
-                            <input class="form-control" type="text" name="email" id="email" value="<?php echo$nguoidung['ND_EMAIL'];?>">
-                        </div>
-                    </div>
-                    <div class="row p-2 my-1 rounded">
-                        <div class="col p-1  text-light">
-                            <label for="mscb">Mã số cán bộ:</label>
-                        </div>
-                        <div class="col p-1  ">
-                            <input class="form-control" type="text" name="mscb" id="mscb" value="<?php echo$nguoidung['ND_MSCB'];?>">
-                        </div>
-                    </div>
-                    <div class="row p-2 my-1 rounded">
-                        <div class="col p-1  text-light">
-                            <label for="passwd">Mật khẩu:</label>
-                        </div>
-                        <div class="col p-1 ">
-                            <input class="form-control" type="password" placeholder="Mật khẩu" name="passwd" id="passwd">
-                        </div>
-                    </div>
-                    <div class="row p-2 my-1 rounded">
-                        <div class="col p-1  text-light">
-                            <label for="passwd2">Xác nhận mật khẩu:</label>
-                        </div>
-                        <div class="col p-1 ">
-                            <input class="form-control" type="password" placeholder="Xác nhận mật khẩu" name="passwd2" id="passwd2">
-                        </div>
-                    </div>
-                    <div>
 
+            <div class="container rounded bg-white mt-5 mb-5">
+                <div class="row">
+                    <div class="col-md-3 border-end">
+                        <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" src="../Image/default_avatar.jpg" width="200">
+                            <span class="font-weight-bold"><?php echo $nguoidung['ND_HOTEN'];?></span>
+                            <span class="text-black-50"><?php echo $nguoidung['ND_EMAIL'];?></span>
+                            <span><?php echo$nguoidung['ND_DIACHI'];?></span>
+
+                            <div class="mt-5 text-center">
+                                <!-- <a href="nd_tt_doiavatar.php?da_nd_ma=<?php echo $ma?>" class="btn btn-outline-success mb-2" name="avatar_change" type="avatar">Đổi ảnh đại diện</a> -->
+                                <a href="ad_nguoidung_dmk.php?dmk_nd_ma=<?php echo $ma?>" class="btn btn-outline-success mb-2" name="doimatkhau" type="doimatkhau">Đổi mật khẩu</a>
+                            </div>
+
+                        </div>
                     </div>
-                    <div class="btn_form ">
-                        <button style="width:100%" type="submit" class="btn  btn-dark" name="submit">CẬP NHẬT</button>
+                    <div class="col">
+                        <div class="p-3 py-5">
+                            <div class="d-flex justify-content-center align-items-center mb-3">
+                                <h5 class=" text-center">Cập nhật thông tin người dùng</h5>
+                            </div>
+                            <form id="form" name="form" method="POST" class="form">
+                                <div class="row mt-2">
+                                    <div class="col"><label for="name" class="labels">Họ và tên</label><input type="text" required name="name" id="name" class="form-control" placeholder="Họ và tên"
+                                            value="<?php echo $nguoidung['ND_HOTEN'];?>"></div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="mt-2 col-md-12"><label for="ngaysinh" class="labels">Ngày sinh</label><input id="ngaysinh" required type="date" min='1899-01-01' max='2100-01-01'
+                                            name="ngaysinh" class="form-control" placeholder="Ngày sinh" value="<?php echo $nguoidung['ND_NGAYSINH'];?>"></div>
+                                    <div class="mt-2 col-md-12"><label class="labels">Số điện thoại</label><input required type="text" id="sdt" name="sdt" class="form-control"
+                                            placeholder="Số điện thoại" value="<?php echo $nguoidung['ND_SDT'];?>">
+                                    </div>
+                                    <div class="mt-2 col-md-12"><label class="labels">Địa chỉ</label><input required type="text" id="diachi" name="diachi" class="form-control" placeholder="Địa chỉ"
+                                            value="<?php echo $nguoidung['ND_DIACHI'];?>"></div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="mt-2 col-md-6"><label class="labels">Email</label><input required type="text" id="email" name="email" class="form-control" placeholder="Email"
+                                            value="<?php echo $nguoidung['ND_EMAIL'];?>">
+                                    </div>
+                                    <div class="mt-2 col-md-6"><label class="labels">MSCB</label><input required type="text" id="mscb" name="mscb" class="form-control"
+                                            value="<?php echo $nguoidung['ND_MSCB'];?>" placeholder="MSCB">
+                                    </div>
+                                </div>
+                                <div class="mt-5 text-center">
+                                    <button class="btn btn-primary profile-button w-50" name="submit" type="submit">Lưu</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
+
                 </div>
-            </form>
+            </div>
+
         </div>
     </main>
 
@@ -274,33 +249,89 @@ else:?><h5 class="card-title m-0"><?php echo "Tạm thời không có thông bá
     </footer>
 
     <script>
-    var password = document.getElementById("passwd"),
-        confirm_password = document.getElementById("passwd2");
+    function removeAscent(str) {
+        if (str === null || str === undefined) return str;
+        str = str.toLowerCase();
+        str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
+        str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
+        str = str.replace(/ì|í|ị|ỉ|ĩ/g, "i");
+        str = str.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g, "o");
+        str = str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, "u");
+        str = str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, "y");
+        str = str.replace(/đ/g, "d");
+        return str;
+    }
 
-    function validatePassword() {
-        if (password.value != confirm_password.value) {
-            confirm_password.setCustomValidity("Mật khẩu không khớp.");
+    var nameInput = document.getElementById("name");
+    var phoneInput = document.getElementById("sdt");
+    var addInput = document.getElementById("diachi");
+    var emailInput = document.getElementById("email");
+    var mscbInput = document.getElementById("mscb");
+
+    function nameValid(string) {
+        var re = /^[a-zA-Z !@#\$%\^\&*\)\(+=._-]{2,}$/g // regex here
+        return re.test(removeAscent(string))
+    }
+
+    function validateName() {
+        if (!nameValid(nameInput.value)) {
+            nameInput.setCustomValidity("Tên từ 2 kí tự, không có kí tự đặc biệt, không có số");
+
         } else {
-            confirm_password.setCustomValidity('');
+            nameInput.setCustomValidity('');
+
         }
     }
-    password.onchange = validatePassword;
-    confirm_password.onkeyup = validatePassword;
 
-    document.addEventListener("DOMContentLoaded", function() {
-        var elements = document.getElementsByTagName("INPUT");
-        for (var i = 0; i < elements.length; i++) {
-            elements[i].oninvalid = function(e) {
-                e.target.setCustomValidity("");
-                if (!e.target.validity.valid) {
-                    e.target.setCustomValidity("Trường này là bắt buộc.");
-                }
-            };
-            elements[i].oninput = function(e) {
-                e.target.setCustomValidity("");
-            };
+    function phonevalid(string) {
+        var re = /^\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/
+        return re.test(string)
+    }
+
+    function validatePhone() {
+        if (!phonevalid(phoneInput.value)) {
+            phoneInput.setCustomValidity("Số điện thoại không hợp lê");
+
+        } else {
+            phoneInput.setCustomValidity('');
+
         }
-    })
+    }
+
+    function validateAdd() {
+        if (addInput.value.length < 5) {
+            addInput.setCustomValidity("Địa chỉ phải dài hơn 5 ký tự");
+        } else {
+            addInput.setCustomValidity('');
+        }
+    }
+
+    function emailValid(string) {
+        var re = /^\S+@\S+\.\S+$/
+        return re.test(string)
+    }
+
+    function validateEmail() {
+        if (!emailValid(emailInput.value)) {
+            emailInput.setCustomValidity("Địa chỉ email không hợp lệ");
+        } else {
+            emailInput.setCustomValidity('');
+
+        }
+    }
+
+    function validateMSCB() {
+        if (mscbInput.value.length != 6) {
+            mscbInput.setCustomValidity("Mã số cán bộ có 6 kí tự");
+        } else {
+            mscbInput.setCustomValidity('');
+        }
+    }
+    mscbInput.onkeyup = validateMSCB;
+    emailInput.onkeyup = validateEmail;
+    addInput.onkeyup = validateAdd;
+    phoneInput.onkeyup = validatePhone;
+    nameInput.onkeyup = validateName;
     </script>
     <script>
     var prevScrollpos = window.pageYOffset;

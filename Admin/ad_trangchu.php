@@ -143,6 +143,50 @@ else:?><h5 class="card-title m-0"><?php echo "Tạm thời không có thông bá
                 </div>
             </div>
         </div>
+        <?php
+$query_nguoidung = "SELECT * FROM nguoidung";
+$ds_nguoidung = mysqli_query($conn, $query_nguoidung);
+$soluong_nguoidung = $ds_nguoidung->num_rows;
+        ?>
+        <?php
+$query_cv = "SELECT * FROM congviec";
+$ds_cv = mysqli_query($conn, $query_cv);
+$soluong_cv = $ds_cv->num_rows;
+?>
+        <?php
+$query_cv = "SELECT * FROM loaicongviec";
+$ds_lcv = mysqli_query($conn, $query_cv);
+$soluong_lcv = $ds_lcv->num_rows;
+?>
+        <div class="text-center container rounded-4 py-4">
+            <div class="d-flex justify-content-center text-light text-bold">
+                <a href="ad_nguoidung_ds.php" style="width:120px; height:120px;" class="rounded-4 border border-2 border-dark-subtle bg-black fs-2 mx-4 text-decoration-none text-light">
+                    <?php echo $soluong_nguoidung;?>
+                    <h4>Người dùng</h4>
+                </a>
+                <a href="ad_congviec_ds.php" style="width:120px; height:120px;" class="rounded-4 border border-2 border-dark-subtle bg-black fs-2 mx-4 text-decoration-none text-light">
+                    <?php echo $soluong_cv;?>
+                    <h4>Công việc</h4>
+                </a>
+                <a href="ad_loaicongviec_ds.php" style="width:120px; height:120px;" class="rounded-4 border border-2 border-dark-subtle bg-black fs-2 mx-4 text-decoration-none text-light">
+                    <?php echo $soluong_lcv;?>
+                    <h4>Loại công việc</h4>
+                </a>
+            </div>
+            <!-- <div class="d-flex justify-content-around rounded-2 bg-white">
+                <a  class=" text-decoration-none homepage_link">
+                    
+                </a>
+                <a  class="text-decoration-none homepage_link">
+                    
+                </a>
+                <a  class="text-decoration-none homepage_link">
+                    
+                </a>
+            </div> -->
+
+        </div>
+
 
         <div class="container py-4 rouded rounded-4">
             <div class="d-flex">

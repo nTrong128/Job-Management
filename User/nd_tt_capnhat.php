@@ -140,8 +140,8 @@ if(isset($_POST['submit'])) {
                                 <span><?php echo$nguoidung['ND_DIACHI'];?></span>
 
                                 <div class="mt-5 text-center">
-                                    <button class="btn btn-outline-success mb-2" name="avatar_change" type="avatar">Đổi ảnh đại diện</button>
-                                    <button class="btn btn-outline-success mb-2" name="doimatkhau" type="doimatkhau">Đổi mật khẩu</button>
+                                    <a href="nd_tt_doiavatar.php?da_nd_ma=<?php echo $ma?>" class="btn btn-outline-success mb-2" name="avatar_change" type="avatar">Đổi ảnh đại diện</a>
+                                    <a href="nd_tt_doimatkhau.php?dmk_nd_ma=<?php echo $ma?>" class="btn btn-outline-success mb-2" name="doimatkhau" type="doimatkhau">Đổi mật khẩu</a>
                                 </div>
 
                             </div>
@@ -186,36 +186,6 @@ if(isset($_POST['submit'])) {
     <footer class="footer_container d-flex justify-content-center p-3 text-dark">
         <p>B2016962 &copy; 2023 Bản quyền thuộc về Nguyễn Văn Hậu.</p>
     </footer>
-
-    <!-- <script>
-    var password = document.getElementById("passwd"),
-        confirm_password = document.getElementById("passwd2");
-
-    function validatePassword() {
-        if (password.value != confirm_password.value) {
-            confirm_password.setCustomValidity("Mật khẩu không khớp.");
-        } else {
-            confirm_password.setCustomValidity('');
-        }
-    }
-    password.onchange = validatePassword;
-    confirm_password.onkeyup = validatePassword;
-
-    document.addEventListener("DOMContentLoaded", function() {
-        var elements = document.getElementsByTagName("INPUT");
-        for (var i = 0; i < elements.length; i++) {
-            elements[i].oninvalid = function(e) {
-                e.target.setCustomValidity("");
-                if (!e.target.validity.valid) {
-                    e.target.setCustomValidity("Trường này là bắt buộc.");
-                }
-            };
-            elements[i].oninput = function(e) {
-                e.target.setCustomValidity("");
-            };
-        }
-    })
-    </script> -->
     <script>
     var prevScrollpos = window.pageYOffset;
 
