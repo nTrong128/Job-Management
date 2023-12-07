@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 02, 2023 at 02:44 PM
+-- Generation Time: Dec 06, 2023 at 07:28 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -93,8 +93,7 @@ CREATE TABLE `congviec` (
 --
 
 INSERT INTO `congviec` (`CV_MA`, `CV_TEN`, `CV_NGAYBATDAU`, `CV_NGAYKETTHUC`, `CV_NOIDUNG`, `CV_TIENDO`, `CV_TRANGTHAICV`, `CV_NGAYTAO`, `CV_NTH`, `CV_NGS`, `LCV_MA`) VALUES
-(3, 'Đi học ', '2023-10-10', '2023-12-31', 'ĐI HỌC ĐI HỌC ĐI HỌC ĐI HỌC', '75', 'Sắp xong', '2023-10-26', 1, 2, 3),
-(6, 'Soạn thảo', '2023-10-26', '2023-12-31', 'Soạn thảo văn bản,Soạn thảo văn bản,Soạn thảo văn bản,Soạn thảo văn bản,Soạn thảo văn bản', '25', 'Đang suy', '2023-10-26', 1, 2, 2),
+(3, 'Đi học', '2023-10-10', '2023-12-31', 'ĐI HỌC ĐI HỌC ĐI HỌC ĐI HỌC', '75', 'Sắp xong', '2023-10-26', 1, 2, 3),
 (7, 'Đi ăn sáng', '2023-10-29', '2023-12-31', 'Đi ăn bún bò Huế với con Bò ở Huế.', '100', 'Đang ăn', '2023-10-29', 3, 2, 3),
 (8, 'Làm BT Nhóm', '2023-02-09', '2023-12-31', 'Làm BT Nhóm tới chết. Không xong không về. Không ăn không uống không ngủ, không được buồn ỉaa.', '15', 'Chưa hoàn thành', '2023-10-29', 2, 3, 2),
 (9, '31234', '2023-02-22', '2023-12-31', '111', '57', 'Đang chờ', '2023-10-29', 1, 1, 1),
@@ -138,7 +137,8 @@ INSERT INTO `congviec` (`CV_MA`, `CV_TEN`, `CV_NGAYBATDAU`, `CV_NGAYKETTHUC`, `C
 (49, 'Tháng 7 TEST', '2023-07-01', '2023-07-10', 'Tháng 7 TEST', '100', 'Hoàn Thành', '2023-07-01', 1, 1, 4),
 (50, 'Tháng 7 TEST', '2023-07-01', '2023-07-10', 'Tháng 7 TEST', '100', 'Hoàn Thành', '2023-07-01', 1, 1, 4),
 (51, 'Tháng 7 TEST', '2023-07-01', '2023-07-10', 'Tháng 7 TEST', '100', 'Hoàn Thành', '2023-07-01', 1, 1, 4),
-(52, 'Tháng 12 TEST', '2023-12-02', '2023-12-31', 'Tháng 12 TEST', '50', 'Đang thực hiện', '2023-12-02', 3, 2, 5);
+(52, 'Tháng 12 TEST', '2023-12-02', '2023-12-31', 'Tháng 12 TEST', '50', 'Đang thực hiện', '2023-12-02', 3, 2, 5),
+(53, 'TEST NEW FORM', '2023-12-07', '2024-02-07', 'TEST NEW FORM', '0', 'Đang chờ', '2023-12-07', 1, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -189,8 +189,7 @@ INSERT INTO `loaicongviec` (`LCV_MA`, `LCV_TEN`) VALUES
 (10, '33'),
 (11, '123'),
 (12, '124124'),
-(13, '111111'),
-(14, 'LCV1');
+(13, '111111');
 
 -- --------------------------------------------------------
 
@@ -214,8 +213,8 @@ CREATE TABLE `nguoidung` (
 --
 
 INSERT INTO `nguoidung` (`ND_MA`, `ND_HOTEN`, `ND_NGAYSINH`, `ND_DIACHI`, `ND_SDT`, `ND_EMAIL`, `ND_MSCB`, `ND_MATKHAU`) VALUES
-(1, 'Hậu', '1212-12-12', 'Đồng Tháp', '12345', 'HauHau@gmail.com', 1, 'c4ca4238a0b923820dcc509a6f75849b'),
-(2, 'Lê Nhật Trọng ', '2003-08-12', 'Ninh Kiều, Cần Thơ   ', '0939706130', '1@gmail.com', 2106819, 'c4ca4238a0b923820dcc509a6f75849b'),
+(1, 'Nguyễn Văn Hậu', '2022-12-12', 'Đồng Tháp', '0918622357', 'HauHau@gmail.com', 123456, '773e56b390004bdc8341bd0d2891dd71'),
+(2, 'Lê Nhật Trọng', '2003-08-12', 'Ninh Kiều, Cần Thơ', '0939706130', '1@gmail.com', 2106819, 'c4ca4238a0b923820dcc509a6f75849b'),
 (3, 'Lê Nhật Trọng     ', '2003-08-12', 'HẬU GIANG    ', '0939706130', 'lenhattrong128@gmail.com', 2106819, 'c4ca4238a0b923820dcc509a6f75849b'),
 (4, 'Tèo', '0000-00-00', 'Hà lộii', '1231234', 'teo@gamil.com', 123, 'e827aa1ed78e96a113182dce12143f9f'),
 (6, 'Tèo', '0000-00-00', 'Hà lộii', '123134', '123teo@gmail.com', 123, 'c4ca4238a0b923820dcc509a6f75849b'),
@@ -223,7 +222,9 @@ INSERT INTO `nguoidung` (`ND_MA`, `ND_HOTEN`, `ND_NGAYSINH`, `ND_DIACHI`, `ND_SD
 (9, '12312312', '0000-00-00', '3123412', '123123', 'a@b.c', 3123123, 'c4ca4238a0b923820dcc509a6f75849b'),
 (10, '123', '2023-11-08', '132', '123', '123', 123, '123'),
 (11, '123', '2023-11-08', '132', '123', '1232', 123, '123'),
-(12, '123', '2023-11-08', '132', '123', '1235', 123, '123');
+(12, '123', '2023-11-08', '132', '123', '1235', 123, '123'),
+(13, 'Nhật Trọng', '2003-08-12', 'Hậu Giang', '0939706130', 'trong@gmail.com', 210888, 'd41d8cd98f00b204e9800998ecf8427e'),
+(14, 'Nhật Nhật', '2011-11-11', 'Vĩnh Long', '079135525', 'nhat@gmail.com', 113221, '5e6d65df6e82bbcdc19940e3d16c00be');
 
 -- --------------------------------------------------------
 
@@ -245,10 +246,10 @@ CREATE TABLE `thongbao` (
 --
 
 INSERT INTO `thongbao` (`TB_MA`, `ND_MA`, `CV_MA`, `TB_ND`, `TB_TG`, `TB_XEM`) VALUES
-(4, 2, 19, 'Cập nhật tiến độ công việc', '2023-12-01 10:26:20', 0),
+(4, 2, 19, 'Cập nhật tiến độ công việc', '2023-12-06 15:10:57', 1),
 (5, 2, 21, 'Cập nhật tiến độ công việc', '2023-12-01 09:39:55', 1),
-(6, 2, 20, 'Cập nhật tiến độ công việc', '2023-12-01 09:37:05', 0),
-(7, 2, 18, 'Cập nhật tiến độ công việc 30% -> 99%', '2023-12-01 09:37:07', 0),
+(6, 2, 20, 'Cập nhật tiến độ công việc', '2023-12-06 15:10:57', 1),
+(7, 2, 18, 'Cập nhật tiến độ công việc 30% -> 99%', '2023-12-06 15:10:57', 1),
 (10, 2, 29, 'Yêu cầu gia hạn công việc', '2023-12-01 09:43:04', 1),
 (11, 2, 8, 'Cập nhật tiến độ công việc 12% -> 15%', '2023-12-01 09:42:58', 1);
 
@@ -314,7 +315,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `congviec`
 --
 ALTER TABLE `congviec`
-  MODIFY `CV_MA` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+  MODIFY `CV_MA` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
 -- AUTO_INCREMENT for table `giahancongviec`
@@ -326,13 +327,13 @@ ALTER TABLE `giahancongviec`
 -- AUTO_INCREMENT for table `loaicongviec`
 --
 ALTER TABLE `loaicongviec`
-  MODIFY `LCV_MA` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `LCV_MA` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `nguoidung`
 --
 ALTER TABLE `nguoidung`
-  MODIFY `ND_MA` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `ND_MA` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `thongbao`

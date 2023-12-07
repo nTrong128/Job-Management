@@ -98,7 +98,7 @@ $cv = mysqli_fetch_array($congviec_data);
 
                 <div class="p-3 my-5">
                     <div class="d-flex justify-content-center align-items-center mb-3">
-                        <h5 class=" text-center">Cập nhật công việc</h5>
+                        <h5 class=" text-center">Chi tiết công việc</h5>
                     </div>
                     <form id="form" name="form" method="POST" class="form form_admin">
                         <div class="col mt-2">
@@ -176,7 +176,7 @@ echo $user_current['ND_HOTEN'];
 
                         </div>
                         <div class="d-flex mt-5 text-center justify-content-center">
-                            <button class="btn btn-primary profile-button w-25 mx-2" name="submit" type="submit">Cập nhật</button>
+                            <!-- <button class="btn btn-primary profile-button w-25 mx-2" name="submit" type="submit">Cập nhật</button> -->
                             <a href="nguoidung.php" class="btn btn-primary profile-button w-25 mx-2" name="submit" type="submit">Quay lại</a>
                         </div>
                     </form>

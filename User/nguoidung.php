@@ -112,7 +112,7 @@ if ($ketqua->num_rows > 0):
 
         ?>
                                 </p>
-                                <a href="nd_congviec_sua.php?capnhat_ma=<?php echo $cv['CV_MA']?>" class="btn btn-warning m-1">Nhận</a>
+                                <!-- <a href="nd_congviec_sua.php?capnhat_ma=<?php echo $cv['CV_MA']?>" class="btn btn-warning m-1">Nhận</a> -->
                                 <a href="nd_congviec_chitiet.php?chitiet_ma=<?php echo $cv['CV_MA']?>" class="btn btn-warning m-1">Xem chi tiết</a>
 
                             </div>
@@ -210,7 +210,7 @@ if ($ketqua->num_rows > 0):
 
         ?>
                                 </p>
-                                <a href="nd_congviec_chitiet.php?chitiet_ma=<?php echo $cv['CV_MA']?>" class="btn btn-secondary m-1">Xem chi tiết</a>
+                                <a href="nd_congviec_chitiet_only.php?chitiet_ma=<?php echo $cv['CV_MA']?>" class="btn btn-secondary m-1">Xem chi tiết</a>
 
                             </div>
                             <?php
@@ -249,7 +249,7 @@ if ($ketqua->num_rows > 0):
                                     <div class="progress-bar" role="progressbar" style="width:<?php echo $cv['CV_TIENDO'];?>%;" aria-valuenow="<?php echo $cv['CV_TIENDO'];?>" aria-valuemin="0"
                                         aria-valuemax="100"></div>
                                 </div>
-                                <a href="nd_congviec_chitiet.php?chitiet_ma=<?php echo $cv['CV_MA']?>" class="btn btn-success m-1">Xem chi tiết</a>
+                                <a href="nd_congviec_chitiet_only.php?chitiet_ma=<?php echo $cv['CV_MA']?>" class="btn btn-success m-1">Xem chi tiết</a>
 
                             </div>
 
@@ -298,8 +298,8 @@ if ($ketqua->num_rows > 0):
 
         ?>
                                 </p>
-                                <a href="nd_congviec_chitiet.php?chitiet_ma=<?php echo $cv['CV_MA']?>" class="btn btn-danger m-1">Xem chi tiết</a>
-                                <a href="nd_congviec_giahan.php?giahan_ma=<?php echo $cv['CV_MA']?>" class="btn btn-danger m-1">Đề nghị gia hạn</a>
+                                <a href="nd_congviec_chitiet_gh.php?chitiet_ma=<?php echo $cv['CV_MA']?>" class="btn btn-danger m-1">Xem chi tiết</a>
+                                <!-- <a href="nd_congviec_giahan.php?giahan_ma=<?php echo $cv['CV_MA']?>" class="btn btn-danger m-1">Đề nghị gia hạn</a> -->
                             </div>
                             <?php
     endwhile;

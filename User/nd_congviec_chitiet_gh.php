@@ -176,7 +176,7 @@ echo $user_current['ND_HOTEN'];
 
                         </div>
                         <div class="d-flex mt-5 text-center justify-content-center">
-                            <button class="btn btn-primary profile-button w-25 mx-2" name="submit" type="submit">Cập nhật</button>
+                            <a href="nd_congviec_giahan.php?giahan_ma=<?php echo $ma?>" class="btn btn-primary profile-button w-25 mx-2" name="submit" type="submit">Xin gia hạn</a>
                             <a href="nguoidung.php" class="btn btn-primary profile-button w-25 mx-2" name="submit" type="submit">Quay lại</a>
                         </div>
                     </form>

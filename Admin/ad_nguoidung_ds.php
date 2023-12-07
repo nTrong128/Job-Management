@@ -42,7 +42,7 @@ if ((!isset($_SESSION['admin']))) {
                             <i class="fs-1 fa-solid fa-bell"></i>
                         </a>
                         <ul class="dropdown-menu notifications" role="menu" aria-labelledby="dLabel">
-                            <div class="notification-heading d-flex justify-content-between">
+                            <div class="notification-heading border-bottom py-2 d-flex justify-content-between">
                                 <h4 class="">Thông báo</h4>
                                 <form id="form" name="form" method="POST" onsubmit="return validateForm()" class="">
                                     <button type="dochet" name="dochet" onclick="reloadPageContentOnSubmit()" class="btn btn-dark menu-title">Đánh dấu tất cả là đã đọc</button>
@@ -89,10 +89,11 @@ if ($ds_thongbao->num_rows > 0):
                                         </div>
                                     </div>
                                 </div>
+                                <?php
+                                    endwhile;
+else:?>
                                 <div class="noti-container">
-                                    <?php
-    endwhile;
-else:?><h5 class="card-title m-0"><?php echo "Tạm thời không có thông báo.";endif;?></h5>
+                                    <h5 class="card-title my-2 mx-2"><?php echo "Tạm thời không có thông báo.";endif;?></h5>
                                 </div>
 
                             </div>

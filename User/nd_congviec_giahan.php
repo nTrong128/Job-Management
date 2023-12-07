@@ -1,11 +1,17 @@
-<?php
-// Update User
-include_once('../condb/condb.php');
+<?php include_once '../condb/condb.php';
 if ((!isset($_SESSION['nguoidung']))) {
     session_destroy();
     unset($_SESSION['nguoidung']);
     header("location: ../index.php");
 }
+$email = $_SESSION['nguoidung'];
+$query = "select * from nguoidung where ND_EMAIL ='$email'";
+$sql = mysqli_query($conn, $query);
+$nguoidung = mysqli_fetch_assoc($sql);
+$nd_ma = $nguoidung['ND_MA'];
+?>
+
+<?php
 $ma = $_GET['giahan_ma'];
 $query_gh = "SELECT * FROM giahancongviec WHERE CV_MA='$ma'";
 $result = $conn->query($query_gh);
@@ -77,68 +83,90 @@ if(isset($_POST['submit'])) {
 <body>
 
     <header>
-        <nav class="navbar_container navbar  navbar-expand-lg">
-            <button class=" btn mx-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+        <nav class=" navbar navbar-expand custom_navbar_bg fixed-top border-bottom border-light border-3">
+            <button class=" btn mx-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar_content" aria-controls="sidebar_content">
                 <i class="fa-solid fs-2 text-light fa-bars"></i>
             </button>
             <div class="container-fluid">
-                <a class="navbar-brand text-white fs-4" href="nguoidung.php"><img src="../image/logo.png" style="width: 60px;" class="w3-circle"></a>
+                <a class="navbar-brand text-white fs-4" href="nguoidung.php"><img src="../image/logo.png" style="width: 40px;" class="w3-circle"></a>
                 <a class="navbar-brand text-white fs-2"> QUẢN LÝ CÔNG VIỆC </a>
-
-                <div class="text-light fs-5">
-                    <?php if (isset($_SESSION['success'])) : ?>
-                    <div class="error success">
-                        <h3>
-                            <?php
-                        echo $_SESSION['success'];
-                        unset($_SESSION['success']);
-                        ?>
-                        </h3>
-                    </div>
-
-                    <?php endif ?>
-
-
-                    <a class="btn btn-outline-light px-2 py-2 me-2" href="trangchu.php" role="button">ĐĂNG XUẤT</a>
+                <div class="">
+                    <a href="#"><img class="rounded-circle me-4" width="54px" src="../Image/default_avatar.jpg" alt="Profile Picture"></a>
+                    <a class="btn btn-outline-light px-2 py-2 me-2" href="dangxuat.php" role="button">ĐĂNG XUẤT</a>
                 </div>
+            </div>
             </div>
         </nav>
     </header>
 
     <main>
+        <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="sidebar_content" aria-labelledby="offcanvasExampleLabel">
+            <div class="offcanvas-header custom-bg text-light">
+                <h3 class="offcanvas-title" id="offcanvasExampleLabel">
+                    <?php echo $nguoidung['ND_HOTEN'];?>
+                </h3>
+
+                <button type="button" class="btn" data-bs-dismiss="offcanvas" aria-label="Close">
+                    <i class="fa-solid fa-xmark fa-2xl" style="color: #ffffff;"></i>
+                </button>
+            </div>
+            <div class="offcanvas-body">
+                <div>
+                    <a href="nguoidung.php" type="button" class="btn btn-outline-secondary w-100 my-1 py-2">Trang
+                        chủ</a>
+                </div>
+                <div>
+                    <a href="nd_tt_capnhat.php?capnhat_nd_ma=<?php echo $nguoidung['ND_MA']?>" type="button" class="btn btn-outline-secondary w-100 my-1 py-2">Cập nhật
+                        thông tin cá nhân</a>
+                </div>
+                <div class="dropdown w-100">
+                    <button class="btn btn-outline-secondary w-100 dropdown-toggle" type="button" id="dropdownMenuButton1" data-mdb-toggle="dropdown" aria-expanded="false">
+                        Công việc
+                    </button>
+                    <ul class="dropdown-menu w-100 text-center" aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item" href="nd_cv_cho.php">Đang chờ</a></li>
+                        <li><a class="dropdown-item" href="nd_cv_thuchien.php">Đang thực hiện</a></li>
+                        <li><a class="dropdown-item" href="nd_cv_giamsat.php">Đang giám sát</a></li>
+                        <li><a class="dropdown-item" href="nd_cv_hoanthanh.php">Đã hoàn thành</a></li>
+                        <li><a class="dropdown-item" href="nd_cv_quahan.php">Quá hạn</a></li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
 
 
         <div class="form_center">
-            <form id="form" name="form" method="POST" onsubmit="return validateForm()" class="form">
-                <div class="container p-5 py-4 m-2 border border-2 rounded">
-                    <h1 class="text-light text-center">GIA HẠN THỜI GIAN</h1>
-                    <hr class="text-dark border border-2 rounded " style="border-top: 4px solid white">
+            <div class="rounded bg-white mb-5 form_container">
 
-                    <div class="row p-2 my-1 rounded">
-                        <div class="col p-1   text-light">
-                            <label for="ngaysinh">Ngày gia hạn mới:</label>
-                        </div>
-                        <div class="col p-1 ">
-                            <input class="form-control" type="date" name="hanmoi" min="<?php echo $cv['CV_NGAYKETTHUC']?>" id="hanmoi" min="<?php echo $cv['CV_NGAYKETTHUC'];?>"
-                                value="<?php echo $cv['CV_NGAYKETTHUC'];?>">
-                        </div>
+                <div class="p-3 my-5">
+                    <div class="d-flex justify-content-center align-items-center mb-3">
+                        <h5 class=" text-center">Xin gia hạn thời gian</h5>
                     </div>
-                    <div class="row p-2 my-1 rounded">
-                        <div class="col p-1   text-light">
-                            <label for="ngaysinh">Nội dung:</label>
+                    <form id="form" name="form" method="POST" class="form form_admin">
+                        <div class="row mt-2">
+                            <div class="mt-2 col">
+                                <label class="labels" for="ten">Ngày gia hạn mới</label>
+                                <input class="form-control" type="date" name="hanmoi" min="<?php echo $cv['CV_NGAYKETTHUC']?>" id="hanmoi" value="<?php
+                                $datetime = new DateTime('now');
+                                $new_date = $datetime->format('Y-m-d');
+                                echo $new_date ?>">
+                            </div>
                         </div>
-                        <div class="col p-1 ">
-                            <textarea class="form-control" name="noidung" id="noidung" cols="30" rows="10" placeholder="Nhập nội dung"></textarea>
+                        <div class="row mt-2">
+                            <div class="mt-2 col">
+                                <label class="labels" for="ten">Nội dung</label>
+                                <textarea class="form-control" name="noidung" id="noidung" cols="30" rows="5" placeholder="Nhập nội dung"></textarea>
+                            </div>
                         </div>
-                    </div>
 
 
+                        <div class="mt-5 text-center">
+                            <button class="btn btn-primary profile-button w-50" name="submit" type="submit">Gửi đề nghị</button>
+                        </div>
+                    </form>
                 </div>
-                <div class="btn_form ">
-                    <button style="width:100%" type="submit" class="btn  btn-dark" name="submit">CẬP NHẬT</button>
-                </div>
-        </div>
-        </form>
+            </div>
         </div>
     </main>
 

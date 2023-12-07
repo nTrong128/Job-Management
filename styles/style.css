@@ -193,7 +193,9 @@ tbody {
 }
 
 /* CSS used here will be applied after bootstrap.css */
-
+.dropdown-menu.notifications {
+  min-height: 120px;
+}
 .dropdown_notification {
   display: inline-block;
   margin-left: 20px;

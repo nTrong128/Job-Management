@@ -103,97 +103,18 @@ if(isset($_POST['submit'])) {
     </header>
     <main>
 
+
         <div class="form_center">
-            <form id="form" name="form" method="post" onsubmit="return validateForm()" class="form">
-                <div class="container p-5 py-4 m-2 border border-2 rounded">
-                    <h1 class="text-light text-center">CẬP NHẬT CÔNG VIỆC</h1>
-                    <hr class="text-dark border border-2 rounded " style="border-top: 4px solid white">
+            <div class="rounded bg-white mb-5 form_container">
 
-                    <div class="row p-2 my-1 rounded">
-                        <div class="col p-1  text-light">
-                            <label class="" for="text">Tên công việc:</label>
-                        </div>
-                        <div class="col p-1 ">
-                            <input class="form-control" type="text" placeholder="Nhập tên công việc" name="ten" id="ten" readonly value="<?php echo $cv['CV_TEN'];?> " />
-                        </div>
+                <div class="p-3 my-5">
+                    <div class="d-flex justify-content-center align-items-center mb-3">
+                        <h5 class=" text-center">Cập nhật công việc</h5>
                     </div>
-
-                    <div class="row p-2 my-1 rounded">
-                        <div class="col p-1  text-light">
-                            <label for="ngaybatdau">Ngày bắt đầu:</label>
-                        </div>
-                        <div class="col p-1 ">
-                            <input class="form-control" type="" readonly name="ngaybatdau" id="ngaybatdau" readonly value="<?php echo $cv['CV_NGAYBATDAU'];?> " />
-                        </div>
-                    </div>
-                    <div class="row p-2 my-1 rounded">
-                        <div class="col p-1  text-light">
-                            <label for="ngayketthuc">Ngày kết thúc:</label>
-                        </div>
-                        <div class="col p-1 ">
-                            <input class="form-control" type="text" name="ngayketthuc" id="ngayketthuc" readonly value="<?php echo $cv['CV_NGAYKETTHUC'];?> " />
-                        </div>
-                    </div>
-
-                    <div class="row p-2 my-1 rounded">
-                        <div class="col p-1  text-light">
-                            <label class="" for="text">Nhập nội dung:</label>
-                        </div>
-                        <div class="col p-1 ">
-                            <textarea class="form-control" name="noidung" id="noidung" readonly rows="3"><?php echo $cv['CV_NOIDUNG'];?></textarea>
-                        </div>
-                    </div>
-
-
-
-                    <div class="row p-2 my-1 rounded">
-                        <div class="col p-1  text-light">
-                            <label class="" for="text">Nhập tiến độ:</label>
-                        </div>
-                        <div class="col p-1 ">
-                            <input type="number" min="<?php echo $cv['CV_TIENDO'];?>" max="100" class="form-control" name="tiendo" id="tiendo" rows="3" value=<?php echo $cv['CV_TIENDO'];?>></input>
-                        </div>
-                    </div>
-
-                    <div class="row p-2 my-1 rounded">
-                        <div class="col p-1  text-light">
-                            <label for="nguoithuchien">Người thực hiện:</label>
-                        </div>
-                        <div class="col p-1 ">
-                            <input readonly type="text" class="form-control" name="nguoithuchien" value="<?php $user_id = $cv['CV_NTH'];
-$user = "SELECT * FROM nguoidung WHERE ND_MA='$user_id'";
-$user_data = mysqli_query($conn, $user);
-$user_current = mysqli_fetch_array($user_data);
-echo $user_current['ND_HOTEN'];?> ">
-
-                        </div>
-                    </div>
-
-                    <div class="row p-2 my-1 rounded">
-                        <div class="col p-1  text-light">
-                            <label for="nguoigiamsat">Người giám sát:</label>
-                        </div>
-                        <div class="col p-1 ">
-                            <input type="text" readonly class="form-control" name="nguoigiamsat" value="<?php
-                            $user_id = $cv['CV_NGS'];
-$user = "SELECT * FROM nguoidung WHERE ND_MA='$user_id'";
-$user_data = mysqli_query($conn, $user);
-$user_current = mysqli_fetch_array($user_data);
-echo $user_current['ND_HOTEN'];
-?> ">
-
-                        </div>
-                    </div>
-
-
-
-
-                    <div class="row p-2 my-1 rounded">
-                        <div class="col p-1  text-light">
-                            <label for="loai">Loại công việc:</label>
-                        </div>
-                        <div class="col p-1">
-                            <input type="text" readonly class="form-control" name="loaicongviec" value="<?php
+                    <form id="form" name="form" method="POST" class="form form_admin">
+                        <div class="col mt-2">
+                            <div class="col"><label for="loai" class="labels">Loại công việc</label>
+                                <input type="text" readonly class="form-control" name="loai" id="loai" value="<?php
 $lcv_id = $cv['LCV_MA'];
 $lcv = "SELECT * FROM loaicongviec WHERE LCV_MA='$lcv_id'";
 $lcv_data = mysqli_query($conn, $lcv);
@@ -202,22 +123,75 @@ echo $lcv_current['LCV_TEN'];
 ?>
                             
                             ">
+                            </div>
                         </div>
-                    </div>
-                    <div class="row p-2 my-1 rounded">
-                        <div class="col p-1  text-light">
-                            <label for="ngayketthuc">Ngày tạo:</label>
+                        <div class="row mt-2">
+                            <div class="mt-2 col">
+                                <label class="labels" for="ten">Tên công việc</label>
+                                <input required type="text" id="ten" name="ten" class="form-control" placeholder="Nhập tên công việc" readonly value="<?php echo $cv['CV_TEN'];?>">
+                            </div>
                         </div>
-                        <div class="col p-1 ">
-                            <input class="form-control" readonly type="" name="ngayketthuc" id="ngayketthuc" value="<?php echo $cv['CV_NGAYTAO'];?> ">
+                        <div class="row mt-2">
+                            <div class="mt-2 col"><label for="ngaybatdau" class="labels">Ngày bắt đầu</label>
+                                <input required type="date" min='1899-01-01' max='2100-01-01' id="ngaybatdau" name="ngaybatdau" class="form-control" placeholder="Ngày bắt đầu" readonly
+                                    value="<?php echo $cv['CV_NGAYBATDAU'];?>">
+                            </div>
+                            <div class="mt-2 col"><label for="ngayketthuc" class="labels">Ngày kết thúc</label>
+                                <input required type="date" min='1899-01-01' max='2100-01-01' id="ngayketthuc" name="ngayketthuc" class="form-control" placeholder="Ngày kết thúc" readonly
+                                    value="<?php echo $cv['CV_NGAYKETTHUC'];?>">
+                            </div>
                         </div>
-                    </div>
-                    <div class="btn_form ">
-                        <button style="width:100%" class="btn  btn-dark" type="submit" name="submit">Cập nhật thay đổi</button>
-                    </div>
+                        <div class="row mt-2">
+                            <div class="mt-2 col"><label class="labels" for="noidung">Nội dung công việc</label><textarea readonly type="text" id="noidung" name="noidung" rows=4 class="form-control"
+                                    placeholder="Nhập nội dung"><?php echo $cv['CV_NOIDUNG'];?></textarea>
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="mt-2 col"><label for="tiendo" class="labels">Tiến độ</label>
+                                <input required type="number" min="<?php echo $cv['CV_TIENDO'];?>" max="100" id="tiendo" name="tiendo" id="tiendo" class="form-control" placeholder="Tiến độ"
+                                    value="<?php echo $cv['CV_TIENDO'];?>">
+                            </div>
+                            <div class="mt-2 col"><label for="trangthai" class="labels">Trạng thái</label>
+                                <input required type="text" id="trangthai" name="trangthai" id="trangthai" class="form-control" placeholder="Trạng thái" readonly
+                                    value="<?php echo $cv['CV_TIENDO'];?>">
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="mt-2 col"><label for="ngaytao" class="labels">Ngày tạo</label>
+                                <input required type="date" id="ngaytao" name="ngaytao" class="form-control" placeholder="Ngày tạo" readonly value="<?php echo $cv['CV_NGAYTAO'];?>">
+                            </div>
+                        </div>
 
+                        <div class="row mt-2">
+                            <div class="mt-2 col"><label class="labels" for="nguoithuchien">Người thực hiện</label>
+                                <input readonly type="text" class="form-control" id="nguoithuchien" placeholder="Người thực hiện" name="nguoithuchien" value="<?php $user_id = $cv['CV_NTH'];
+$user = "SELECT * FROM nguoidung WHERE ND_MA='$user_id'";
+$user_data = mysqli_query($conn, $user);
+$user_current = mysqli_fetch_array($user_data);
+echo $user_current['ND_HOTEN'];?> ">
+                            </div>
+
+                        </div>
+                        <div class="row mt-2">
+                            <div class="mt-2 col">
+                                <label class="labels">Người giám sát</label>
+
+                                <input type="text" readonly class="form-control" placeholder="Người giám sát" id="nguoigiamsat" name="nguoigiamsat" value="<?php
+                            $user_id = $cv['CV_NGS'];
+$user = "SELECT * FROM nguoidung WHERE ND_MA='$user_id'";
+$user_data = mysqli_query($conn, $user);
+$user_current = mysqli_fetch_array($user_data);
+echo $user_current['ND_HOTEN'];
+?> ">
+                            </div>
+
+                        </div>
+                        <div class="mt-5 text-center">
+                            <button class="btn btn-primary profile-button w-50" name="submit" type="submit">Cập nhật</button>
+                        </div>
+                    </form>
                 </div>
-            </form>
+            </div>
         </div>
     </main>
     <footer class="footer_container d-flex justify-content-center p-3 text-dark">
