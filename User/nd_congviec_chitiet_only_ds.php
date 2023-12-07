@@ -8,7 +8,8 @@ if ((!isset($_SESSION['nguoidung']))) {
     header("location: ../index.php");
 }
 $ma = $_GET['chitiet_ma'];
-
+$link = $_GET['turn_back'];
+$link = "$link.php";
 $query_cv = "SELECT * FROM congviec WHERE CV_MA='$ma'";
 
 $congviec_data = mysqli_query($conn, $query_cv);
@@ -98,7 +99,7 @@ $cv = mysqli_fetch_array($congviec_data);
 
                 <div class="p-3 my-5">
                     <div class="d-flex justify-content-center align-items-center mb-3">
-                        <h5 class=" text-center">Cập nhật công việc</h5>
+                        <h5 class=" text-center">Chi tiết công việc</h5>
                     </div>
                     <form id="form" name="form" method="POST" class="form form_admin">
                         <div class="col mt-2">
@@ -176,8 +177,8 @@ echo $user_current['ND_HOTEN'];
 
                         </div>
                         <div class="d-flex mt-5 text-center justify-content-center">
-                            <a href="nguoidung.php" class="btn btn-dark profile-button w-25 mx-2" name="submit" type="submit">Quay lại</a>
-                            <a href="nd_congviec_giahan.php?giahan_ma=<?php echo $ma?>" class="btn btn-primary profile-button w-25 mx-2" name="submit" type="submit">Xin gia hạn</a>
+                            <!-- <button class="btn btn-primary profile-button w-25 mx-2" name="submit" type="submit">Cập nhật</button> -->
+                            <a href="<?php echo $link?>" class="btn btn-dark profile-button w-25 mx-2" name="submit" type="submit">Quay lại</a>
                         </div>
                     </form>
                 </div>

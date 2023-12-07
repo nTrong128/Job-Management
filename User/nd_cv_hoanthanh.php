@@ -137,9 +137,8 @@ while ($cv = mysqli_fetch_assoc($ds_cv)):
                             <?php echo $cv['CV_TRANGTHAICV']; ?>
                         </td>
                         <td>
-                            <button title="Chi tiết" type="button" class="btn-secondary btn" data-toggle="modal" data-target="#myModal">
-                                Chi tiết
-                            </button>
+                            <a href="nd_congviec_chitiet_only_ds.php?turn_back=nd_cv_hoanthanh&chitiet_ma=<?php echo $cv['CV_MA']?>" class="btn btn-secondary m-1">Xem chi tiết</a>
+
                         </td>
 
                     </tr>

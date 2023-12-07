@@ -108,7 +108,7 @@ $nd_ma = $nguoidung['ND_MA'];
                         <th scope="col">Tiến độ</th>
                         <th scope="col">Trạng thái</th>
                         <th scope="col">Người thực hiện</th>
-                        <th scope="col"></th>
+                        <th class="w-25" scope="col"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -147,10 +147,11 @@ while ($cv = mysqli_fetch_assoc($ds_cv)):
                             echo $nth['ND_HOTEN'];
                              ?>
                         </td>
-                        <td>
-                            <button title="Chi tiết" type="button" class="btn-secondary btn">
-                                Chi tiết
-                            </button>
+                        <td class="w-25">
+
+                            <a href="nd_congviec_chitiet_only_ds.php?turn_back=nd_cv_giamsat&chitiet_ma=<?php echo $cv['CV_MA']?>" class="btn btn-secondary m-1">Nhắc nhở</a>
+                            <a href="nd_congviec_chitiet_only_ds.php?turn_back=nd_cv_giamsat&chitiet_ma=<?php echo $cv['CV_MA']?>" class="btn btn-secondary m-1">Xem chi tiết</a>
+
                         </td>
 
                     </tr>

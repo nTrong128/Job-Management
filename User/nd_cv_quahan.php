@@ -106,7 +106,7 @@ $nd_ma = $nguoidung['ND_MA'];
                         <th scope="col">Ngày kết thúc</th>
                         <th scope="col">Tiến độ</th>
                         <th scope="col">Trạng thái</th>
-                        <th scope="col"></th>
+                        <th class="w-25" scope="col"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -136,13 +136,11 @@ while ($cv = mysqli_fetch_assoc($ds_cv)):
                         <td>
                             <?php echo $cv['CV_TRANGTHAICV']; ?>
                         </td>
-                        <td>
-                            <button title="Cập nhật tiến độ" type="button" class="btn-secondary btn" data-toggle="modal" data-target="#myModal">
-                                Chi tiết
-                            </button>
-                            <button title="Cập nhật tiến độ" type="button" class="btn-primary btn" data-toggle="modal" data-target="#myModal">
-                                Gia hạn
-                            </button>
+                        <td class="w-25">
+                            <a href="nd_congviec_chitiet_ds.php?turn_back=nd_cv_quahan&chitiet_ma=<?php echo $cv['CV_MA']?>" class="btn btn-secondary m-1">Xem chi tiết</a>
+
+                            <a href="nd_congviec_giahan.php?giahan_ma=<?php echo $cv['CV_MA']?>" class="btn btn-primary m-1">Xin gia hạn</a>
+
                         </td>
 
                     </tr>

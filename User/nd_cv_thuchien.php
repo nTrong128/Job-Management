@@ -134,15 +134,10 @@ while ($cv = mysqli_fetch_assoc($ds_cv)):
                             <?php echo $cv['CV_TRANGTHAICV']; ?>
                         </td>
                         <td class="w-25">
-                            <button title="Cập nhật tiến độ" type="button" class="btn-success btn" data-toggle="modal" data-target="#myModal">
-                                Cập nhật
-                            </button>
-                            <button title="Cập nhật tiến độ" type="button" class="btn-secondary btn" data-toggle="modal" data-target="#myModal">
-                                Chi tiết
-                            </button>
-                            <button title="Cập nhật tiến độ" type="button" class="btn-primary btn" data-toggle="modal" data-target="#myModal">
-                                Gia hạn
-                            </button>
+                            <a href="nd_congviec_chitiet_ds.php?turn_back=nd_cv_thuchien&chitiet_ma=<?php echo $cv['CV_MA']?>" class="btn btn-secondary m-1">Xem chi tiết</a>
+
+                            <a href="nd_congviec_giahan.php?giahan_ma=<?php echo $cv['CV_MA']?>" class="btn btn-primary m-1">Xin gia hạn</a>
+
                         </td>
 
                     </tr>

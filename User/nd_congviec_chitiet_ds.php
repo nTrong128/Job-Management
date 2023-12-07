@@ -8,7 +8,8 @@ if ((!isset($_SESSION['nguoidung']))) {
     header("location: ../index.php");
 }
 $ma = $_GET['chitiet_ma'];
-
+$link = $_GET['turn_back'];
+$link = "$link.php";
 $query_cv = "SELECT * FROM congviec WHERE CV_MA='$ma'";
 
 $congviec_data = mysqli_query($conn, $query_cv);
@@ -176,8 +177,9 @@ echo $user_current['ND_HOTEN'];
 
                         </div>
                         <div class="d-flex mt-5 text-center justify-content-center">
-                            <a href="nguoidung.php" class="btn btn-dark profile-button w-25 mx-2" name="submit" type="submit">Quay lại</a>
-                            <a href="nd_congviec_giahan.php?giahan_ma=<?php echo $ma?>" class="btn btn-primary profile-button w-25 mx-2" name="submit" type="submit">Xin gia hạn</a>
+                            <a href="<?php echo $link?>" class="btn btn-dark profile-button w-25 mx-2" name="submit" type="submit">Quay lại</a>
+                            <button class="btn btn-success profile-button w-25 mx-2" name="submit" type="submit">Cập nhật</button>
+
                         </div>
                     </form>
                 </div>

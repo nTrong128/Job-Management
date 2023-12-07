@@ -176,8 +176,9 @@ echo $user_current['ND_HOTEN'];
 
                         </div>
                         <div class="d-flex mt-5 text-center justify-content-center">
-                            <button class="btn btn-primary profile-button w-25 mx-2" name="submit" type="submit">Cập nhật</button>
-                            <a href="nguoidung.php" class="btn btn-primary profile-button w-25 mx-2" name="submit" type="submit">Quay lại</a>
+                            <a href="nguoidung.php" class="btn btn-dark profile-button w-25 mx-2" name="submit" type="submit">Quay lại</a>
+                            <button class="btn btn-success profile-button w-25 mx-2" name="submit" type="submit">Cập nhật</button>
+
                         </div>
                     </form>
                 </div>
