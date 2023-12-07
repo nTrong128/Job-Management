@@ -19,7 +19,7 @@
         <nav class="navbar_container navbar  navbar-expand-lg">
             <div class="container-fluid">
                 <a class="navbar-brand text-white fs-2" href="../index.php"><img src="../image/logo.png" style="width: 50px;" class="w3-circle"> QUẢN LÝ CÔNG VIỆC</a>
-                <a class="btn btn-outline-light px-3 py-3 me-2" href="dangnhap.php" role="button">ĐĂNG NHẬP</a>
+                <a class="btn btn-outline-light px-3 py-3 me-2" href="../index.php" role="button">ĐĂNG NHẬP</a>
             </div>
         </nav>
     </header>
@@ -27,83 +27,60 @@
     <main>
 
         <div class="form_center">
-            <form action="dangky.php" id="form" name="form" method="post" onsubmit="return validateForm()" class="form shadow-lg p-0 mb-5 rounded">
-                <div class="navbar_container p-5 py-4 border border-2 rounded">
-                    <h1 class="text-light text-center">ĐĂNG KÝ TÀI KHOẢN</h1>
-                    <hr class="text-dark border border-2 rounded " style="border-top: 4px solid white">
+            <div class="rounded bg-white mb-5 form_container">
 
-                    <div class="row p-2 my-1 rounded">
-                        <div class="col p-1  text-light">
-                            <label for="name">Điền họ và tên:</label>
-                        </div>
-                        <div class="col p-1 ">
-                            <input class="form-control" type="text" placeholder="Họ và tên" name="name" id="name" required>
-                        </div>
+                <div class="p-3 py-5">
+                    <div class="d-flex justify-content-center align-items-center mb-3">
+                        <h5 class=" text-center">Thêm người dùng mới</h5>
                     </div>
-                    <div class="row p-2 my-1 rounded">
-                        <div class="col p-1   text-light">
-                            <label for="diachi">Địa chỉ:</label>
+                    <form id="form" name="form" method="POST" class="form form_admin">
+                        <div class="col mt-2">
+                            <div class="col"><label for="name" class="labels">Họ và tên</label><input type="text" required name="name" id="name" class="form-control" placeholder="Họ và tên">
+                            </div>
                         </div>
-                        <div class="col p-1 ">
-                            <input class="form-control" type="text" name="diachi" id="diachi" placeholder="Nhập địa chỉ của bạn" required>
+                        <div class="row mt-2">
+                            <div class="mt-2 col">
+                                <label class="labels">Email</label>
+                                <input required type="text" id="email" name="email" class="form-control" placeholder="Email">
+                            </div>
                         </div>
-                    </div>
-                    <div class="row p-2 my-1 rounded">
-                        <div class="col p-1  text-light">
-                            <label for="sdt">Số điện thoại:</label>
+                        <div class="row mt-2">
+                            <div class="mt-2 col"><label for="ngaysinh" class="labels">Ngày sinh</label>
+                                <input id="ngaysinh" required type="date" min='1899-01-01' max='2100-01-01' name="ngaysinh" class="form-control" placeholder="Ngày sinh">
+                            </div>
+                            <div class="mt-2 col"><label class="labels">Số điện thoại</label>
+                                <input required type="text" id="sdt" name="sdt" class="form-control" placeholder="Số điện thoại">
+                            </div>
                         </div>
-                        <div class="col p-1 ">
-                            <input class="form-control" type="tel" name="sdt" id="sdt" placeholder="Nhập số điện thoại" required>
+                        <div class="row mt-2">
+                            <div class="mt-2 col"><label class="labels">Địa chỉ</label><input required type="text" id="diachi" name="diachi" class="form-control" placeholder="Địa chỉ">
+                            </div>
                         </div>
-                    </div>
-                    <div class="row p-2 my-1 rounded">
-                        <div class="col p-1  text-light">
-                            <label for="email">Email:</label>
+
+
+                        <div class="row mt-2">
+                            <div class="mt-2 col"><label class="labels">MSCB</label><input required type="text" id="mscb" name="mscb" class="form-control" placeholder="MSCB">
+                            </div>
+
                         </div>
-                        <div class="col p-1 ">
-                            <input class="form-control" type="text" placeholder="Nhập email" name="email" id="email" required>
+                        <div class="row mt-2">
+                            <div class="mt-2 col"><label class="labels">Mật khẩu</label><input required type="password" id="pass1" name="pass1" class="form-control" placeholder="Mật khẩu">
+                            </div>
+                            <div class="mt-2 col"><label class="labels">Nhập lại mật khẩu</label><input required type="password" id="pass2" name="pass2" class="form-control"
+                                    placeholder="Nhập lại mật khẩu">
+                            </div>
                         </div>
-                    </div>
-                    <div class="row p-2 my-1 rounded">
-                        <div class="col p-1  text-light">
-                            <label for="mscb">Mã số cán bộ:</label>
+                        <div class="mt-5 text-center">
+                            <button class="btn btn-primary profile-button w-50" name="dangky" type="dangky">Đăng ký</button>
                         </div>
-                        <div class="col p-1  ">
-                            <input class="form-control" type="text" placeholder="Nhập mã số cán bộ:" name="mscb" id="mscb" required>
-                        </div>
-                    </div>
-                    <div class="row p-2 my-1 rounded">
-                        <div class="col p-1  text-light">
-                            <label for="passwd">Mật khẩu:</label>
-                        </div>
-                        <div class="col p-1 ">
-                            <input class="form-control" type="password" placeholder="Mật khẩu" name="passwd" id="passwd" required>
-                        </div>
-                    </div>
-                    <div class="row p-2 my-1 rounded">
-                        <div class="col p-1  text-light">
-                            <label for="passwd2">Xác nhận mật khẩu:</label>
-                        </div>
-                        <div class="col p-1 ">
-                            <input class="form-control" type="password" placeholder="Xác nhận mật khẩu" name="passwd2" id="passwd2" required>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="form-check text-light mb-3">
-                            <input class="form-check-input" type="checkbox" id="myCheck" name="remember" required>
-                            <label class="form-check-label" for="myCheck">Tôi đồng ý điều khoản và chính sách bảo mật.</label>
-                        </div>
-                    </div>
-                    <div class="btn_form ">
-                        <button style="width:100%" type="submit" class="btn  btn-dark" name="dangky">ĐĂNG KÝ</button>
-                    </div>
+                    </form>
                 </div>
-            </form>
+            </div>
         </div>
     </main>
 
 
-    <footer class="footer_container d-flex justify-content-center p-3 text-dark">
+    <footer class="fixed-bottom footer_container d-flex justify-content-center p-3 text-dark">
         <p>B2016962 &copy; 2023 Bản quyền thuộc về Nguyễn Văn Hậu.</p>
     </footer>
 
@@ -130,13 +107,24 @@
     var password = document.getElementById("pass1"),
         confirm_password = document.getElementById("pass2");
 
+    function passValid(string) {
+        var re = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/
+        return re.test(string)
+    }
+
     function validatePassword() {
+        if (!passValid(password.value)) {
+            password.setCustomValidity("Mật khẩu phải từ 8 ký tự (bao gồm chữ và số, có ít nhất 1 ký tự in hoa và 1 ký tự đặc biệt)");
+        } else {
+            password.setCustomValidity('');
+        }
         if (password.value != confirm_password.value) {
-            confirm_password.setCustomValidity("Mật khẩu không khớp.");
+            confirm_password.setCustomValidity("Mật khẩu không khớp");
         } else {
             confirm_password.setCustomValidity('');
         }
     }
+    
 
 
 

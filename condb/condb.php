@@ -37,7 +37,7 @@ if (isset($_POST['dangky'])) {
             $_SESSION['username'] = $email;
 
             $_SESSION['success'] = "You have logged in";
-            header('Location: ../User/nguoidung.php');
+            header('Location: ../index.php');
         } else {
             echo "Error: " . $sql . "<br>" . $conn->error;
         }
@@ -90,7 +90,7 @@ if (isset($_POST['dangnhap'])) {
     if ($count == 1) {
         $_SESSION['nguoidung'] = $nguoidung;
         $_SESSION['success'] = "You have logged in!";
-        header('Location: nguoidung.php');
+        header('Location: ./User/nguoidung.php');
 
         echo "<script> alert('Đăng nhập thành công') </script>";
 

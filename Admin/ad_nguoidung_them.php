@@ -162,7 +162,7 @@ else:?>
     </main>
 
 
-    <footer id="grad1" class="justify-content-center navbar p-3 text-white ">
+    <footer class="fixed-bottom footer_container d-flex justify-content-center p-3 text-dark">
         <p>B2016962 &copy; 2023 Bản quyền thuộc về Nguyễn Văn Hậu.</p>
     </footer>
 
@@ -189,13 +189,24 @@ else:?>
     var password = document.getElementById("pass1"),
         confirm_password = document.getElementById("pass2");
 
+    function passValid(string) {
+        var re = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/
+        return re.test(string)
+    }
+
     function validatePassword() {
+        if (!passValid(password.value)) {
+            password.setCustomValidity("Mật khẩu phải từ 8 ký tự (bao gồm chữ và số, có ít nhất 1 ký tự in hoa và 1 ký tự đặc biệt)");
+        } else {
+            password.setCustomValidity('');
+        }
         if (password.value != confirm_password.value) {
-            confirm_password.setCustomValidity("Mật khẩu không khớp.");
+            confirm_password.setCustomValidity("Mật khẩu không khớp");
         } else {
             confirm_password.setCustomValidity('');
         }
     }
+    
 
 
 

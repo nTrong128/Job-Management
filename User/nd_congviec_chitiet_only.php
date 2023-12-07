@@ -184,7 +184,7 @@ echo $user_current['ND_HOTEN'];
             </div>
         </div>
     </main>
-    <footer class="footer_container d-flex justify-content-center p-3 text-dark">
+    <footer class="fixed-bottom footer_container d-flex justify-content-center p-3 text-dark">
         <p>B2016962 &copy; 2023 Bản quyền thuộc về Nguyễn Văn Hậu.</p>
     </footer>
 </body>

@@ -163,7 +163,9 @@ else:?>
             </div>
         </div>
     </main>
-
+    <footer class="fixed-bottom footer_container d-flex justify-content-center p-3 text-dark">
+        <p>B2016962 &copy; 2023 Bản quyền thuộc về Nguyễn Văn Hậu.</p>
+    </footer>
 </body>
 <script>
 var prevScrollpos = window.pageYOffset;

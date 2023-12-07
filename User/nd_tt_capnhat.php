@@ -130,7 +130,7 @@ if(isset($_POST['submit'])) {
         </div>
 
         <div class="form_center">
-            <form id="form" name="form" method="POST" class="form">
+            
                 <div class="container rounded bg-white mt-5 mb-5">
                     <div class="row">
                         <div class="col-md-3 border-end">
@@ -151,42 +151,152 @@ if(isset($_POST['submit'])) {
                                 <div class="d-flex justify-content-center align-items-center mb-3">
                                     <h5 class=" text-center">Cập nhật thông tin cá nhân</h5>
                                 </div>
+                                <form id="form" name="form" method="POST" class="form">
                                 <div class="row mt-2">
-                                    <div class="col"><label for="name" class="labels">Họ và tên</label><input id="name" type="text" required name="name" class="form-control" placeholder="Họ và tên"
+                                    <div class="col"><label for="name" class="labels">Họ và tên</label>
+                                    <input id="name" type="text" required name="name" class="form-control" placeholder="Họ và tên"
                                             value="<?php echo $nguoidung['ND_HOTEN'];?>"></div>
                                 </div>
                                 <div class="row mt-2">
                                     <div class="mt-2 col-md-12"><label for="ngaysinh" class="labels">Ngày sinh</label><input id="ngaysinh" required type="date" name="ngaysinh" class="form-control"
                                             placeholder="Ngày sinh" value="<?php echo $nguoidung['ND_NGAYSINH'];?>"></div>
-                                    <div class="mt-2 col-md-12"><label class="labels">Số điện thoại</label><input required type="text" name="sdt" class="form-control" placeholder="Số điện thoại"
+                                    <div class="mt-2 col-md-12"><label class="labels">Số điện thoại</label><input required type="text"  id="sdt" name="sdt" class="form-control" placeholder="Số điện thoại"
                                             value="<?php echo $nguoidung['ND_SDT'];?>">
                                     </div>
-                                    <div class="mt-2 col-md-12"><label class="labels">Địa chỉ</label><input required type="text" name="diachi" class="form-control" placeholder="Địa chỉ"
+                                    <div class="mt-2 col-md-12"><label class="labels">Địa chỉ</label><input required type="text" id="diachi" name="diachi" class="form-control" placeholder="Địa chỉ"
                                             value="<?php echo $nguoidung['ND_DIACHI'];?>"></div>
                                 </div>
                                 <div class="row mt-2">
-                                    <div class="mt-2 col-md-6"><label class="labels">Email</label><input readonly required type="text" name="email" class="form-control" placeholder="Email"
+                                    <div class="mt-2 col-md-6"><label class="labels">Email</label><input readonly required type="text" id="email" name="email" class="form-control" placeholder="Email"
                                             value="<?php echo $nguoidung['ND_EMAIL'];?>">
                                     </div>
-                                    <div class="mt-2 col-md-6"><label class="labels">MSCB</label><input readonly required type="text" name="mscb" class="form-control"
+                                    <div class="mt-2 col-md-6"><label class="labels">MSCB</label><input readonly required type="text" id="mscb" name="mscb" class="form-control"
                                             value="<?php echo $nguoidung['ND_MSCB'];?>" placeholder="MSCB">
                                     </div>
                                 </div>
                                 <div class="mt-5 text-center"><button class="btn btn-primary profile-button w-50" name="submit" type="submit">Lưu</button></div>
                             </div>
+                            </form>
                         </div>
 
                     </div>
                 </div>
-            </form>
+            
         </div>
     </main>
 
 
-    <footer class="footer_container d-flex justify-content-center p-3 text-dark">
+    <footer class="fixed-bottom footer_container d-flex justify-content-center p-3 text-dark">
         <p>B2016962 &copy; 2023 Bản quyền thuộc về Nguyễn Văn Hậu.</p>
     </footer>
     <script>
+    function removeAscent(str) {
+        if (str === null || str === undefined) return str;
+        str = str.toLowerCase();
+        str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
+        str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
+        str = str.replace(/ì|í|ị|ỉ|ĩ/g, "i");
+        str = str.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g, "o");
+        str = str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, "u");
+        str = str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, "y");
+        str = str.replace(/đ/g, "d");
+
+        return str;
+    }
+
+    var nameInput = document.getElementById("name");
+    var phoneInput = document.getElementById("sdt");
+    var addInput = document.getElementById("diachi");
+    var emailInput = document.getElementById("email");
+    var mscbInput = document.getElementById("mscb");
+
+    function passValid(string) {
+        var re = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/
+        return re.test(string)
+    }
+
+    function validatePassword() {
+        if (!passValid(password.value)) {
+            password.setCustomValidity("Mật khẩu phải từ 8 ký tự (bao gồm chữ và số, có ít nhất 1 ký tự in hoa và 1 ký tự đặc biệt)");
+        } else {
+            password.setCustomValidity('');
+        }
+        if (password.value != confirm_password.value) {
+            confirm_password.setCustomValidity("Mật khẩu không khớp");
+        } else {
+            confirm_password.setCustomValidity('');
+        }
+    }
+    
+
+
+
+    function nameValid(string) {
+        var re = /^[a-zA-Z !@#\$%\^\&*\)\(+=._-]{2,}$/g // regex here
+        return re.test(removeAscent(string))
+    }
+
+    function validateName() {
+        console.log("validateName");
+        if (!nameValid(nameInput.value)) {
+            nameInput.setCustomValidity("Tên từ 2 kí tự, không có kí tự đặc biệt, không có số");
+
+        } else {
+            nameInput.setCustomValidity('');
+
+        }
+    }
+
+    function phonevalid(string) {
+        var re = /^\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/
+        return re.test(string)
+    }
+
+    function validatePhone() {
+        if (!phonevalid(phoneInput.value)) {
+            phoneInput.setCustomValidity("Số điện thoại không hợp lê");
+
+        } else {
+            phoneInput.setCustomValidity('');
+
+        }
+    }
+
+    function validateAdd() {
+        if (addInput.value.length < 5) {
+            addInput.setCustomValidity("Địa chỉ phải dài hơn 5 ký tự");
+        } else {
+            addInput.setCustomValidity('');
+        }
+    }
+
+    function emailValid(string) {
+        var re = /^\S+@\S+\.\S+$/
+        return re.test(string)
+    }
+
+    function validateEmail() {
+        if (!emailValid(emailInput.value)) {
+            emailInput.setCustomValidity("Địa chỉ email không hợp lệ");
+        } else {
+            emailInput.setCustomValidity('');
+
+        }
+    }
+
+    function validateMSCB() {
+        if (mscbInput.value.length != 6) {
+            mscbInput.setCustomValidity("Mã số cán bộ có 6 kí tự");
+        } else {
+            mscbInput.setCustomValidity('');
+        }
+    }
+    mscbInput.onkeyup = validateMSCB;
+    emailInput.onkeyup = validateEmail;
+    addInput.onkeyup = validateAdd;
+    phoneInput.onkeyup = validatePhone;
+    nameInput.onkeyup = validateName;
+
     var prevScrollpos = window.pageYOffset;
 
     /* Get the header element and it's position */

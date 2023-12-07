@@ -59,6 +59,7 @@ main {
   min-height: 620px;
   margin-top: 80px;
   padding-top: 24px;
+  padding-bottom: 60px;
 }
 .navbar_container {
   background-color: rgba(0, 0, 0, 0.4);

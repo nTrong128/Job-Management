@@ -201,7 +201,7 @@ else:?>
 
                 <div class="p-3 my-5">
                     <div class="d-flex justify-content-center align-items-center mb-3">
-                        <h5 class=" text-center">Thêm công việc mới</h5>
+                        <h5 class=" text-center">Chỉnh sửa công việc</h5>
                     </div>
                     <form id="form" name="form" method="POST" class="form form_admin">
                         <div class="col mt-2">
@@ -309,7 +309,7 @@ endwhile;
             </div>
         </div>
     </main>
-    <footer class="footer_container d-flex justify-content-center p-3 text-dark">
+    <footer class="fixed-bottom footer_container d-flex justify-content-center p-3 text-dark">
         <p>B2016962 &copy; 2023 Bản quyền thuộc về Nguyễn Văn Hậu.</p>
     </footer>
 </body>
