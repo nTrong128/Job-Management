@@ -153,7 +153,7 @@ echo $lcv_current['LCV_TEN'];
                             </div>
                             <div class="mt-2 col"><label for="trangthai" class="labels">Trạng thái</label>
                                 <input required type="text" id="trangthai" name="trangthai" id="trangthai" class="form-control" placeholder="Trạng thái" readonly
-                                    value="<?php echo $cv['CV_TIENDO'];?>">
+                                    value="<?php echo $cv['CV_TRANGTHAI'];?>">
                             </div>
                         </div>
                         <div class="row mt-2">

@@ -38,7 +38,6 @@ $nd_ma = $nguoidung['ND_MA'];
                 <a class="navbar-brand text-white fs-4" href="nguoidung.php"><img src="../image/logo.png" style="width: 40px;" class="w3-circle"></a>
                 <a class="navbar-brand text-white fs-2"> QUẢN LÝ CÔNG VIỆC </a>
                 <div class="">
-                    <a href="#"><img class="rounded-circle me-4" width="54px" src="../Image/default_avatar.jpg" alt="Profile Picture"></a>
                     <a class="btn btn-outline-light px-2 py-2 me-2" href="dangxuat.php" role="button">ĐĂNG XUẤT</a>
                 </div>
             </div>
@@ -149,7 +148,7 @@ while ($cv = mysqli_fetch_assoc($ds_cv)):
                         </td>
                         <td class="w-25">
 
-                            <a href="nd_congviec_chitiet_only_ds.php?turn_back=nd_cv_giamsat&chitiet_ma=<?php echo $cv['CV_MA']?>" class="btn btn-secondary m-1">Nhắc nhở</a>
+                            <a href="nd_giamsat_nhacnho.php?nd_ma=<?php echo $cv['CV_NTH'];?>&chitiet_ma=<?php echo $cv['CV_MA'];?>" class="btn btn-primary m-1">Nhắc nhở</a>
                             <a href="nd_congviec_chitiet_only_ds.php?turn_back=nd_cv_giamsat&chitiet_ma=<?php echo $cv['CV_MA']?>" class="btn btn-secondary m-1">Xem chi tiết</a>
 
                         </td>
@@ -173,7 +172,7 @@ endwhile;
 $(document).ready(function() {
     $("#searchBar").on("keyup", function() {
         var value = $(this).val().toLowerCase();
-        $("#dataTable tr").filter(function() {
+        $("#dataTable tbody tr").filter(function() {
             $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
         });
     });

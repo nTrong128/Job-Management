@@ -1,10 +1,54 @@
-<?php include_once '../condb/condb.php';
-include_once './ad_thongbao.php'; 
+<?php
+
+// Update User
+include_once '../condb/condb.php';
+include_once './ad_thongbao.php';
 if ((!isset($_SESSION['admin']))) {
     session_destroy();
     unset($_SESSION['admin']);
     header("location: ../index.php");
-}?>
+}
+$ma = $_GET['chinhsua_ma'];
+
+$query_loaicongviec = "SELECT * FROM loaicongviec WHERE LCV_MA='$ma'";
+
+$lcv_querry = mysqli_query($conn, $query_loaicongviec);
+$loaicv = mysqli_fetch_array($lcv_querry);
+
+
+if(isset($_POST['submit'])) {
+    $ten = $_POST['ten'];
+    try {
+
+        $sql = "UPDATE loaicongviec
+                SET LCV_TEN='$ten'
+                WHERE LCV_MA=$ma";
+
+        $query = mysqli_query($conn, $sql);
+
+    } catch (mysqli_sql_exception $e) {
+        var_dump($e);
+        exit;
+
+    }
+
+
+    if ($query) {
+
+        echo "Cập nhật thành công!";
+        header("Location: ad_loaicongviec_ds.php");
+
+    } else {
+
+        echo "Error updating row.: " . $conn->error;
+
+    }
+
+}
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,10 +61,9 @@ if ((!isset($_SESSION['admin']))) {
         crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-
-    <title>Người dùng</title>
+    <title>Tạo công việc</title>
 </head>
+
 
 <body>
     <header>
@@ -82,7 +125,7 @@ if ($ds_thongbao->num_rows > 0):
                                         ?>
                                             <p class="item-info"><?php echo $date_out?></p>
                                             <div class="d-flex justify-content-between">
-                                                <p class="item-info"><?php echo $thongbao['TB_NOIDUNG']?></p>
+                                                <p class="item-info"><?php echo $thongbao['TB_NOIDUNG']?></p>></p>
                                                 <a class="btn btn-danger text-decoration-none" href="ad_thongbao_xoa.php?thongbao_ma=<?php echo $thongbao['TB_MA'];?>">
                                                     Xoá
                                                 </a>
@@ -108,10 +151,7 @@ else:?>
             </div>
         </nav>
     </header>
-
     <main>
-
-
         <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
             <div class="offcanvas-header custom-bg text-light">
                 <h3 class="offcanvas-title" id="offcanvasExampleLabel">
@@ -140,162 +180,59 @@ else:?>
                 </div>
             </div>
         </div>
-        <?php
-$query_cv = "SELECT * FROM congviec";
-$ds_cv = mysqli_query($conn, $query_cv);
-$soluong_cv = $ds_cv->num_rows;
-$i = 1;
-?>
-        <div class="container w-80 rounded-4 p-2 mb-4">
-            <h1 class="text-center ">DANH SÁCH CÔNG VIỆC</h1>
-            <h1 class="text-center ">Tổng số công việc: <?php echo $soluong_cv;?></h1>
-        </div>
-        <div class="rounded p-4 d-flex justify-content-sm-between">
-            <input class="rounded-2" type="text" id="searchBar" placeholder="Tìm kiếm công việc.." title="Nhập thông tin công việc">
-            <a href="ad_congviec_them.php" class="btn btn-dark p-3 px-4">Thêm công việc mới</a>
-        </div>
+        <div class="form_center my-5">
+            <div class="rounded bg-white mb-5 form_container">
 
-        <div class="mb-4 mx-4 rounded bg-light border border-2">
-
-            <table id="dataTable" class="table text-center align-middle">
-                <thead class="align-middle">
-                    <tr style="">
-                        <th scope="col">STT</th>
-                        <th scope="col">Tên công việc</th>
-                        <th scope="col">Ngày bắt đầu</th>
-                        <th scope="col">Ngày kết thúc</th>
-                        <th scope="col">Người thực hiện</th>
-                        <th scope="col">Tiến độ</th>
-                        <th scope="col">Trạng thái</th>
-                        <th scope="col"></th>
-                    </tr>
-                </thead>
-                <tbody>
-
-                    <?php
-while ($cv = mysqli_fetch_assoc($ds_cv)):
-    ;
-    ?>
-                    <tr>
-                        <th scope="row">
-                            <?php echo $i;
-    $i += 1; ?>
-                        </th>
-                        <td>
-                            <?php echo $cv['CV_TEN']; ?>
-                        </td>
-
-                        <td>
-                            <?php echo $cv['CV_NGAYBATDAU']; ?>
-                        </td>
-                        <td>
-                            <?php echo $cv['CV_NGAYKETTHUC']; ?>
-                        </td>
-
-                        <td>
-                            <?php
-    $ma_NTH = $cv['CV_NTH'];
-    $query_nguoidung = "SELECT * FROM nguoidung where ND_MA = '$ma_NTH'";
-    $nguoidung_TH = mysqli_query($conn, $query_nguoidung);
-    $nguoidung = mysqli_fetch_assoc($nguoidung_TH);
-    echo $nguoidung['ND_HOTEN']; ?>
-                        </td>
-
-                        <td>
-                            <div class="progress m-2 position-relative ">
-                                <div class="progress-bar " role="progressbar" style="width:<?php echo $cv['CV_TIENDO']; ?>%;" aria-valuenow="<?php echo $cv['CV_TIENDO'];?>" aria-valuemin="0"
-                                    aria-valuemax="100"></div>
-                                <small class="justify-content-center text-dark d-flex position-absolute w-100"><?php echo $cv['CV_TIENDO']; ?>%</small>
+                <div class="p-3 my-5">
+                    <div class="d-flex justify-content-center align-items-center mb-3">
+                        <h5 class=" text-center">Chỉnh sửa loại công việc</h5>
+                    </div>
+                    <form id="form" name="form" method="POST" class="form form_admin">
+                        <div class="row mt-2">
+                            <div class="mt-5">
+                                <label for="ten" class="labels">Tên loại công việc</label>
+                                <input type="text" class="form-control" name="ten" id="ten" value="<?php echo $loaicv['LCV_TEN'];?>">
                             </div>
-
-                        </td>
-                        <td>
-                            <?php echo $cv['CV_TRANGTHAICV']; ?>
-                        </td>
-                        <td style="width:10%">
-                            <button class="btn"><a href="ad_congviec_chitiet.php?chitiet_ma=<?php echo $cv['CV_MA']?>"><i class="fa-solid fa-eye"></i></a></button>
-                            <button class="btn"><a href="ad_congviec_sua.php?sua_ma=<?php echo $cv['CV_MA']?>"><i class="fa-solid fa-pen-to-square"></i></a></button>
-                            <button class="btn"><a href="ad_congviec_xoa.php?xoa_ma=<?php echo $cv['CV_MA']?>"><i class="fa-sharp fa-solid fa-trash"></i></a></button>
-
-                        </td>
-
-
-                    </tr>
-                    <?php
-endwhile;
-?>
-                </tbody>
-            </table>
+                        </div>
+                        <div class="mt-5 text-center">
+                            <button class="btn btn-primary profile-button w-50" name="submit" type="submit">Cập nhật</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
-
-
-
     </main>
-
-
     <footer class="footer_container d-flex justify-content-center p-3 text-dark">
         <p>B2016962 &copy; 2023 Bản quyền thuộc về Nguyễn Văn Hậu.</p>
     </footer>
-    <script>
-    $(document).ready(function() {
-        $("#searchBar").on("keyup", function() {
-            var value = $(this).val().toLowerCase();
-            $("#dataTable tbody tr").filter(function() {
-                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-            });
-        });
-    });
-
-
-    $(document).ready(function() {
-        const show_percent = true;
-        var progressBars = $(".progress-bar");
-        for (i = 0; i < progressBars.length; i++) {
-            var progress = $(progressBars[i]).attr("aria-valuenow");
-            $(progressBars[i]).width(progress + "%");
-            if (show_percent) {}
-            if (progress >= 90) {
-                //90 and above
-                $(progressBars[i]).addClass("bg-success");
-            } else if (progress >= 30 && progress < 45) {
-                $(progressBars[i]).addClass("bg-warning"); //From 30 to 44
-            } else if (progress >= 45 && progress < 90) {
-                $(progressBars[i]).addClass("bg-info"); //From 45 to 89
-            } else {
-                //29 and under
-                $(progressBars[i]).addClass("bg-danger");
-            }
-        }
-    });
-    </script>
-    <script>
-    var prevScrollpos = window.pageYOffset;
-
-    /* Get the header element and it's position */
-    var headerDiv = document.querySelector("nav");
-    var mainDiv = document.querySelector("main");
-    var headerBottom = headerDiv.offsetTop + headerDiv.offsetHeight;
-
-    window.onscroll = function() {
-        var currentScrollPos = window.pageYOffset;
-
-        /* if scrolling down, let it scroll out of view as normal */
-        if (prevScrollpos <= currentScrollPos) {
-            headerDiv.classList.remove("fixed-top");
-            headerDiv.style.top = "-7.2rem";
-            mainDiv.style.marginTop = "0";
-        }
-        /* otherwise if we're scrolling up, fix the nav to the top */
-        else {
-            headerDiv.classList.add("fixed-top");
-            headerDiv.style.top = "0";
-            mainDiv.style.marginTop = "80px";
-
-        }
-
-        prevScrollpos = currentScrollPos;
-    }
-    </script>
 </body>
+<script>
+var prevScrollpos = window.pageYOffset;
+
+/* Get the header element and it's position */
+var headerDiv = document.querySelector("nav");
+var mainDiv = document.querySelector("main");
+var headerBottom = headerDiv.offsetTop + headerDiv.offsetHeight;
+
+window.onscroll = function() {
+    var currentScrollPos = window.pageYOffset;
+
+    /* if scrolling down, let it scroll out of view as normal */
+    if (prevScrollpos <= currentScrollPos) {
+        headerDiv.classList.remove("fixed-top");
+        headerDiv.style.top = "-7.2rem";
+        mainDiv.style.marginTop = "0";
+    }
+    /* otherwise if we're scrolling up, fix the nav to the top */
+    else {
+        headerDiv.classList.add("fixed-top");
+        headerDiv.style.top = "0";
+        mainDiv.style.marginTop = "80px";
+
+    }
+
+    prevScrollpos = currentScrollPos;
+}
+</script>
 
 </html>

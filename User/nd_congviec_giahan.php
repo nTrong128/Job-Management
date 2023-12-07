@@ -36,12 +36,12 @@ if(isset($_POST['submit'])) {
             header("Location: nguoidung.php");
             throw new Exception("Hạn mới không hợp lệ.");
         }
-        $sql = "INSERT INTO giahancongviec(CV_MA,GH_NOIDUNG, GH_NGAY)
-                 VALUES ('$ma','$noidung','$hanmoi')";
+        $sql = "INSERT INTO giahancongviec(ND_MA,CV_MA,GH_NOIDUNG, GH_NGAY)
+                 VALUES ('$nguoidung_tb','$ma','$noidung','$hanmoi')";
 
         $query = mysqli_query($conn, $sql);
         $sql_thongbao = "INSERT INTO thongbao
-                        (ND_MA, CV_MA,TB_ND, TB_TG, TB_XEM)
+                        (ND_MA, CV_MA,TB_NOIDUNG, TB_TG, TB_XEM)
                         VALUES ('$nguoidung_tb','$ma','Yêu cầu gia hạn công việc',NOW(), '0')";
         $query_thongbao = mysqli_query($conn, $sql_thongbao);
 
@@ -91,7 +91,6 @@ if(isset($_POST['submit'])) {
                 <a class="navbar-brand text-white fs-4" href="nguoidung.php"><img src="../image/logo.png" style="width: 40px;" class="w3-circle"></a>
                 <a class="navbar-brand text-white fs-2"> QUẢN LÝ CÔNG VIỆC </a>
                 <div class="">
-                    <a href="#"><img class="rounded-circle me-4" width="54px" src="../Image/default_avatar.jpg" alt="Profile Picture"></a>
                     <a class="btn btn-outline-light px-2 py-2 me-2" href="dangxuat.php" role="button">ĐĂNG XUẤT</a>
                 </div>
             </div>

@@ -108,8 +108,27 @@
     </footer>
 
     <script>
-    var password = document.getElementById("passwd"),
-        confirm_password = document.getElementById("passwd2");
+    function removeAscent(str) {
+        if (str === null || str === undefined) return str;
+        str = str.toLowerCase();
+        str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
+        str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
+        str = str.replace(/ì|í|ị|ỉ|ĩ/g, "i");
+        str = str.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g, "o");
+        str = str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, "u");
+        str = str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, "y");
+        str = str.replace(/đ/g, "d");
+
+        return str;
+    }
+
+    var nameInput = document.getElementById("name");
+    var phoneInput = document.getElementById("sdt");
+    var addInput = document.getElementById("diachi");
+    var emailInput = document.getElementById("email");
+    var mscbInput = document.getElementById("mscb");
+    var password = document.getElementById("pass1"),
+        confirm_password = document.getElementById("pass2");
 
     function validatePassword() {
         if (password.value != confirm_password.value) {
@@ -118,23 +137,75 @@
             confirm_password.setCustomValidity('');
         }
     }
+
+
+
+    function nameValid(string) {
+        var re = /^[a-zA-Z !@#\$%\^\&*\)\(+=._-]{2,}$/g // regex here
+        return re.test(removeAscent(string))
+    }
+
+    function validateName() {
+        if (!nameValid(nameInput.value)) {
+            nameInput.setCustomValidity("Tên từ 2 kí tự, không có kí tự đặc biệt, không có số");
+
+        } else {
+            nameInput.setCustomValidity('');
+
+        }
+    }
+
+    function phonevalid(string) {
+        var re = /^\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/
+        return re.test(string)
+    }
+
+    function validatePhone() {
+        if (!phonevalid(phoneInput.value)) {
+            phoneInput.setCustomValidity("Số điện thoại không hợp lê");
+
+        } else {
+            phoneInput.setCustomValidity('');
+
+        }
+    }
+
+    function validateAdd() {
+        if (addInput.value.length < 5) {
+            addInput.setCustomValidity("Địa chỉ phải dài hơn 5 ký tự");
+        } else {
+            addInput.setCustomValidity('');
+        }
+    }
+
+    function emailValid(string) {
+        var re = /^\S+@\S+\.\S+$/
+        return re.test(string)
+    }
+
+    function validateEmail() {
+        if (!emailValid(emailInput.value)) {
+            emailInput.setCustomValidity("Địa chỉ email không hợp lệ");
+        } else {
+            emailInput.setCustomValidity('');
+
+        }
+    }
+
+    function validateMSCB() {
+        if (mscbInput.value.length != 6) {
+            mscbInput.setCustomValidity("Mã số cán bộ có 6 kí tự");
+        } else {
+            mscbInput.setCustomValidity('');
+        }
+    }
+    mscbInput.onkeyup = validateMSCB;
+    emailInput.onkeyup = validateEmail;
+    addInput.onkeyup = validateAdd;
+    phoneInput.onkeyup = validatePhone;
+    nameInput.onkeyup = validateName;
     password.onchange = validatePassword;
     confirm_password.onkeyup = validatePassword;
-
-    document.addEventListener("DOMContentLoaded", function() {
-        var elements = document.getElementsByTagName("INPUT");
-        for (var i = 0; i < elements.length; i++) {
-            elements[i].oninvalid = function(e) {
-                e.target.setCustomValidity("");
-                if (!e.target.validity.valid) {
-                    e.target.setCustomValidity("Trường này là bắt buộc.");
-                }
-            };
-            elements[i].oninput = function(e) {
-                e.target.setCustomValidity("");
-            };
-        }
-    })
     </script>
     <script>
     var prevScrollpos = window.pageYOffset;

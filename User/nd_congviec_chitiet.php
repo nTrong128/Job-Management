@@ -11,8 +11,63 @@ $ma = $_GET['chitiet_ma'];
 
 $query_cv = "SELECT * FROM congviec WHERE CV_MA='$ma'";
 
-$congviec_data = mysqli_query($conn, $query_cv);
-$cv = mysqli_fetch_array($congviec_data);
+$cv_data = mysqli_query($conn, $query_cv);
+$cv = mysqli_fetch_array($cv_data);
+$nguoidung_tb = $cv['CV_NTH'];
+$tiendo_cu = $cv['CV_TIENDO'];
+
+if(isset($_POST['submit'])) {
+
+    $tiendo = $_POST['tiendo'];
+    
+    try {
+        if($tiendo <= $tiendo_cu) {
+            header("Location: nguoidung.php");
+            throw new Exception("Tiến độ mới không hợp lệ");
+            }
+        $sql = "UPDATE congviec
+                SET 
+                    CV_TIENDO='$tiendo'
+                WHERE CV_MA=$ma";
+
+        $query = mysqli_query($conn, $sql);
+        
+        $result = $conn->execute_query("SELECT * FROM thongbao WHERE ND_MA=$nguoidung_tb AND CV_MA=$ma");
+        if($result->num_rows == 1 ) {
+            $sql_thongbao = "UPDATE thongbao
+                        SET TB_XEM = '0',
+                            TB_TG = NOW(),
+                            TB_NOIDUNG = 'Cập nhật tiến độ công việc $tiendo_cu% -> $tiendo%'
+                        WHERE ND_MA='$nguoidung_tb' AND CV_MA='$ma'";
+            $query_thongbao = mysqli_query($conn, $sql_thongbao);
+        }
+        else {
+            $sql_thongbao = "INSERT INTO thongbao
+                        (ND_MA, CV_MA,TB_NOIDUNG, TB_TG, TB_XEM)
+                        VALUES ('$nguoidung_tb','$ma','Cập nhật tiến độ công việc $tiendo_cu% -> $tiendo%',NOW(), '0')";
+            $query_thongbao = mysqli_query($conn, $sql_thongbao);
+        }
+
+    } catch (mysqli_sql_exception $e) {
+        var_dump($e);
+        exit;
+
+    }
+
+
+    if ($query) {
+
+        echo "Cập nhật thành công!";
+        header("Location: nguoidung.php");
+
+    } else {
+
+        echo "Error updating row.: " . $conn->error;
+
+    }
+
+}
+
 
 ?>
 
@@ -143,7 +198,7 @@ echo $lcv_current['LCV_TEN'];
                             </div>
                             <div class="mt-2 col"><label for="trangthai" class="labels">Trạng thái</label>
                                 <input required type="text" id="trangthai" name="trangthai" id="trangthai" class="form-control" placeholder="Trạng thái" readonly
-                                    value="<?php echo $cv['CV_TIENDO'];?>">
+                                    value="<?php echo $cv['CV_TRANGTHAICV'];?>">
                             </div>
                         </div>
                         <div class="row mt-2">
