@@ -31,7 +31,7 @@
 
                 <div class="p-3 py-5">
                     <div class="d-flex justify-content-center align-items-center mb-3">
-                        <h5 class=" text-center">Thêm người dùng mới</h5>
+                        <h5 class=" text-center">Đăng ký</h5>
                     </div>
                     <form id="form" name="form" method="POST" class="form form_admin">
                         <div class="col mt-2">
@@ -124,7 +124,7 @@
             confirm_password.setCustomValidity('');
         }
     }
-    
+
 
 
 

@@ -1,7 +1,7 @@
 <?php include_once '../condb/condb.php';
-$query_thongbao = "SELECT * FROM thongbaond INNER JOIN congviec on thongbaond.CV_MA = congviec.CV_MA INNER JOIN nguoidung on thongbaond.ND_MA = nguoidung.ND_MA ";
+$query_thongbao = "SELECT * FROM thongbaond INNER JOIN congviec on thongbaond.CV_MA = congviec.CV_MA INNER JOIN nguoidung on thongbaond.ND_MA = nguoidung.ND_MA WHERE thongbaond.ND_MA = '$nd_ma'";
 $ds_thongbao = $conn->query($query_thongbao);
-$query_chuadoc = "SELECT * FROM thongbaond WHERE TB_XEM = '0'";
+$query_chuadoc = "SELECT * FROM thongbaond WHERE TB_XEM = '0' AND ND_MA='$nd_ma'";
 $soluong_chuadoc = $conn->query($query_chuadoc);
 $soluong_thongbao = mysqli_num_rows($soluong_chuadoc);
 function timeAgo($time_ago)

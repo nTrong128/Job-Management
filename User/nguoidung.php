@@ -1,5 +1,5 @@
 <?php include_once '../condb/condb.php';
-include_once 'nd_thongbao.php';
+
 if ((!isset($_SESSION['nguoidung']))) {
     session_destroy();
     unset($_SESSION['nguoidung']);
@@ -10,7 +10,7 @@ $query = "select * from nguoidung where ND_EMAIL ='$email'";
 $sql = mysqli_query($conn, $query);
 $nguoidung = mysqli_fetch_assoc($sql);
 $nd_ma = $nguoidung['ND_MA'];
-
+include_once 'nd_thongbao.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">

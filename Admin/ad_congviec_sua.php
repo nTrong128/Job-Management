@@ -25,7 +25,7 @@ if(isset($_POST['submit'])) {
     $ngaytao = $_POST['ngaytao'];
     $nguoithuchien = $_POST['nguoithuchien'];
     $nguoigiamsat = $_POST['nguoigiamsat'];
-    $loaicongviec = $_POST['loaicongviec'];
+    $loaicongviec = $_POST['loai'];
     try {
 
         $sql = "UPDATE congviec
@@ -38,7 +38,7 @@ if(isset($_POST['submit'])) {
                     CV_NTH='$nguoithuchien',
                     CV_NGS='$nguoigiamsat',
                     LCV_MA='$loaicongviec'
-                WHERE CV_MA=$id";
+                WHERE CV_MA=$ma";
 
         $query = mysqli_query($conn, $sql);
 
@@ -47,8 +47,6 @@ if(isset($_POST['submit'])) {
         exit;
 
     }
-
-
     if ($query) {
 
         echo "Cập nhật thành công!";
@@ -302,7 +300,7 @@ endwhile;
 
                         </div>
                         <div class="mt-5 text-center">
-                            <a href="ad_congviec_ds.php" style="width:100%" class="btn btn-primary profile-button w-50" name="capnhatcv" type="submit">Cập nhật</a>
+                            <button style="width:100%" class="btn btn-primary profile-button w-50" name="submit" type="submit">Cập nhật</button>
                         </div>
                     </form>
                 </div>

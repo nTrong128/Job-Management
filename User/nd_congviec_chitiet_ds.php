@@ -83,11 +83,11 @@ $cv = mysqli_fetch_array($congviec_data);
                         Công việc
                     </button>
                     <ul class="dropdown-menu w-100 text-center" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item" href="#">Đang chờ</a></li>
-                        <li><a class="dropdown-item" href="#">Đang thực hiện</a></li>
-                        <li><a class="dropdown-item" href="#">Đang giám sát</a></li>
-                        <li><a class="dropdown-item" href="#">Đã hoàn thành</a></li>
-                        <li><a class="dropdown-item" href="#">Quá hạn</a></li>
+                        <li><a class="dropdown-item" href="nd_cv_cho.php">Đang chờ</a></li>
+                        <li><a class="dropdown-item" href="nd_cv_thuchien.php">Đang thực hiện</a></li>
+                        <li><a class="dropdown-item" href="nd_cv_giamsat.php">Đang giám sát</a></li>
+                        <li><a class="dropdown-item" href="nd_cv_hoanthanh.php">Đã hoàn thành</a></li>
+                        <li><a class="dropdown-item" href="nd_cv_quahan.php">Quá hạn</a></li>
                     </ul>
                 </div>
 

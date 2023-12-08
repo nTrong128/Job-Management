@@ -245,7 +245,7 @@ if ($ds_thongbao->num_rows > 0):
                         </div>
                         <?php
     endwhile;
-else:?><h5 class="card-title m-0"><?php echo "Tạm thời không có thông báo.";endif;?></h5>
+else:?><h5 class="card-title m-0 text-center"><?php echo "Tạm thời không có thông báo.";endif;?></h5>
                     </div>
                 </div>
             </div>
