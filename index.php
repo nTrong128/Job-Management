@@ -1,7 +1,3 @@
-<?php 
-    header('Content-Type: application/json');
-
-?>
 <?php include_once './condb/condb.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
