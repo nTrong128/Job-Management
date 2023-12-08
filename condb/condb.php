@@ -17,7 +17,6 @@ date_default_timezone_set('Asia/Ho_Chi_Minh');
 ?>
 
 
-
 <?php
 //Đăng ký
 if (isset($_POST['dangky'])) {

@@ -15,7 +15,6 @@
 </head>
 
 <body>
-
     <header>
         <nav class="navbar navbar-expand custom_navbar_bg fixed-top border-bottom border-light border-3">
             <div class="container-fluid">
