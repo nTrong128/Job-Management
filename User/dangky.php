@@ -1,4 +1,4 @@
-<!-- <?php include_once '../condb/condb.php'; ?> -->
+<?php include_once '../condb/condb.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,36 +15,31 @@
 </head>
 
 <body>
-    <header>
-        <nav class="navbar_container navbar  navbar-expand-lg">
-            <div class="container-fluid">
-                <a class="navbar-brand text-white fs-2" href="../index.php"><img src="../image/logo.png" style="width: 50px;" class="w3-circle"> QUẢN LÝ CÔNG VIỆC</a>
-                <a class="btn btn-outline-light px-3 py-3 me-2" href="../index.php" role="button">ĐĂNG NHẬP</a>
-            </div>
-        </nav>
-    </header>
+
 
     <main>
 
-        <div class="form_center">
+        <div class="form_center dangky_container">
             <div class="rounded bg-white mb-5 form_container">
 
-                <div class="p-3 py-5">
-                    <div class="d-flex justify-content-center align-items-center mb-3">
-                        <h5 class=" text-center">Đăng ký</h5>
+                <div class="p-3 pt-3">
+                    <div class="d-flex justify-content-center align-items-center mb-1">
+                        <h3 class="text-center">Đăng ký</h3>
                     </div>
+                    <hr class="border border-dark rounded-2 border-2 opacity-50">
+
                     <form id="form" name="form" method="POST" class="form form_admin">
-                        <div class="col mt-2">
+                        <div class="col mt-1">
                             <div class="col"><label for="name" class="labels">Họ và tên</label><input type="text" required name="name" id="name" class="form-control" placeholder="Họ và tên">
                             </div>
                         </div>
-                        <div class="row mt-2">
+                        <div class="row mt-1">
                             <div class="mt-2 col">
                                 <label class="labels">Email</label>
                                 <input required type="text" id="email" name="email" class="form-control" placeholder="Email">
                             </div>
                         </div>
-                        <div class="row mt-2">
+                        <div class="row mt-1">
                             <div class="mt-2 col"><label for="ngaysinh" class="labels">Ngày sinh</label>
                                 <input id="ngaysinh" required type="date" min='1899-01-01' max='2100-01-01' name="ngaysinh" class="form-control" placeholder="Ngày sinh">
                             </div>
@@ -52,26 +47,27 @@
                                 <input required type="text" id="sdt" name="sdt" class="form-control" placeholder="Số điện thoại">
                             </div>
                         </div>
-                        <div class="row mt-2">
+                        <div class="row mt-1">
                             <div class="mt-2 col"><label class="labels">Địa chỉ</label><input required type="text" id="diachi" name="diachi" class="form-control" placeholder="Địa chỉ">
                             </div>
                         </div>
 
 
-                        <div class="row mt-2">
+                        <div class="row mt-1">
                             <div class="mt-2 col"><label class="labels">MSCB</label><input required type="text" id="mscb" name="mscb" class="form-control" placeholder="MSCB">
                             </div>
 
                         </div>
-                        <div class="row mt-2">
+                        <div class="row mt-1">
                             <div class="mt-2 col"><label class="labels">Mật khẩu</label><input required type="password" id="pass1" name="pass1" class="form-control" placeholder="Mật khẩu">
                             </div>
                             <div class="mt-2 col"><label class="labels">Nhập lại mật khẩu</label><input required type="password" id="pass2" name="pass2" class="form-control"
                                     placeholder="Nhập lại mật khẩu">
                             </div>
                         </div>
-                        <div class="mt-5 text-center">
-                            <button class="btn btn-primary profile-button w-50" name="dangky" type="dangky">Đăng ký</button>
+                        <div class="mt-5 text-center d-flex">
+                            <a href="../index.php" class="mx-1 btn btn-primary profile-button w-50">Quay lại</a>
+                            <button class="mx-1 btn btn-primary profile-button w-50" name="dangky" type="dangky">Đăng ký</button>
                         </div>
                     </form>
                 </div>
@@ -80,9 +76,6 @@
     </main>
 
 
-    <footer class="fixed-bottom footer_container d-flex justify-content-center p-3 text-dark">
-        <p>B2016962 &copy; 2023 Bản quyền thuộc về Nguyễn Văn Hậu.</p>
-    </footer>
 
     <script>
     function removeAscent(str) {

@@ -15,57 +15,62 @@
 </head>
 
 <body>
-    <header>
-        <nav class="navbar navbar-expand custom_navbar_bg fixed-top border-bottom border-light border-3">
-            <div class="container-fluid">
-                <a class="navbar-brand text-light fs-2" href="./index.php"><img src="./image/logo.png" style="width: 50px;" class="w3-circle"> QUẢN LÝ CÔNG VIỆC</a>
-                <a class="btn btn-outline-light px-3 py-3 me-2" href="./User/dangky.php" role="button">ĐĂNG KÝ</a>
-            </div>
-        </nav>
-    </header>
     <main>
 
-
         <div class="form_center">
-            <form action="" method="POST" class="shadow-lg p-0 mb-5 rounded">
-                <div class="navbar_container text-light  p-5 py-4 border border-2 rounded">
-                    <h1 class="text-center">ĐĂNG NHẬP TÀI KHOẢN</h1>
-                    <hr class="border border-light rounded-2 border-2 opacity-50">
 
-                    <div class="row p-2 my-1 rounded">
-                        <div class="col p-1  text-light">
-                            <label class="text-light" for="email">Email:</label>
-                        </div>
-                        <div class="col p-1 ">
-                            <input class="form-control" type="text" placeholder="Nhập email" name="email" id="email" required>
-                        </div>
-                    </div>
-                    <div class="row p-2 my-1 rounded">
-                        <div class="col p-1  text-light">
-                            <label for="passwd">Mật khẩu:</label>
-                        </div>
-                        <div class="col p-1 ">
-                            <input class="form-control" type="password" placeholder="Nhập mật khẩu" name="passwd" id="passwd" required>
+            <div class="container rounded bg-white mt-5 mb-5">
+                <div class="row">
+                    <div class="col-md-5 border-end">
+                        <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle" src="./Image/logo.png" width="200">
+                            <h4 class="mt-4 my-2">QUẢN LÝ CÔNG VIỆC</h4>
                         </div>
                     </div>
-                    <div class="btn_form m-2"><a class="log_as_admin" href="./admin/ad_dangnhap.php">Đăng nhập với tư cách ADMIN ?</a></div>
-                    <div class="btn_form ">
-                        <button style="width:100%" type="submit" class="btn  btn-dark" action="" name="dangnhap">ĐĂNG NHẬP</button>
+                    <div class="col">
+                        <div class="p-3 pb-2">
+                            <div class="d-flex justify-content-center align-items-center mb-3">
+                                <h2 class=" text-center">ĐĂNG NHẬP</h2>
+                            </div>
+                            <hr class="border border-dark rounded-2 border-2 opacity-50">
+
+                            <form id="form" name="form" method="POST" class="form form_admin">
+                                <div class="row mt-1">
+                                    <div class="mt-2 col"><label class="labels">Email</label><input required type="email" id="email" name="email" class="form-control" placeholder="Địa chỉ Email">
+                                    </div>
+                                </div>
+                                <div class="row mt-1">
+                                    <div class="mt-1 col"><label class="labels">Mật khẩu</label><input required type="password" id="passwd" name="passwd" class="form-control"
+                                            placeholder="Nhập mật khẩu">
+                                    </div>
+                                </div>
+
+                                <div class="my-2 text-center">
+                                    <div class="btn_form"><a class="log_as_admin text-dark" href="./admin/ad_dangnhap.php">Đăng nhập với tư cách ADMIN ?</a></div>
+
+                                </div>
+                                <div class="my-2 text-center">
+                                    <button class="btn btn-primary profile-button w-50" name="dangnhap" type="dangnhap">Đăng nhập</button>
+                                </div>
+                                <div class="my-2 text-center">
+                                    <div class="btn_form">Chưa có tài khoản? <a class="log_as_admin text-dark" href="./User/dangky.php"> Đăng ký</a></div>
+
+                                </div>
+                            </form>
+                        </div>
+                        </form>
                     </div>
 
                 </div>
-
-            </form>
+            </div>
 
         </div>
-
     </main>
 
 
 
-    <footer class="fixed-bottom footer_container d-flex justify-content-center p-3 text-dark">
+    <!-- <footer class="fixed-bottom footer_container d-flex justify-content-center p-3 text-dark">
         <p>B2016962 &copy; 2023 Bản quyền thuộc về Nguyễn Văn Hậu.</p>
-    </footer>
+    </footer> -->
 </body>
 <script>
 var prevScrollpos = window.pageYOffset;

@@ -16,58 +16,6 @@ if ($conn->connect_error) {
 date_default_timezone_set('Asia/Ho_Chi_Minh');
 ?>
 
-
-<?php
-//Đăng ký
-if (isset($_POST['dangky'])) {
-    $name = $_POST["name"];
-    $diachi = $_POST["diachi"];
-    $sdt = $_POST["sdt"];
-    $email = $_POST["email"];
-    $mscb = $_POST["mscb"];
-    $ngaysinh = $_POST["ngaysinh"];
-    $password = $_POST["pass1"];
-    $repassword = $_POST["pass2"];
-    if ($password == $repassword) {
-        $password = md5($password);
-        $sql = "INSERT INTO nguoidung (ND_HOTEN, ND_NGAYSINH, ND_DIACHI, ND_SDT, ND_EMAIL,ND_MSCB, ND_MATKHAU) VALUES ('$name','$ngaysinh', '$diachi', '$sdt', '$email', '$mscb', '$password')";
-        $query = mysqli_query($conn, $sql);
-        if ($query) {
-            $_SESSION['username'] = $email;
-
-            $_SESSION['success'] = "You have logged in";
-            header('Location: ../index.php');
-        } else {
-            echo "Error: " . $sql . "<br>" . $conn->error;
-        }
-    }
-}
-?>
-<?php
-//Thêm người dùng
-if (isset($_POST['them'])) {
-    $name = $_POST["name"];
-    $diachi = $_POST["diachi"];
-    $sdt = $_POST["sdt"];
-    $email = $_POST["email"];
-    $mscb = $_POST["mscb"];
-    $ngaysinh = $_POST["ngaysinh"];
-    $password = $_POST["pass1"];
-    $repassword = $_POST["pass2"];
-    if ($password == $repassword) {
-        $password = md5($password);
-        $sql = "INSERT INTO nguoidung (ND_HOTEN, ND_NGAYSINH, ND_DIACHI, ND_SDT, ND_EMAIL,ND_MSCB, ND_MATKHAU) VALUES ('$name','$ngaysinh', '$diachi', '$sdt', '$email', '$mscb', '$password')";
-        $query = mysqli_query($conn, $sql);
-        if ($query) {
-            header('Location: ad_nguoidung_ds.php');
-        } else {
-            echo "Error: " . $sql . "<br>" . $conn->error;
-        }
-    }
-}
-?>
-
-
 <?php
 //Xử lý đăng nhập
 
@@ -100,6 +48,70 @@ if (isset($_POST['dangnhap'])) {
     }
 }
 ?>
+<?php
+//Đăng ký
+if (isset($_POST['dangky'])) {
+    $name = $_POST["name"];
+    $diachi = $_POST["diachi"];
+    $sdt = $_POST["sdt"];
+    $email = $_POST["email"];
+    $mscb = $_POST["mscb"];
+    $ngaysinh = $_POST["ngaysinh"];
+    $password = $_POST["pass1"];
+    $repassword = $_POST["pass2"];
+    try {
+        $sql_dupicate_check = "SELECT * FROM nguoidung WHERE ND_EMAIL = '$email' OR ND_MSCB = '$mscb'";
+        $query_duplicate_check = mysqli_query($conn, $sql_dupicate_check);
+        if($query_duplicate_check->num_rows == 1) {
+            alert_and_reload("Email hoặc MSCB này đã tồn tại.");
+            return;
+        }
+    } catch (mysqli_sql_exception $e) {
+        alert_and_reload("Email hoặc MSCB này đã tồn tại.");
+        return;
+    }
+
+    if ($password == $repassword) {
+        $password = md5($password);
+        $sql = "INSERT INTO nguoidung (ND_HOTEN, ND_NGAYSINH, ND_DIACHI, ND_SDT, ND_EMAIL,ND_MSCB, ND_MATKHAU) VALUES ('$name','$ngaysinh', '$diachi', '$sdt', '$email', '$mscb', '$password')";
+        $query = mysqli_query($conn, $sql);
+        if ($query) {
+            $_SESSION['nguoidung'] = $email;
+
+            $_SESSION['success'] = "You have logged in";
+            header('Location: ./nguoidung.php');
+        } else {
+            echo "Error: " . $sql . "<br>" . $conn->error;
+        }
+    }
+}
+?>
+<?php
+//Thêm người dùng
+if (isset($_POST['them'])) {
+    $name = $_POST["name"];
+    $diachi = $_POST["diachi"];
+    $sdt = $_POST["sdt"];
+    $email = $_POST["email"];
+    $mscb = $_POST["mscb"];
+    $ngaysinh = $_POST["ngaysinh"];
+    $password = $_POST["pass1"];
+    $repassword = $_POST["pass2"];
+    if ($password == $repassword) {
+        $password = md5($password);
+        $sql = "INSERT INTO nguoidung (ND_HOTEN, ND_NGAYSINH, ND_DIACHI, ND_SDT, ND_EMAIL,ND_MSCB, ND_MATKHAU) VALUES ('$name','$ngaysinh', '$diachi', '$sdt', '$email', '$mscb', '$password')";
+        $query = mysqli_query($conn, $sql);
+        if ($query) {
+            header('Location: ad_nguoidung_ds.php');
+        } else {
+            echo "Error: " . $sql . "<br>" . $conn->error;
+        }
+    }
+}
+?>
+
+
+
 
 <?php
 
@@ -189,5 +201,11 @@ if (isset($_POST['taoloaicongviec'])) {
 function alert_and_redirect($msg, $location)
 {
     echo "<script>alert('$msg');document.location='$location'</script>";
+
+}
+
+function alert_and_reload($msg)
+{
+    echo "<script>alert('$msg');window.location.href</script>";
 
 }

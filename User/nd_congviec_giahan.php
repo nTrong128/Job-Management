@@ -1,4 +1,5 @@
 <?php include_once '../condb/condb.php';
+
 if ((!isset($_SESSION['nguoidung']))) {
     session_destroy();
     unset($_SESSION['nguoidung']);
@@ -9,6 +10,7 @@ $query = "select * from nguoidung where ND_EMAIL ='$email'";
 $sql = mysqli_query($conn, $query);
 $nguoidung = mysqli_fetch_assoc($sql);
 $nd_ma = $nguoidung['ND_MA'];
+include_once 'nd_thongbao.php';
 ?>
 
 <?php
@@ -77,7 +79,8 @@ if(isset($_POST['submit'])) {
         crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <title>Gia hạn thời gian công việc</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <title>Gia hạn công việc</title>
 </head>
 
 <body>
@@ -90,8 +93,78 @@ if(isset($_POST['submit'])) {
             <div class="container-fluid">
                 <a class="navbar-brand text-white fs-4" href="nguoidung.php"><img src="../image/logo.png" style="width: 40px;" class="w3-circle"></a>
                 <a class="navbar-brand text-white fs-2"> QUẢN LÝ CÔNG VIỆC </a>
-                <div class="">
-                    <a class="btn btn-outline-light px-2 py-2 me-2" href="dangxuat.php" role="button">ĐĂNG XUẤT</a>
+                <div class="d-flex">
+                    <div class="d-flex">
+                        <div class="dropdown mx-4 position-relative">
+                            <span class="position-absolute top-0 start-100 fs-6 translate-middle badge bg-danger rounded-pill badge-danger">
+                                <?php echo $soluong_thongbao; ?>
+                                <span class="visually-hidden">unread messages</span>
+                            </span>
+                            <a id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="#">
+                                <i class="fs-1 fa-solid fa-bell"></i>
+                            </a>
+                            <ul class="dropdown-menu notifications" role="menu" aria-labelledby="dLabel">
+                                <div class="notification-heading border-bottom py-2 d-flex justify-content-between">
+                                    <h4 class="">Thông báo</h4>
+                                    <form id="form" name="form" method="POST" onsubmit="return validateForm()" class="">
+                                        <button type="dochet" name="dochet" onclick="reloadPageContentOnSubmit()" class="btn btn-dark menu-title">Đánh dấu tất cả là đã đọc</button>
+                                    </form>
+
+                                </div>
+                                <li class="divider"></li>
+                                <div class="notifications-wrapper">
+                                    <?php
+if ($ds_thongbao->num_rows > 0):
+    while ($thongbao = mysqli_fetch_assoc($ds_thongbao)):;
+        ?>
+                                    <div class="content" href="#">
+                                        <div class="notification-item <?php if ($thongbao['TB_XEM'] == '0') echo "unread" ?>">
+
+                                            <div class="d-flex justify-content-between">
+                                                <h4 class="item-title"><?php echo $thongbao['CV_TEN'] ?></h4>
+                                                <?php
+                                        if ($thongbao['TB_XEM'] == '0'):
+                                        ?>
+                                                <a class="text-decoration-none  btn btn-dark" href="nd_thongbao_doc.php?thongbao_ma=<?php echo $thongbao['TB_MA'];?>">
+                                                    Đánh dấu đã đọc
+                                                </a>
+                                                <?php else: ?>
+                                                <a class="text-decoration-none btn btn-dark" href="nd_thongbao_chuadoc.php?thongbao_ma=<?php echo $thongbao['TB_MA'];?>">
+                                                    Đánh dấu là chưa đọc
+                                                </a>
+                                                <?php endif;?>
+                                            </div>
+
+                                            <?php 
+                                        // $start_date = date_create($thongbao['TB_TG']);
+                                        
+                                        // $date_out = timeAgo($start_date);
+                                        $date_out = timeAgo($thongbao['TB_TG']);
+                                        
+                                        ?>
+                                            <p class="item-info"><?php echo $date_out?></p>
+                                            <div class="d-flex justify-content-between">
+                                                <p class="item-info"><?php echo $thongbao['TB_NOIDUNG'];?></p>
+                                                <a class="btn btn-danger text-decoration-none" href="nd_thongbao_xoa.php?thongbao_ma=<?php echo $thongbao['TB_MA'];?>">
+                                                    Xoá
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <?php
+                                    endwhile;
+else:?>
+                                    <div class="noti-container">
+                                        <h5 class="card-title my-2 mx-2"><?php echo "Tạm thời không có thông báo.";endif;?></h5>
+                                    </div>
+
+                                </div>
+                                <div class="notification-footer">
+                                </div>
+                            </ul>
+                        </div>
+                        <a class="btn btn-outline-light px-2 py-2 me-2" href="dangxuat.php" role="button">ĐĂNG XUẤT</a>
+                    </div>
                 </div>
             </div>
             </div>
@@ -138,13 +211,19 @@ if(isset($_POST['submit'])) {
         <div class="form_center">
             <div class="rounded bg-white mb-5 form_container">
 
-                <div class="p-3 my-5">
-                    <div class="d-flex justify-content-center align-items-center mb-3">
-                        <h5 class=" text-center">Xin gia hạn thời gian</h5>
+                <div class="p-3 my-2">
+                    <div class="d-flex justify-content-center align-items-center mb-1">
+                        <h3 class=" text-center">Xin gia hạn thời gian</h3>
                     </div>
                     <form id="form" name="form" method="POST" class="form form_admin">
-                        <div class="row mt-2">
-                            <div class="mt-2 col">
+                        <div class="row mt-1">
+                            <div class="mt-1 col">
+                                <label class="labels" for="name">Tên công việc</label>
+                                <input class="form-control" type="text" name="name" id="name" value="<?php echo $cv['CV_TEN']?>">
+                            </div>
+                        </div>
+                        <div class="row mt-1">
+                            <div class="mt-1 col">
                                 <label class="labels" for="ten">Ngày gia hạn mới</label>
                                 <input class="form-control" type="date" name="hanmoi" min="<?php echo $cv['CV_NGAYKETTHUC']?>" id="hanmoi" value="<?php
                                 $datetime = new DateTime('now');
@@ -152,15 +231,15 @@ if(isset($_POST['submit'])) {
                                 echo $new_date ?>">
                             </div>
                         </div>
-                        <div class="row mt-2">
-                            <div class="mt-2 col">
+                        <div class="row mt-1">
+                            <div class="mt-1 col">
                                 <label class="labels" for="ten">Nội dung</label>
                                 <textarea class="form-control" name="noidung" id="noidung" cols="30" rows="5" placeholder="Nhập nội dung"></textarea>
                             </div>
                         </div>
 
 
-                        <div class="mt-5 text-center">
+                        <div class="mt-3 text-center">
                             <button class="btn btn-primary profile-button w-50" name="submit" type="submit">Gửi đề nghị</button>
                         </div>
                     </form>

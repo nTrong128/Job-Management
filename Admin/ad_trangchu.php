@@ -161,18 +161,22 @@ $ds_lcv = mysqli_query($conn, $query_cv);
 $soluong_lcv = $ds_lcv->num_rows;
 ?>
         <div class="text-center container rounded-4 py-4">
-            <div class="d-flex justify-content-center text-light text-bold">
-                <a href="ad_nguoidung_ds.php" style="width:120px; height:120px;" class="rounded-4 border border-2 border-dark-subtle bg-black fs-2 mx-4 text-decoration-none text-light">
-                    <?php echo $soluong_nguoidung;?>
-                    <h4>Người dùng</h4>
+            <div class="d-flex justify-content-center  text-light text-bold">
+                <a href="ad_nguoidung_ds.php" style="width:172px; height:120px;"
+                    class="d-flex align-items-center justify-content-center rounded-4 border border-2 shadow border-dark-subtle bg-secondary fs-2 mx-4 text-decoration-none text-light">
+
+                    <h4><?php echo $soluong_nguoidung;?><br>Người dùng</h4>
+
                 </a>
-                <a href="ad_congviec_ds.php" style="width:120px; height:120px;" class="rounded-4 border border-2 border-dark-subtle bg-black fs-2 mx-4 text-decoration-none text-light">
-                    <?php echo $soluong_cv;?>
-                    <h4>Công việc</h4>
+                <a href="ad_congviec_ds.php" style="width:172px; height:120px;"
+                    class="d-flex align-items-center justify-content-center rounded-4 border border-2 shadow border-dark-subtle bg-secondary fs-2 mx-4 text-decoration-none text-light">
+
+                    <h4><?php echo $soluong_cv;?><br>Công việc</h4>
                 </a>
-                <a href="ad_loaicongviec_ds.php" style="width:120px; height:120px;" class="rounded-4 border border-2 border-dark-subtle bg-black fs-2 mx-4 text-decoration-none text-light">
-                    <?php echo $soluong_lcv;?>
-                    <h4>Loại công việc</h4>
+                <a href="ad_loaicongviec_ds.php" style="width:172px; height:120px;"
+                    class="d-flex align-items-center justify-content-center rounded-4 border border-2 shadow border-dark-subtle bg-secondary fs-2 mx-4 text-decoration-none text-light">
+
+                    <h4><?php echo $soluong_lcv;?><br>Loại công việc</h4>
                 </a>
             </div>
 
@@ -182,8 +186,8 @@ $soluong_lcv = $ds_lcv->num_rows;
 
         <div class="container py-4 rouded rounded-4">
             <div class="d-flex">
-                <div style="" class="col p-2 flex-fill text-center w-50">
-                    <h3 class="title lh-lg bg-secondary text-light rounded ">Yêu cầu từ người dùng</h3>
+                <div style="" class="col shadow-lg p-2 mx-2 flex-fill text-center w-50 bg-white rounded rounded-4">
+                    <h3 class="title lh-lg bg-success text-light rounded-4 ">YÊU CẦU TỪ NGƯỜI DÙNG</h3>
                     <div class="request-containe table_job_scroll">
                         <!-- while loop here -->
                         <?php
@@ -211,15 +215,15 @@ if ($ds_yeucau->num_rows > 0):
 else:?><h5 class="card-title m-0"><?php echo "Tạm thời không có yêu cầu.";endif;?></h5>
                     </div>
                 </div>
-                <div style="" class=" col p-2 flex-fill w-50">
-                    <h3 class="title lh-lg bg-secondary text-light rounded text-center">Thông báo</h3>
+                <div style="" class="mx-2 col shadow-lg p-2 flex-fill w-50 rounded-4 bg-white">
+                    <h3 class="title lh-lg bg-success text-light rounded-4 text-center">Thông báo</h3>
                     <div class="noti-container table_job_scroll">
                         <?php
 $ds_thongbao = $conn->query($query_thongbao);
 if ($ds_thongbao->num_rows > 0):
     while ($thongbao = mysqli_fetch_assoc($ds_thongbao)):;
         ?>
-                        <div class="<?php if($thongbao['TB_XEM'] == '0')echo"unread"?> noti_container rounded-4 my-2 text-center ">
+                        <div class="<?php if($thongbao['TB_XEM'] == '0')echo"unread"?> border border-dark border-2 noti_container rounded-4 my-2 text-center ">
                             <h4 class=" pt-1 border-bottom border-2 px-4 rounded-top-4"><?php echo $thongbao['CV_TEN'] ?></h4>
                             <div class="py-1">
                                 <!-- <h5 class="card-title">Tên công việc: </h5> -->

@@ -1,11 +1,16 @@
-<?php
-// Update User
-include_once('../condb/condb.php');
+<?php include_once '../condb/condb.php';
+
 if ((!isset($_SESSION['nguoidung']))) {
     session_destroy();
     unset($_SESSION['nguoidung']);
     header("location: ../index.php");
 }
+$email = $_SESSION['nguoidung'];
+$query = "select * from nguoidung where ND_EMAIL ='$email'";
+$sql = mysqli_query($conn, $query);
+$nguoidung = mysqli_fetch_assoc($sql);
+$nd_ma = $nguoidung['ND_MA'];
+include_once 'nd_thongbao.php';
 $ma = $_GET['capnhat_nd_ma'];
 
 $query_nd = "SELECT * FROM nguoidung WHERE ND_MA='$ma'";
@@ -62,11 +67,12 @@ if(isset($_POST['submit'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="../image/logo.png">
     <link href="../styles/style.css?v=<?php echo time(); ?>" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="../styles/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+        crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <script src="../js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <title>Người dùng</title>
+    <title>Cập nhật thông tin</title>
 </head>
 
 <body>
@@ -79,7 +85,79 @@ if(isset($_POST['submit'])) {
             <div class="container-fluid">
                 <a class="navbar-brand text-white fs-4" href="nguoidung.php"><img src="../image/logo.png" style="width: 40px;" class="w3-circle"></a>
                 <a class="navbar-brand text-white fs-2"> QUẢN LÝ CÔNG VIỆC </a>
-                <a class="btn btn-outline-light px-2 py-2 me-2" href="dangxuat.php" role="button">ĐĂNG XUẤT</a>
+                <div class="d-flex">
+                    <div class="d-flex">
+                        <div class="dropdown mx-4 position-relative">
+                            <span class="position-absolute top-0 start-100 fs-6 translate-middle badge bg-danger rounded-pill badge-danger">
+                                <?php echo $soluong_thongbao; ?>
+                                <span class="visually-hidden">unread messages</span>
+                            </span>
+                            <a id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="#">
+                                <i class="fs-1 fa-solid fa-bell"></i>
+                            </a>
+                            <ul class="dropdown-menu notifications" role="menu" aria-labelledby="dLabel">
+                                <div class="notification-heading border-bottom py-2 d-flex justify-content-between">
+                                    <h4 class="">Thông báo</h4>
+                                    <form id="form" name="form" method="POST" onsubmit="return validateForm()" class="">
+                                        <button type="dochet" name="dochet" onclick="reloadPageContentOnSubmit()" class="btn btn-dark menu-title">Đánh dấu tất cả là đã đọc</button>
+                                    </form>
+
+                                </div>
+                                <li class="divider"></li>
+                                <div class="notifications-wrapper">
+                                    <?php
+if ($ds_thongbao->num_rows > 0):
+    while ($thongbao = mysqli_fetch_assoc($ds_thongbao)):;
+        ?>
+                                    <div class="content" href="#">
+                                        <div class="notification-item <?php if ($thongbao['TB_XEM'] == '0') echo "unread" ?>">
+
+                                            <div class="d-flex justify-content-between">
+                                                <h4 class="item-title"><?php echo $thongbao['CV_TEN'] ?></h4>
+                                                <?php
+                                        if ($thongbao['TB_XEM'] == '0'):
+                                        ?>
+                                                <a class="text-decoration-none  btn btn-dark" href="nd_thongbao_doc.php?thongbao_ma=<?php echo $thongbao['TB_MA'];?>">
+                                                    Đánh dấu đã đọc
+                                                </a>
+                                                <?php else: ?>
+                                                <a class="text-decoration-none btn btn-dark" href="nd_thongbao_chuadoc.php?thongbao_ma=<?php echo $thongbao['TB_MA'];?>">
+                                                    Đánh dấu là chưa đọc
+                                                </a>
+                                                <?php endif;?>
+                                            </div>
+
+                                            <?php 
+                                        // $start_date = date_create($thongbao['TB_TG']);
+                                        
+                                        // $date_out = timeAgo($start_date);
+                                        $date_out = timeAgo($thongbao['TB_TG']);
+                                        
+                                        ?>
+                                            <p class="item-info"><?php echo $date_out?></p>
+                                            <div class="d-flex justify-content-between">
+                                                <p class="item-info"><?php echo $thongbao['TB_NOIDUNG'];?></p>
+                                                <a class="btn btn-danger text-decoration-none" href="nd_thongbao_xoa.php?thongbao_ma=<?php echo $thongbao['TB_MA'];?>">
+                                                    Xoá
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <?php
+                                    endwhile;
+else:?>
+                                    <div class="noti-container">
+                                        <h5 class="card-title my-2 mx-2"><?php echo "Tạm thời không có thông báo.";endif;?></h5>
+                                    </div>
+
+                                </div>
+                                <div class="notification-footer">
+                                </div>
+                            </ul>
+                        </div>
+                        <a class="btn btn-outline-light px-2 py-2 me-2" href="dangxuat.php" role="button">ĐĂNG XUẤT</a>
+                    </div>
+                </div>
             </div>
             </div>
         </nav>
@@ -88,17 +166,9 @@ if(isset($_POST['submit'])) {
     <main>
         <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="sidebar_content" aria-labelledby="offcanvasExampleLabel">
             <div class="offcanvas-header custom-bg text-light">
-                <h5 class="offcanvas-title" id="offcanvasExampleLabel">
-                    <?php  if (isset($_SESSION['nguoidung'])): ?>
-                    <?php
-                        $email = $_SESSION['nguoidung'];
-                        $query = "select * from nguoidung where ND_EMAIL ='$email'";
-                        $sql = mysqli_query($conn, $query);
-                        $nguoidung = mysqli_fetch_assoc($sql);
-                        $nd_ma = $nguoidung['ND_MA'];
-                        echo $nguoidung['ND_HOTEN']; ?>
-                    <?php endif ?>
-                </h5>
+                <h3 class="offcanvas-title" id="offcanvasExampleLabel">
+                    <?php echo $nguoidung['ND_HOTEN'];?>
+                </h3>
 
                 <button type="button" class="btn" data-bs-dismiss="offcanvas" aria-label="Close">
                     <i class="fa-solid fa-xmark fa-2xl" style="color: #ffffff;"></i>
@@ -130,58 +200,58 @@ if(isset($_POST['submit'])) {
         </div>
 
         <div class="form_center">
-            
-                <div class="container rounded bg-white mt-5 mb-5">
-                    <div class="row">
-                        <div class="col-md-3 border-end">
-                            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" src="../Image/default_avatar.jpg" width="200">
-                                <span class="font-weight-bold"><?php echo $nguoidung['ND_HOTEN'];?></span>
-                                <span class="text-black-50"><?php echo $nguoidung['ND_EMAIL'];?></span>
-                                <span><?php echo$nguoidung['ND_DIACHI'];?></span>
 
-                                <div class="mt-5 text-center">
-                                    <!-- <a href="nd_tt_doiavatar.php?da_nd_ma=<?php echo $ma?>" class="btn btn-outline-success mb-2" name="avatar_change" type="avatar">Đổi ảnh đại diện</a> -->
-                                    <a href="nd_tt_doimatkhau.php?dmk_nd_ma=<?php echo $ma?>" class="btn btn-outline-success mb-2" name="doimatkhau" type="doimatkhau">Đổi mật khẩu</a>
-                                </div>
+            <div class="container rounded bg-white mt-5 mb-5">
+                <div class="row">
+                    <div class="col-md-3 border-end">
+                        <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" src="../Image/default_avatar.jpg" width="200">
+                            <span class="font-weight-bold"><?php echo $nguoidung['ND_HOTEN'];?></span>
+                            <span class="text-black-50"><?php echo $nguoidung['ND_EMAIL'];?></span>
+                            <span><?php echo$nguoidung['ND_DIACHI'];?></span>
 
+                            <div class="mt-2 text-center">
+                                <!-- <a href="nd_tt_doiavatar.php?da_nd_ma=<?php echo $ma?>" class="btn btn-outline-success mb-2" name="avatar_change" type="avatar">Đổi ảnh đại diện</a> -->
+                                <a href="nd_tt_doimatkhau.php?dmk_nd_ma=<?php echo $ma?>" class="btn btn-outline-success mb-2" name="doimatkhau" type="doimatkhau">Đổi mật khẩu</a>
                             </div>
+
                         </div>
-                        <div class="col">
-                            <div class="p-3 py-5">
-                                <div class="d-flex justify-content-center align-items-center mb-3">
-                                    <h5 class=" text-center">Cập nhật thông tin cá nhân</h5>
-                                </div>
-                                <form id="form" name="form" method="POST" class="form">
-                                <div class="row mt-2">
+                    </div>
+                    <div class="col">
+                        <div class="p-3 pt-3">
+                            <div class="d-flex justify-content-center align-items-center mb-3">
+                                <h3 class=" text-center">Cập nhật thông tin cá nhân</h3>
+                            </div>
+                            <form id="form" name="form" method="POST" class="form">
+                                <div class="row mt-1">
                                     <div class="col"><label for="name" class="labels">Họ và tên</label>
-                                    <input id="name" type="text" required name="name" class="form-control" placeholder="Họ và tên"
-                                            value="<?php echo $nguoidung['ND_HOTEN'];?>"></div>
-                                </div>
-                                <div class="row mt-2">
-                                    <div class="mt-2 col-md-12"><label for="ngaysinh" class="labels">Ngày sinh</label><input id="ngaysinh" required type="date" name="ngaysinh" class="form-control"
-                                            placeholder="Ngày sinh" value="<?php echo $nguoidung['ND_NGAYSINH'];?>"></div>
-                                    <div class="mt-2 col-md-12"><label class="labels">Số điện thoại</label><input required type="text"  id="sdt" name="sdt" class="form-control" placeholder="Số điện thoại"
-                                            value="<?php echo $nguoidung['ND_SDT'];?>">
+                                        <input id="name" type="text" required name="name" class="form-control" placeholder="Họ và tên" value="<?php echo $nguoidung['ND_HOTEN'];?>">
                                     </div>
-                                    <div class="mt-2 col-md-12"><label class="labels">Địa chỉ</label><input required type="text" id="diachi" name="diachi" class="form-control" placeholder="Địa chỉ"
+                                </div>
+                                <div class="row mt-1">
+                                    <div class="mt-1 col-md-12"><label for="ngaysinh" class="labels">Ngày sinh</label><input id="ngaysinh" required type="date" name="ngaysinh" class="form-control"
+                                            placeholder="Ngày sinh" value="<?php echo $nguoidung['ND_NGAYSINH'];?>"></div>
+                                    <div class="mt-1 col-md-12"><label class="labels">Số điện thoại</label><input required type="text" id="sdt" name="sdt" class="form-control"
+                                            placeholder="Số điện thoại" value="<?php echo $nguoidung['ND_SDT'];?>">
+                                    </div>
+                                    <div class="mt-1 col-md-12"><label class="labels">Địa chỉ</label><input required type="text" id="diachi" name="diachi" class="form-control" placeholder="Địa chỉ"
                                             value="<?php echo $nguoidung['ND_DIACHI'];?>"></div>
                                 </div>
-                                <div class="row mt-2">
-                                    <div class="mt-2 col-md-6"><label class="labels">Email</label><input readonly required type="text" id="email" name="email" class="form-control" placeholder="Email"
+                                <div class="row mt-1">
+                                    <div class="mt-1 col-md-6"><label class="labels">Email</label><input readonly required type="text" id="email" name="email" class="form-control" placeholder="Email"
                                             value="<?php echo $nguoidung['ND_EMAIL'];?>">
                                     </div>
-                                    <div class="mt-2 col-md-6"><label class="labels">MSCB</label><input readonly required type="text" id="mscb" name="mscb" class="form-control"
+                                    <div class="mt-1 col-md-6"><label class="labels">MSCB</label><input readonly required type="text" id="mscb" name="mscb" class="form-control"
                                             value="<?php echo $nguoidung['ND_MSCB'];?>" placeholder="MSCB">
                                     </div>
                                 </div>
-                                <div class="mt-5 text-center"><button class="btn btn-primary profile-button w-50" name="submit" type="submit">Lưu</button></div>
-                            </div>
-                            </form>
+                                <div class="mt-3 text-center"><button class="btn btn-primary profile-button w-50" name="submit" type="submit">Lưu</button></div>
                         </div>
-
+                        </form>
                     </div>
+
                 </div>
-            
+            </div>
+
         </div>
     </main>
 
@@ -227,7 +297,7 @@ if(isset($_POST['submit'])) {
             confirm_password.setCustomValidity('');
         }
     }
-    
+
 
 
 
